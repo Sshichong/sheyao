@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sheyao.mapper.MedicineMapper">
+<!--查找全部记录  -->
+<select id="findMedicine" resultMap="MedicineList">
+select * from medicine
+</select>
+ 
+ <!--根据时间降序找前三条记录  -->
+ <select id="findMedicineByDate" resultMap="MedicineList">
+SELECT * FROM medicine  ORDER BY Medicine_date DESC LIMIT 0 , 3
+ </select>
+ 
+ <!--根据类型找记录  -->
+ <select id="findMedicineByType" resultMap="MedicineList" >
+ select * from medicine where Medicine_planCategory=#{type1}
+ </select>
+
+<select id="findMedicineById" parameterType="int" resultMap="MedicineList" >
+select * from medicine where Medicine_ID=#{id}
+</select>
+
+<select id="findMedicineByKey" resultMap="MedicineList">
+	select * from medicine
+	<where>
+		<if test="key!=null and key!=''">
+			Medicine_name like CONCAT(CONCAT('%',#{key}),'%')
+			or
+			Medicine_anotherName like CONCAT(CONCAT('%',#{key}),'%')
+			or
+			Medicine_forSelect like CONCAT(CONCAT('%',#{key}),'%')
+
+
+		</if>
+	</where>
+</select>
+
+  <!-- 定义resultMap的结果集 -->
+ <resultMap type="cn.sheyao.pojo.Medicine" id="MedicineList" >
+ 	<result property="Medicine_ID" column="Medicine_ID"/>
+ 	<result property="Medicine_name" column="Medicine_name"/>
+ 	<result property="Medicine_anotherName" column="Medicine_anotherName"/> 
+ 	<result property="Medicine_property" column="Medicine_property"/>  <!--结果集中字段与表中column一一对应  -->
+ 	<result property="Medicine_introduce" column="Medicine_introduce"/>
+ 	<result property="Medicine_distribution" column="Medicine_distribution"/>
+ 	<result property="Medicine_CollectionProcessing" column="Medicine_CollectionProcessing"/>
+ 	<result property="Medicine_disease" column="Medicine_disease"/>
+ 	<result property="Medicine_precautions" column="Medicine_precautions"/>
+ 	<result property="Medicine_ChemicalComponent" column="Medicine_ChemicalComponent"/>
+ 	<result property="Medicine_ReferencesChemical" column="Medicine_ReferencesChemical"/>
+ 	<result property="Medicine_ReferencesClinic" column="Medicine_ReferencesClinic"/>
+ 	<result property="Medicine_ReferencesPharmacology" column="Medicine_ReferencesPharmacology"/>
+ 	<result property="Medicine_planCategory" column="Medicine_planCategory"/>
+ 	<result property="Medicine_plantSeed" column="Medicine_plantSeed"/>
+ 	<result property="Medicine_plantJuvenile" column="Medicine_plantJuvenile"/>
+ 	<result property="Medicine_plantAdult" column="Medicine_plantAdult"/>
+ 	<result property="Medicine_plantWilting" column="Medicine_plantWilting"/>
+ 	<result property="Medicine_plantImg" column="Medicine_plantImg"/>
+ 	<result property="Medicine_forSelect" column="Medicine_forSelect"/>
+ 	<result property="Medicine_date" column="Medicine_date"/>
+ 	<result property="Medicine_deleteTag" column="Medicine_deleteTag"/>
+ 	<result property="Medicine_deleteReason" column="Medicine_deleteReason"/>
+ 	<result property="Medicine_mainUse" column="Medicine_mainUse"/>
+ 	
+ </resultMap>
+
+</mapper>

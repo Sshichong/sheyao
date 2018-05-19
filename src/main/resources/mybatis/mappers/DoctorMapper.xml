@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sheyao.mapper.DoctorMapper">
+<!--查找全部记录  -->
+
+<select id="findDoctor" resultMap="DoctorList">
+select * from doctor
+</select>
+
+
+  <!-- 定义resultMap的结果集 -->
+ <resultMap type="cn.sheyao.pojo.Doctor" id="DoctorList" >
+ 	<result property="Doctor_ID" column="Doctor_ID"/>
+ 	<result property="Doctor_name" column="Doctor_name"/>
+ 	<result property="Doctor_introduce" column="Doctor_introduce"/> 
+ 	<result property="department_info" column="department_info"/>  <!--结果集中字段与表中column一一对应  -->
+ 	<result property="Doctor_forSelect" column="Doctor_forSelect"/>
+ 	<result property="Doctor_title" column="Doctor_title"/>
+ 	
+ </resultMap>
+
+</mapper>
