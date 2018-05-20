@@ -115,13 +115,16 @@ font-size:15px;
 request.setCharacterEncoding("utf-8");
 response.setCharacterEncoding("utf-8");
 List<Doctor> doctor =(List)request.getAttribute("doctor");
+List<Doctor> doctor_StartWith=(List)request.getAttribute("doctor_StartWith");
+String doctor_title =(String)request.getAttribute("doctor_title");
+Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 %>
 
 
 <div >
 	<c:import url="navigation1.jsp"></c:import>
 </div>
-<form action="Querykey" >
+<form action="QueryDoctorkey" >
 <div style="float:right">
 <input size=20 name="key"  ><input type="submit" value="搜索">
 </div>
@@ -130,7 +133,7 @@ List<Doctor> doctor =(List)request.getAttribute("doctor");
 <div id="menu" style="width:20%;float:left;margin-left:20px;margin-top:20px">
 			<details> 
 			<!-- <summary><a href="QueryServlet?sort=2"style="color: black">菌类植物</a></summary> -->
-			<summary><a href="QueryByType?type=2"style="color: black;text-decoration:none">A-D</a></summary>
+			<summary><a href="QueryByStartWith?StartWith=a&StartWith=b&StartWith=c&StartWith=d"style="color: black;text-decoration:none">A-D</a></summary>
 			
 				<%
 				List<Doctor> doctorad =new ArrayList();
@@ -139,7 +142,7 @@ List<Doctor> doctor =(List)request.getAttribute("doctor");
 						if (d.getDoctor_forSelect().startsWith("a")||d.getDoctor_forSelect().startsWith("b")||d.getDoctor_forSelect().startsWith("c")||d.getDoctor_forSelect().startsWith("d")) {
 							doctorad.add(d);
 				%>
-				<a href="QueryById?id=<%=d.getDoctor_ID()%>" style="margin-left:20px"><%=d.getDoctor_name()%></a><br>
+				<a href="QueryDoctorById?id=<%=d.getDoctor_ID()%>" style="margin-left:20px"><%=d.getDoctor_name()%></a><br>
 				<%
 					}
 					}
@@ -151,7 +154,7 @@ List<Doctor> doctor =(List)request.getAttribute("doctor");
 			
 			<details> 
 			<!-- <summary><a href="QueryServlet?sort=2"style="color: black">菌类植物</a></summary> -->
-			<summary><a href="QueryByType?type=3"style="color: black;text-decoration:none">E-H</a></summary>
+			<summary><a href="QueryByStartWith?StartWith=e&StartWith=f&StartWith=g&StartWith=h"style="color: black;text-decoration:none">E-H</a></summary>
 			
 				<%
 				List<Doctor> doctoreh =new ArrayList();
@@ -171,7 +174,7 @@ List<Doctor> doctor =(List)request.getAttribute("doctor");
 			
 			<details> 
 			<!-- <summary><a href="QueryServlet?sort=2"style="color: black">菌类植物</a></summary> -->
-			<summary><a href="QueryByType?type=5"style="color: black;text-decoration:none">I-L</a></summary>
+			<summary><a href="QueryByStartWith?StartWith=i&StartWith=j&StartWith=k&StartWith=l"style="color: black;text-decoration:none">I-L</a></summary>
 			
 				<%
 				List<Doctor> doctoril =new ArrayList();
@@ -191,7 +194,7 @@ List<Doctor> doctor =(List)request.getAttribute("doctor");
 			
 			<details> 
 			<!-- <summary><a href="QueryServlet?sort=2"style="color: black">菌类植物</a></summary> -->
-			<summary><a href="QueryByType?type=6"style="color: black;text-decoration:none">M-P</a></summary>
+			<summary><a href="QueryByStartWith?StartWith=m&StartWith=n&StartWith=o&StartWith=p"style="color: black;text-decoration:none">M-P</a></summary>
 			
 				<%
 				List<Doctor> doctormp =new ArrayList();
@@ -211,7 +214,7 @@ List<Doctor> doctor =(List)request.getAttribute("doctor");
 			
 			<details> 
 			<!-- <summary><a href="QueryServlet?sort=2"style="color: black">菌类植物</a></summary> -->
-			<summary><a href="QueryByType?type=7"style="color: black;text-decoration:none">Q-T</a></summary>
+			<summary><a href="QueryByStartWith?StartWith=q&StartWith=r&StartWith=s&StartWith=t"style="color: black;text-decoration:none">Q-T</a></summary>
 			
 				<%
 				List<Doctor> doctorqt =new ArrayList();
@@ -230,7 +233,7 @@ List<Doctor> doctor =(List)request.getAttribute("doctor");
 			
 			<details> 
 			<!-- <summary><a href="QueryServlet?sort=2"style="color: black">菌类植物</a></summary> -->
-			<summary><a href="QueryByType?type=7"style="color: black;text-decoration:none">U-X</a></summary>
+			<summary><a href="QueryByStartWith?StartWith=u&StartWith=v&StartWith=w&StartWith=x"style="color: black;text-decoration:none">U-X</a></summary>
 			
 				<%
 				List<Doctor> doctorux =new ArrayList();
@@ -249,7 +252,7 @@ List<Doctor> doctor =(List)request.getAttribute("doctor");
 			
 			<details> 
 			<!-- <summary><a href="QueryServlet?sort=2"style="color: black">菌类植物</a></summary> -->
-			<summary><a href="QueryByType?type=7"style="color: black;text-decoration:none">Y-Z</a></summary>
+			<summary><a href="QueryByStartWith?StartWith=y&StartWith=z"style="color: black;text-decoration:none">Y-Z</a></summary>
 			
 				<%
 				List<Doctor> doctoryz =new ArrayList();
@@ -274,7 +277,35 @@ List<Doctor> doctor =(List)request.getAttribute("doctor");
 		<div id="all" style="width:80%;">
 		
 		
-		<%if(doctor!=null){
+		<%
+		if(doctor_title!=null){%>
+
+		       <table border="1" style="width:100%" class="sp-grid-job">
+		       <tbody>
+				<col style="width: 10%" />  <!-- 姓名 -->
+				<col style="width: 10%" />  <!--科室 -->
+				<col style="width: 15%" />  <!--职称  -->
+				<col style="width: 45%" /> <!--简介  -->
+				<col style="width: 20%" /> <!--主要操作  -->
+
+				<tr><th colspan="5"><%=doctor_title %></th></tr>
+				<tr><th >姓名</th><th>科室</th><th >职称</th><th>简介</th><th >主要操作</th></tr>
+				<%for (int i = 0; i < doctor_StartWith.size(); i++) {
+					Doctor d =doctor_StartWith.get(i);
+					
+					%>
+					<tr><td ><%=d.getDoctor_name() %></td><td><%=d.getDepartment_info()%></td><td><%=d.getDoctor_title() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>	
+			<%} %>
+				</tbody>
+		       </table>
+			
+	<%	}
+		else if(doctor_one!=null){%>
+			
+			<p><%=doctor_one.getDoctor_name() %></p>
+			
+	<%	}
+		else{
 		%>
 					       <table border="1" style="width:100%" class="sp-grid-job">
 					       <tbody>

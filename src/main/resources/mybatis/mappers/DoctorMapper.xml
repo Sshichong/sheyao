@@ -9,6 +9,30 @@
 select * from doctor
 </select>
 
+<select id="findDoctorByStartWith" resultMap="DoctorList">
+select * from doctor 
+<where>
+	<if test="startWith!=null and startWith!=''">
+		Doctor_forSelect like CONCAT(CONCAT('%',#{startWith}),'%')
+	</if>
+</where>
+</select>
+
+
+<select id="findDoctorById" resultMap="DoctorList">
+select * from doctor where Doctor_ID=#{id}
+</select>
+
+<select id="findDoctorBykey" resultMap="DoctorList">
+select * from doctor
+<where>
+	<if test="key!=null and key!=''">
+		Doctor_name like CONCAT(CONCAT('%',#{key}),'%')
+		or
+		Doctor_forSelect like CONCAT(CONCAT('%',#{key}),'%')
+	</if>
+</where>
+</select>
 
   <!-- 定义resultMap的结果集 -->
  <resultMap type="cn.sheyao.pojo.Doctor" id="DoctorList" >

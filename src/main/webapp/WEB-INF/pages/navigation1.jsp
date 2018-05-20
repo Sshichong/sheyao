@@ -69,7 +69,7 @@ li a.active {
   <ul>
   <li><a class="index" href="#home">主页</a></li>
   <li><a href="toMedicine">畲药</a></li>
-  <li><a href="#">病症</a></li>
+  <li><a href="toDoctor">病症</a></li>
   <li><a href="#">畲医</a></li>
 </ul>
  </div> 

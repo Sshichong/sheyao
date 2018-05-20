@@ -22,4 +22,22 @@ public class DoctorServiceImp implements DoctorService{
 		return doctorMapper.findDoctor();
 	}
 
+	@Override
+	public List<Doctor> findDoctorByStartWith(String StartWith) {
+		// TODO Auto-generated method stub
+		return doctorMapper.findDoctorByStartWith(StartWith);
+	}
+
+	@Override
+	public List<Doctor> findDoctorById(int id) {
+		// TODO Auto-generated method stub
+		return doctorMapper.findDoctorById(id);
+	}
+
+	@Override
+	public List<Doctor> findDoctorBykey(String key) {
+		// TODO Auto-generated method stub
+		return doctorMapper.findDoctorBykey(key);
+	}
+
 }
