@@ -164,7 +164,7 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 						if (d.getDoctor_forSelect().startsWith("e")||d.getDoctor_forSelect().startsWith("f")||d.getDoctor_forSelect().startsWith("g")||d.getDoctor_forSelect().startsWith("h")) {
 							doctoreh.add(d);
 				%>
-				<a href="QueryById?id=<%=d.getDoctor_ID()%>" style="margin-left:20px"><%=d.getDoctor_name()%></a><br>
+				<a href="QueryDoctorById?id=<%=d.getDoctor_ID()%>" style="margin-left:20px"><%=d.getDoctor_name()%></a><br>
 				<%
 					}
 					}
@@ -184,7 +184,7 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 						if (d.getDoctor_forSelect().startsWith("i")||d.getDoctor_forSelect().startsWith("j")||d.getDoctor_forSelect().startsWith("k")||d.getDoctor_forSelect().startsWith("l")) {
 							doctoril.add(d);
 				%>
-				<a href="QueryById?id=<%=d.getDoctor_ID()%>" style="margin-left:20px"><%=d.getDoctor_name()%></a><br>
+				<a href="QueryDoctorById?id=<%=d.getDoctor_ID()%>" style="margin-left:20px"><%=d.getDoctor_name()%></a><br>
 				<%
 					}
 					}
@@ -204,7 +204,7 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 						if (d.getDoctor_forSelect().startsWith("m")||d.getDoctor_forSelect().startsWith("n")||d.getDoctor_forSelect().startsWith("o")||d.getDoctor_forSelect().startsWith("p")) {
 							doctormp.add(d);
 				%>
-				<a href="QueryById?id=<%=d.getDoctor_ID()%>" style="margin-left:20px"><%=d.getDoctor_name()%></a><br>
+				<a href="QueryDoctorById?id=<%=d.getDoctor_ID()%>" style="margin-left:20px"><%=d.getDoctor_name()%></a><br>
 				<%
 					}
 					}
@@ -224,7 +224,7 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 						if (d.getDoctor_forSelect().startsWith("q")||d.getDoctor_forSelect().startsWith("r")||d.getDoctor_forSelect().startsWith("s")||d.getDoctor_forSelect().startsWith("t")) {
 							doctorqt.add(d);
 				%>
-				<a href="QueryById?id=<%=d.getDoctor_ID()%>" style="margin-left:20px"><%=d.getDoctor_name()%></a><br>
+				<a href="QueryDoctorById?id=<%=d.getDoctor_ID()%>" style="margin-left:20px"><%=d.getDoctor_name()%></a><br>
 				<%
 					}
 					}
@@ -243,7 +243,7 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 						if (d.getDoctor_forSelect().startsWith("u")||d.getDoctor_forSelect().startsWith("v")||d.getDoctor_forSelect().startsWith("w")||d.getDoctor_forSelect().startsWith("x")) {
 							doctorux.add(d);
 				%>
-				<a href="QueryById?id=<%=d.getDoctor_ID()%>" style="margin-left:20px"><%=d.getDoctor_name()%></a><br>
+				<a href="QueryDoctorById?id=<%=d.getDoctor_ID()%>" style="margin-left:20px"><%=d.getDoctor_name()%></a><br>
 				<%
 					}
 					}
@@ -262,7 +262,7 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 						if (d.getDoctor_forSelect().startsWith("y")||d.getDoctor_forSelect().startsWith("z")) {
 							doctoryz.add(d);
 				%>
-				<a href="QueryById?id=<%=d.getDoctor_ID()%>" style="margin-left:20px"><%=d.getDoctor_name()%></a><br>
+				<a href="QueryDoctorById?id=<%=d.getDoctor_ID()%>" style="margin-left:20px"><%=d.getDoctor_name()%></a><br>
 				<%
 					}
 					}
@@ -302,7 +302,30 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 	<%	}
 		else if(doctor_one!=null){%>
 			
-			<p><%=doctor_one.getDoctor_name() %></p>
+<%-- 			<p><%=doctor_one.getDoctor_name() %></p> --%>
+				<div class="pos">
+				<p class="word"><%=doctor_one.getDoctor_title()%></p>
+				<p class="word1" style="margin-top:5px;margin-bottom:5px">
+					<%=doctor_one.getDoctor_name()%>
+					</p>
+				<p class="word" style="margin-top:10px;padding-top:5px">
+				
+				擅长：<%=doctor_one.getDepartment_info() %>
+				</p>
+				</div>	
+				
+				<div class=pos1>
+				<p class="word2">个人简介</p>
+				<textarea readonly="readonly" cols="120" rows="10" style="overflow-x:hidden;overflow-y:scroll;"><%=doctor_one.getDoctor_introduce()%></textarea> 
+				</div>
+				
+				
+				
+				<div class=pos1 style="margin-top:40px;margin-bottom:40px">
+				<p class="word2">个人处方</p>
+				<textarea readonly="readonly" cols="120" rows="10" style="overflow-x:hidden;overflow-y:scroll;"><%=doctor_one.getDoctor_introduce()%></textarea> 
+				</div>
+				
 			
 	<%	}
 		else{

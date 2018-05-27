@@ -63,6 +63,7 @@ select * from medicine where Medicine_ID=#{id}
  	<result property="Medicine_deleteTag" column="Medicine_deleteTag"/>
  	<result property="Medicine_deleteReason" column="Medicine_deleteReason"/>
  	<result property="Medicine_mainUse" column="Medicine_mainUse"/>
+ 	<result property="Medicine_State" column="Medicine_State"/>
  	
  </resultMap>
 

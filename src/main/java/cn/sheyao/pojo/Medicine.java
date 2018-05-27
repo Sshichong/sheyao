@@ -31,6 +31,7 @@ public class Medicine {
 	private String Medicine_deleteTag; // 22.删除标记，分为可用和不可用
 	private String Medicine_deleteReason; // 23.删除原因
 	private String Medicine_mainUse; // 24.主要用途
+	private String Medicine_State;//是否存在，存在：1；不存在：0 ,默认'1'
 
 	public int getMedicine_ID() {
 		return Medicine_ID;
@@ -224,6 +225,16 @@ public class Medicine {
 		Medicine_mainUse = medicine_mainUse;
 	}
 	
+	
+	
+	public String getMedicine_State() {
+		return Medicine_State;
+	}
+
+	public void setMedicine_State(String medicine_State) {
+		Medicine_State = medicine_State;
+	}
+
 	public Medicine() {
 	}
 
@@ -234,7 +245,8 @@ public class Medicine {
 			String medicine_ReferencesPharmacology, int medicine_planCategory, String medicine_plantSeed,
 			String medicine_plantJuvenile, String medicine_plantAdult, String medicine_plantWilting,
 			String medicine_plantImg, String medicine_forSelect, String medicine_date, String medicine_deleteTag,
-			String medicine_deleteReason, String medicine_mainUse) {
+			String medicine_deleteReason, String medicine_mainUse, String medicine_State) {
+		super();
 		Medicine_ID = medicine_ID;
 		Medicine_name = medicine_name;
 		Medicine_anotherName = medicine_anotherName;
@@ -259,6 +271,7 @@ public class Medicine {
 		Medicine_deleteTag = medicine_deleteTag;
 		Medicine_deleteReason = medicine_deleteReason;
 		Medicine_mainUse = medicine_mainUse;
+		Medicine_State = medicine_State;
 	}
 
 	@Override
@@ -275,7 +288,8 @@ public class Medicine {
 				+ ", Medicine_plantAdult=" + Medicine_plantAdult + ", Medicine_plantWilting=" + Medicine_plantWilting
 				+ ", Medicine_plantImg=" + Medicine_plantImg + ", Medicine_forSelect=" + Medicine_forSelect
 				+ ", Medicine_date=" + Medicine_date + ", Medicine_deleteTag=" + Medicine_deleteTag
-				+ ", Medicine_deleteReason=" + Medicine_deleteReason + ", Medicine_mainUse=" + Medicine_mainUse + "]";
+				+ ", Medicine_deleteReason=" + Medicine_deleteReason + ", Medicine_mainUse=" + Medicine_mainUse
+				+ ", Medicine_State=" + Medicine_State + "]";
 	}
 
 	

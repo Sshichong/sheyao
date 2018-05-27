@@ -1,16 +1,21 @@
 package cn.sheyao.controller;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.sheyao.pojo.Department;
 import cn.sheyao.pojo.Medicine;
+import cn.sheyao.pojo.Medicinecount;
 import cn.sheyao.service.MedicineService;
+import cn.sheyao.service.TimeTaskService;
 
 @Controller
 public class MedicineController {
@@ -18,8 +23,13 @@ public class MedicineController {
 	@Autowired
 	MedicineService medicineService;
 	
+	@Autowired
+	TimeTaskService timeTaskService;
 	
-	@RequestMapping("toMedicine")
+	public static final Map<Integer,Integer> map =new HashMap<Integer,Integer>();
+	
+	
+	@RequestMapping(value= {"toMedicine"})
 	public String toSheyao(Model model) {
 
 		//数据库查找畲药
@@ -51,6 +61,26 @@ public class MedicineController {
 	public String QueryById(String id,Model model) {
 		int id1 =Integer.parseInt(id);
 		System.out.println(id1);
+		
+		//把此条被查询记录的次数放入hashmap
+		if(map.isEmpty()) { //第一次启动服务器时，map为空，查询时put进map
+			map.put(id1, 1);
+		}else {  //第二次操作时，先判断是否在map集合内，则id1是否等于某个key值，没有则put，有则修改count值
+			Integer count=1;  //设count的初始值为1
+			for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+				if(entry.getKey().equals(id1)) {  //看是否有键值与id1相等的value值，若有则count自加再跳出循环
+					 count =(Integer)entry.getValue();
+					count++;
+					break;
+				}
+				
+			}
+			//得到的count值put进map覆盖掉之前的，若在map中没有找到相对应的map，则新put进map
+			//此句放在遍历语句中会报错
+			map.put(id1, count);
+				
+			
+		}
 		
 		List<Medicine> medicine =medicineService.findMedicine();
 		List<Medicine> medicine_one =medicineService.findMedicineById(id1);
@@ -93,6 +123,16 @@ public class MedicineController {
 		}
 		
 		
+		
+	}
+	
+	
+	//定时
+	//@Scheduled(cron = "0 30 22 ? * *")
+	@Scheduled(cron = "*/5 * * * * ?")
+	public void MedicineTimerTask() {
+		
+		timeTaskService.updateMedicinecount(map);
 		
 	}
 	

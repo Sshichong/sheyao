@@ -1,15 +1,20 @@
 package cn.sheyao.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.sheyao.pojo.Doctor;
 import cn.sheyao.service.DoctorService;
+import cn.sheyao.service.TimeTaskService;
 
 @Controller
 public class DoctorController {
@@ -17,7 +22,12 @@ public class DoctorController {
 	@Autowired
 	DoctorService doctorService;
 	
-	@RequestMapping("/toDoctor")
+	@Autowired
+	TimeTaskService timeTaskService;
+	
+	public static final Map<Integer,Integer> map =new HashMap<Integer,Integer>();
+	
+	@RequestMapping(value= {"/toDoctor"})
 	public String toDoctor(Model model) {
 		
 		List<Doctor> doctor =doctorService.findDoctor();
@@ -38,7 +48,10 @@ public class DoctorController {
 		//左边导航栏查找
 		List<Doctor> doctor =doctorService.findDoctor();
 		
-		//点击分类分组查找，外循环先按顺序从数据库查找，内循环先匹配第一个字母是否是startwith，若是add进doctors
+		/**
+		 * 点击分类分组查找，外循环先按顺序从数据库查找（该字母在中间的也会被找出来）
+		 * 内循环先匹配第一个字母是否是startwith，若是add进doctors
+		 */
 		List<Doctor> doctors =new ArrayList();
 		for(int i=0;i<StartWith.length;i++) {
 			List<Doctor> d =doctorService.findDoctorByStartWith(StartWith[i]);
@@ -68,8 +81,27 @@ public class DoctorController {
 	@RequestMapping("/QueryDoctorById")
 	public String QueryDoctorById(String id,Model model) {
 		
+		Integer id1=Integer.parseInt(id);
 		System.out.println(id);
 		
+		//查询次数用键值对的方式存入hashmap
+		if(map.isEmpty()) {
+			map.put(id1, 1);
+		}else {
+			Iterator iter =map.entrySet().iterator();
+			Integer count = 1;
+			while(iter.hasNext()) {  //用Iterator进行遍历，如果有key等于id1的map值，则count++
+				Map.Entry<Integer,Integer>  entry =(Map.Entry)iter.next();
+				if(entry.getKey().equals(id1)) {
+					count = entry.getValue();
+					count++;
+					break;
+				}
+			}
+			map.put(id1, count);
+		}
+		
+		//从数据库中找全部医生和按id找对应医生
 		List<Doctor> doctor =doctorService.findDoctor();
 		List<Doctor> doctor_one =doctorService.findDoctorById(Integer.parseInt(id));
 		
@@ -92,13 +124,14 @@ public class DoctorController {
 		List<Doctor> doctor_more = doctorService.findDoctorBykey(key);
 		
 		model.addAttribute("doctor",doctor);
+		//只有一条记录
 		if(doctor_more.size()==1) {
 			Doctor doctor_one =doctor_more.get(0);
 			model.addAttribute("size","1");
 			model.addAttribute("doctor_one",doctor_more.get(0));
 			
 			return "doctor";
-		}else if(doctor_more.size()>1) {
+		}else if(doctor_more.size()>1) {//多条记录
 			int size =doctor_more.size();
 			
 			model.addAttribute("doctor_more",doctor_more);
@@ -107,7 +140,7 @@ public class DoctorController {
 			
 			return "doctor_more";
 			
-		}else {
+		}else {//0条记录
 			model.addAttribute("doctor_more",null);
 			model.addAttribute("size","0");
 			model.addAttribute("key",key);
@@ -115,6 +148,14 @@ public class DoctorController {
 			return "doctor_more";
 			
 		}
+		
+	}
+	
+	//定时
+	@Scheduled(cron = "*/5 * * * * ?")
+	public void DoctorTimeTask() {
+		
+		timeTaskService.updateDoctorount(map);
 		
 	}
 

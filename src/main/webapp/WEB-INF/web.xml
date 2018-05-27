@@ -4,7 +4,10 @@
   <!-- 让web容器加在Spring容器的相关配置 -->
   <context-param>
   	<param-name>contextConfigLocation</param-name>
-  	<param-value>classpath:spring/applicationContext*.xml</param-value>
+  	<param-value>
+  	classpath:spring/applicationContext*.xml
+  	classpath:spring/spring-task.xml
+  	</param-value>
   </context-param>
   	
   	
@@ -29,4 +32,5 @@
   	 <url-pattern>/</url-pattern>	
   	</servlet-mapping>
   	
+  
 </web-app>

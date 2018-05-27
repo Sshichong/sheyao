@@ -276,7 +276,7 @@ String size =(String)request.getAttribute("size");
 		
 		<div id="all" style="width:80%;">
 		
-		<p>搜到与<%=key %>相关的记录共有<%=size %>条</p>
+		<p>搜到与<span style="color:red">&nbsp;&nbsp;<%=key %>&nbsp;&nbsp;</span>相关的记录共有<%=size %>条</p>
 		<%
 		for(int i=0;i<doctor_more.size();i++){
 			Doctor d=doctor_more.get(i);

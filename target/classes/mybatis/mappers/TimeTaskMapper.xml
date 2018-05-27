@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sheyao.mapper.TimeTaskMapper">
+
+<select id="findRecordById" resultMap="countList" >
+select * from Medicinecount where MedicineId=#{id}
+</select>
+
+<insert id="saveRecord">
+insert into Medicinecount (MedicineId,viewstime) values (#{id},#{count})
+</insert>
+
+<insert id="updateRecord">
+update Medicinecount set viewstime =#{count} where MedicineId =#{id}
+</insert>
+<resultMap type="cn.sheyao.pojo.Medicinecount" id="countList">
+	<result property="MedicineId" column="MedicineId"/>
+ 	<result property="viewstime" column="viewstime"/>
+</resultMap>
+
+<!--############################Doctorcount表查询########################################-->
+
+<select id="findRecordByDoctorId" resultMap="DoctorcountList">
+select * from Doctorcount where DoctorId=#{id}
+</select>
+
+<insert id="saveDoctorRecord">
+insert into Doctorcount (DoctorId,viewstime) values (#{id},#{count})
+</insert>
+
+<update id="updateDoctorRecord">
+update Doctorcount set viewstime = #{count} where DoctorId = #{id}
+</update>
+
+<resultMap type="cn.sheyao.pojo.Doctorcount" id="DoctorcountList">
+	<result property="DoctorId" column="DoctorId"/>
+ 	<result property="viewstime" column="viewstime"/>
+</resultMap>
+
+
+</mapper>

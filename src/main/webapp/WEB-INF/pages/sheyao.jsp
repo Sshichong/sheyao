@@ -176,7 +176,7 @@ Medicine medicine_one=(Medicine)request.getAttribute("medicine_one");
 						Medicine m = medicine.get(i);
 						if (m.getMedicine_planCategory() == 5) {
 				%>
-				<a href="QueryServlet?select=<%=m.getMedicine_name()%>" style="margin-left:20px"><%=m.getMedicine_name()%></a><br>
+				<a href="QueryById?id=<%=m.getMedicine_ID()%>" style="margin-left:20px"><%=m.getMedicine_name()%></a><br>
 				<%
 					}
 					}
@@ -193,7 +193,7 @@ Medicine medicine_one=(Medicine)request.getAttribute("medicine_one");
 						Medicine m = medicine.get(i);
 						if (m.getMedicine_planCategory() == 6) {
 				%>
-				<a href="QueryServlet?select=<%=m.getMedicine_name()%>" style="margin-left:20px"><%=m.getMedicine_name()%></a><br>
+				<a href="QueryById?id=<%=m.getMedicine_ID()%>" style="margin-left:20px"><%=m.getMedicine_name()%></a><br>
 				<%
 					}
 					}
@@ -210,7 +210,7 @@ Medicine medicine_one=(Medicine)request.getAttribute("medicine_one");
 						Medicine m = medicine.get(i);
 						if (m.getMedicine_planCategory() == 7) {
 				%>
-				<a href="QueryServlet?select=<%=m.getMedicine_name()%>" style="margin-left:20px"><%=m.getMedicine_name()%></a><br>
+				<a href="QueryById?id=<%=m.getMedicine_ID()%>" style="margin-left:20px"><%=m.getMedicine_name()%></a><br>
 				<%
 					}
 					}
@@ -292,9 +292,9 @@ Medicine medicine_one=(Medicine)request.getAttribute("medicine_one");
 							<%for(Medicine m:medicine){
 								if(m.getMedicine_planCategory()==2){
 									if(m.getMedicine_deleteTag()==null||m.getMedicine_deleteTag().equals("")){%>
-										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ></td><td ><a href="QueryServlet?select=<%=m.getMedicine_name()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a></td></tr>
+										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ></td><td ><a href="QueryById?id=<%=m.getMedicine_ID()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<%-- <a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a> --%></td></tr>
 									<%}else{%>
-										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ><%=m.getMedicine_deleteTag() %></td><td ><a href="QueryServlet?select=<%=m.getMedicine_name()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<%-- <a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a> --%></td></tr>
+										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ><%=m.getMedicine_deleteTag() %></td><td ><a href="QueryById?id=<%=m.getMedicine_ID()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<%-- <a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a> --%></td></tr>
 								<%	}
 								%>
 									
@@ -319,9 +319,9 @@ Medicine medicine_one=(Medicine)request.getAttribute("medicine_one");
 							<%for(Medicine m:medicine){
 								if(m.getMedicine_planCategory()==3){
 									if(m.getMedicine_deleteTag()==null||m.getMedicine_deleteTag().equals("")){%>
-										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ></td><td ><a href="QueryServlet?select=<%=m.getMedicine_name()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a></td></tr>
+										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ></td><td ><a href="QueryById?id=<%=m.getMedicine_ID()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<%-- <a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a> --%></td></tr>
 									<%}else{%>
-										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ><%=m.getMedicine_deleteTag() %></td><td ><a href="QueryServlet?select=<%=m.getMedicine_name()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a></td></tr>
+										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ><%=m.getMedicine_deleteTag() %></td><td ><a href="QueryById?id=<%=m.getMedicine_ID()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<%-- <a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a> --%></td></tr>
 								<%	}
 								%>
 									
@@ -346,9 +346,9 @@ Medicine medicine_one=(Medicine)request.getAttribute("medicine_one");
 							<%for(Medicine m:medicine){
 								if(m.getMedicine_planCategory()==5){
 									if(m.getMedicine_deleteTag()==null||m.getMedicine_deleteTag().equals("")){%>
-										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ></td><td ><a href="QueryServlet?select=<%=m.getMedicine_name()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a></td></tr>
+										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ></td><td ><a href="QueryById?id=<%=m.getMedicine_ID()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<%-- <a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a> --%></td></tr>
 									<%}else{%>
-										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ><%=m.getMedicine_deleteTag() %></td><td ><a href="QueryServlet?select=<%=m.getMedicine_name()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a></td></tr>
+										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ><%=m.getMedicine_deleteTag() %></td><td ><a href="QueryById?id=<%=m.getMedicine_ID()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<%-- <a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a> --%></td></tr>
 								<%	}
 								%>
 									
@@ -374,9 +374,9 @@ Medicine medicine_one=(Medicine)request.getAttribute("medicine_one");
 							<%for(Medicine m:medicine){
 								if(m.getMedicine_planCategory()==6){
 									if(m.getMedicine_deleteTag()==null||m.getMedicine_deleteTag().equals("")){%>
-										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ></td><td ><a href="QueryServlet?select=<%=m.getMedicine_name()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a></td></tr>
+										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ></td><td ><a href="QueryById?id=<%=m.getMedicine_ID()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<%-- <a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a> --%></td></tr>
 									<%}else{%>
-										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ><%=m.getMedicine_deleteTag() %></td><td ><a href="QueryServlet?select=<%=m.getMedicine_name()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a></td></tr>
+										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ><%=m.getMedicine_deleteTag() %></td><td ><a href="QueryById?id=<%=m.getMedicine_ID()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<%-- <a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a> --%></td></tr>
 								<%	}
 								%>
 									
@@ -401,9 +401,9 @@ Medicine medicine_one=(Medicine)request.getAttribute("medicine_one");
 							<%for(Medicine m:medicine){
 								if(m.getMedicine_planCategory()==7){
 									if(m.getMedicine_deleteTag()==null||m.getMedicine_deleteTag().equals("")){%>
-										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ></td><td ><a href="QueryServlet?select=<%=m.getMedicine_name()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a></td></tr>
+										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ></td><td ><a href="QueryById?id=<%=m.getMedicine_ID()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<%-- <a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a> --%></td></tr>
 									<%}else{%>
-										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ><%=m.getMedicine_deleteTag() %></td><td ><a href="QueryServlet?select=<%=m.getMedicine_name()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a></td></tr>
+										<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ><%=m.getMedicine_deleteTag() %></td><td ><a href="QueryById?id=<%=m.getMedicine_ID()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<%-- <a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a> --%></td></tr>
 								<%	}
 								%>
 									
@@ -450,7 +450,7 @@ Medicine medicine_one=(Medicine)request.getAttribute("medicine_one");
 							<tr><th colspan="7"><%=strleiming %></th></tr>
 							<tr><th >畲药名</th><th>异名</th><th >畲药药性</th><th>采收加工</th><th >原植物</th><th >状态</th><th >主要操作</th></tr>
 							<%for(Medicine m:medicine_type){%>
-								<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ></td><td ><a href="QueryServlet?select=<%=m.getMedicine_name()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a></td></tr>
+								<tr><td ><%=m.getMedicine_name() %></td><td><%=m.getMedicine_anotherName()%></td><td><%=m.getMedicine_property() %></td><td ><%=m.getMedicine_distribution() %></td><td ><%=m.getMedicine_introduce() %></td><td ></td><td ><a href="QueryById?id=<%=m.getMedicine_ID()%>" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;<%-- <a href="modifyServlet?select=<%=m.getMedicine_name()%>" target="_blank">修改</a>&nbsp;&nbsp;&nbsp;<a href="deleteServlet?select=<%=m.getMedicine_name()%>" >删除</a>&nbsp;&nbsp;&nbsp;<a  >恢复</a> --%></td></tr>
 						<%	}
 							%>
 							
@@ -472,25 +472,25 @@ Medicine medicine_one=(Medicine)request.getAttribute("medicine_one");
 
 						<div class=pos1>
 							<p class="word2">原植物</p>
-							<div style="border:1px #A9A9A9 solid; width:100%; height:200px"><%=medicine_one.getMedicine_anotherName()%></div>
+							<div style="border:1px #A9A9A9 solid; width:100%; height:200px"><%=medicine_one.getMedicine_introduce()%></div>
 						</div>
 						<div class="pos">
 							<p class="word2">生境分布</p>
 							<p class="word3">
-								<%=medicine_one.getMedicine_anotherName()%>
+								<%=medicine_one.getMedicine_distribution()%>
 							</p>
 
 						</div>
 						<div class="pos">
 							<p class="word2">采收加工</p>
 							<p class="word3">
-								<%=medicine_one.getMedicine_anotherName()%>
+								<%=medicine_one.getMedicine_CollectionProcessing()%>
 							</p>
 
 						</div>
-						<div class=pos1>
+						<div class=pos1 style="margin-bottom:50px">
 							<p class="word2">主治用法</p>
-							<div style="border:1px #A9A9A9 solid; width:100%; height:200px"><%=medicine_one.getMedicine_anotherName()%></div>
+							<div style="border:1px #A9A9A9 solid; width:100%; height:200px"><%=medicine_one.getMedicine_mainUse()%></div>
 						</div>
 					</div>
 				
@@ -499,17 +499,17 @@ Medicine medicine_one=(Medicine)request.getAttribute("medicine_one");
 						<br>
 						<div style="background: #F0F0F0; width: 210px; height: 130px">
 							
-								<img  src="picture/<%=medicine_one.getMedicine_plantSeed() %>"
+								<img  src="/upload/<%=medicine_one.getMedicine_plantSeed() %>"
 								width="210px" height="130px">
 						</div>
 						<br>
 						<h2>图册</h2>
 						<div style="background: #F0F0F0; width: 150px; height: 150px">
-						<img width="150px"  height="150px" src="picture/<%=medicine_one.getMedicine_plantJuvenile()%>" >
+						<img width="150px"  height="150px" src="/upload/<%=medicine_one.getMedicine_plantJuvenile()%>" >
 						</div>
 						<br>
 						<div style="background: #F0F0F0; width: 150px; height: 150px">
-						<img alt="222" src="picture/<%=medicine_one.getMedicine_plantAdult()%>" width="150px"  height="150px">
+						<img alt="222" src="/upload/<%=medicine_one.getMedicine_plantAdult()%>" width="150px"  height="150px">
 						</div>
 
 					</div>
