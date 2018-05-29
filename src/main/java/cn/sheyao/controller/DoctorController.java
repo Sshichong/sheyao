@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.sheyao.pojo.Doctor1;
 import cn.sheyao.pojo.Illness;
+import cn.sheyao.pojo.Medicine;
 import cn.sheyao.pojo.Prescription;
 import cn.sheyao.service.DoctorService;
 import cn.sheyao.service.IllnessService;
+import cn.sheyao.service.MedicineService;
 import cn.sheyao.service.PrescriptionService;
 import cn.sheyao.service.TimeTaskService;
 
@@ -34,6 +36,9 @@ public class DoctorController {
 	
 	@Autowired
 	PrescriptionService prescriptionService;
+	
+	@Autowired
+	MedicineService medicineService;
 	
 	public static final Map<Integer,Integer> map =new HashMap<Integer,Integer>();
 	
@@ -160,6 +165,32 @@ public class DoctorController {
 			//在prescription表中根据医生id和病症id找对应的药方，一个病症可对应多个药方
 			List<Prescription> prescription =prescriptionService.findByDoctorId_IllnessId(id,goodAt[i]);
 			System.out.println(prescription.size());
+			
+			//把药方中medicineID找出
+			for(int j=0;j<prescription.size();j++) {
+				StringBuffer sb =new StringBuffer();
+				//把药方根据"_"分割为字符串数组
+				String []ps =prescription.get(j).getPrescription_particulars().split("_");
+				for(int t=0;t<ps.length;t++) { 
+					//把药名和分量根据"+"分割为字符串数组
+					String []p=ps[t].split("\\+");
+					if(p[0].matches("[0-9]+")) { //正则匹配，如果加号前面的为数字，则根据数据到medicine中找对应的药
+						List<Medicine> medicines =medicineService.findMedicineById(Integer.parseInt(p[0]));
+						Medicine medicine =medicines.get(0);
+						sb.append("<a href='/sheyao/QueryById?id=").append(medicine.getMedicine_ID()).append("'>").append(medicine.getMedicine_name()).append("</a>").append("配").append(p[1]);
+					}else {
+						sb.append(p[0]).append("配").append(p[1]);
+					}
+					if(t==ps.length-1) {
+						sb.append("");
+					}else {
+						sb.append(",");
+					}
+					
+				}
+				prescription.get(j).setPrescription_particulars(String.valueOf(sb));
+				
+			}
 			
 			//放入HashMap
 			map.put(illness, prescription);
