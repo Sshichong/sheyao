@@ -71,11 +71,19 @@
  <a href="toMedicine"> <img alt="yao" src="${ctx }/staticfile/images/yao.png"class="cdc1 img1-2"></a>
    </div>
    
+
+   
    
    <div class="pic3" id="cdc3">
 <!--    <img class="img3-1 cdc3" src="images/yi-t.png" /> -->
    <a href="toDoctor"><img alt="zheng" src="${ctx }/staticfile/images/yi.png"class="cdc3 img3-2"></a>
    </div>
+   
+       <div class="pic2" id="cdc2">
+<!--    <img class="img2-1 cdc2" src="images/f-t.png" /> -->
+   <a href=#><img alt="fang" src="${ctx }/staticfile/images/fang.png"class="cdc2 img2-2"></a>
+   </div>
+   
    
    <div class="pic4"id="cdc4">
 <!--    <img class="img4-1 cdc4" src="images/t-t.png" /> -->

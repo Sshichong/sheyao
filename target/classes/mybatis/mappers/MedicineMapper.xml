@@ -31,8 +31,6 @@ select * from medicine where Medicine_ID=#{id}
 			Medicine_anotherName like CONCAT(CONCAT('%',#{key}),'%')
 			or
 			Medicine_forSelect like CONCAT(CONCAT('%',#{key}),'%')
-
-
 		</if>
 	</where>
 </select>

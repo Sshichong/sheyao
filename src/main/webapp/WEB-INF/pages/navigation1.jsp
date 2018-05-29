@@ -67,10 +67,11 @@ li a.active {
  </div>
  <div style="margin-top:45px;width:100%">
   <ul>
-  <li><a class="index" href="index">主页</a></li>
+  <li><a class="index" href="index">首页</a></li>
   <li><a href="toMedicine">畲药</a></li>
   <li><a href="toDoctor">畲医</a></li>
-  <li><a href="#">统计</a></li>
+  <li><a href="toPrescription">药方</a></li>
+  <li><a href="toStatistics">统计</a></li>
 </ul>
  </div> 
 </body>

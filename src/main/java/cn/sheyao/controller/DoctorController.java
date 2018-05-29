@@ -12,8 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.sheyao.pojo.Doctor;
+import cn.sheyao.pojo.Doctor1;
+import cn.sheyao.pojo.Illness;
+import cn.sheyao.pojo.Prescription;
 import cn.sheyao.service.DoctorService;
+import cn.sheyao.service.IllnessService;
+import cn.sheyao.service.PrescriptionService;
 import cn.sheyao.service.TimeTaskService;
 
 @Controller
@@ -25,14 +29,40 @@ public class DoctorController {
 	@Autowired
 	TimeTaskService timeTaskService;
 	
+	@Autowired
+	IllnessService illnessService;
+	
+	@Autowired
+	PrescriptionService prescriptionService;
+	
 	public static final Map<Integer,Integer> map =new HashMap<Integer,Integer>();
 	
 	@RequestMapping(value= {"/toDoctor"})
 	public String toDoctor(Model model) {
 		
-		List<Doctor> doctor =doctorService.findDoctor();
+		/*List<Doctor> doctor =doctorService.findDoctor();*/
+		List<Doctor1> doctor =doctorService.findDoctor();
 		//System.out.println(doctor.size());
 		
+		//根据每个医生的擅长中的illnessid去illness表中查相应的病症
+		Map<Integer,String> map =new HashMap<Integer,String>();
+		
+		for(int i=0;i<doctor.size();i++) {
+			StringBuffer sb =new StringBuffer();
+			String []goodAts=doctor.get(i).getDoctor_department().split("_");
+			for(int j=0;j<goodAts.length;j++) {
+				
+				List<Illness> illnesses = illnessService.findByIllnessId(Integer.parseInt(goodAts[j]));
+				if(j==goodAts.length-1) {
+					sb.append(illnesses.get(0).getIllness_name());
+				}else {
+				sb.append(illnesses.get(0).getIllness_name()).append(";");
+				}
+			}
+			map.put(doctor.get(i).getDoctor_ID(), String.valueOf(sb));
+		}
+		
+		model.addAttribute("map",map);
 		model.addAttribute("doctor",doctor);
 		
 		return "doctor";
@@ -46,24 +76,30 @@ public class DoctorController {
 		//System.out.println(StartWith.length);
 		
 		//左边导航栏查找
-		List<Doctor> doctor =doctorService.findDoctor();
+		List<Doctor1> doctor =doctorService.findDoctor();
 		
 		/**
 		 * 点击分类分组查找，外循环先按顺序从数据库查找（该字母在中间的也会被找出来）
 		 * 内循环先匹配第一个字母是否是startwith，若是add进doctors
 		 */
-		List<Doctor> doctors =new ArrayList();
+		List<Doctor1> doctors =new ArrayList();
 		for(int i=0;i<StartWith.length;i++) {
-			List<Doctor> d =doctorService.findDoctorByStartWith(StartWith[i]);
+			List<Doctor1> d =doctorService.findDoctorByStartWith(StartWith[i]);
 			System.out.println("外循环："+d.size());
 			for(int j=0;j<d.size();j++) {
 				if(d.get(j).getDoctor_forSelect().startsWith(StartWith[i])) {
 					System.out.println("内循环："+d.get(j));
-					Doctor dd =d.get(j);
+					Doctor1 dd =d.get(j);
 					doctors.add(dd);
 				}	
 			}
+			
+			
+			
 		}
+		
+		//根据擅长id到illness表中查病症
+		
 		
 		String head =StartWith[0].toUpperCase();
 		String tail =StartWith[StartWith.length-1].toUpperCase();
@@ -102,11 +138,38 @@ public class DoctorController {
 		}
 		
 		//从数据库中找全部医生和按id找对应医生
-		List<Doctor> doctor =doctorService.findDoctor();
-		List<Doctor> doctor_one =doctorService.findDoctorById(Integer.parseInt(id));
+		List<Doctor1> doctor =doctorService.findDoctor();
+		List<Doctor1> doctor_one =doctorService.findDoctorById(Integer.parseInt(id));
 		
-		Doctor d =doctor_one.get(0);
+		//擅长
+		String goodAts=(String)doctor_one.get(0).getDoctor_department();
 		
+		String []goodAt=goodAts.split("_");
+		System.out.println(goodAt.length);
+		
+		
+		Map<Illness,List<Prescription>> map =new HashMap<Illness,List<Prescription>>();
+		for(int i=0;i<goodAt.length;i++) {//根据每个擅长的id到illness中找病症
+			int illnessId =Integer.parseInt(goodAt[i]);
+			
+			//根据医生擅长的病症id在illness表中找对应病症
+			List<Illness> illnesses=illnessService.findByIllnessId(illnessId);
+			Illness illness =illnesses.get(0);
+			System.out.println(illness.getIllness_name());
+			
+			//在prescription表中根据医生id和病症id找对应的药方，一个病症可对应多个药方
+			List<Prescription> prescription =prescriptionService.findByDoctorId_IllnessId(id,goodAt[i]);
+			System.out.println(prescription.size());
+			
+			//放入HashMap
+			map.put(illness, prescription);
+			
+		}
+		
+		Doctor1 d =doctor_one.get(0);
+		
+		
+		model.addAttribute("illnessAndprescription",map);
 		model.addAttribute("doctor_one",d);
 		model.addAttribute("doctor",doctor);
 		
@@ -120,17 +183,18 @@ public class DoctorController {
 	public String QueryDoctorkey(String key,Model model) {
 		
 		System.out.println(key);
-		List<Doctor> doctor =doctorService.findDoctor();
-		List<Doctor> doctor_more = doctorService.findDoctorBykey(key);
+		List<Doctor1> doctor =doctorService.findDoctor();
+		List<Doctor1> doctor_more = doctorService.findDoctorBykey(key);
 		
 		model.addAttribute("doctor",doctor);
 		//只有一条记录
 		if(doctor_more.size()==1) {
-			Doctor doctor_one =doctor_more.get(0);
-			model.addAttribute("size","1");
-			model.addAttribute("doctor_one",doctor_more.get(0));
+			Doctor1 doctor_one =doctor_more.get(0);
+			int id =doctor_one.getDoctor_ID();
+			//model.addAttribute("size","1");
+			//model.addAttribute("doctor_one",doctor_more.get(0));
 			
-			return "doctor";
+			return "redirect:/toDoctor/QueryDoctorById?id="+id;
 		}else if(doctor_more.size()>1) {//多条记录
 			int size =doctor_more.size();
 			

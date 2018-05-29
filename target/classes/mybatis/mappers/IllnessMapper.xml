@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sheyao.mapper.IllnessMapper">
+
+<select id="findByIllnessId" resultMap="IllnessList">
+select * from illness where Illness_ID=#{illnessId}
+</select>
+
+
+<resultMap type="cn.sheyao.pojo.Illness" id="IllnessList">
+	<result property="Illness_ID" column="Illness_ID"/>
+ 	<result property="Illness_name" column="Illness_name"/>
+ 	<result property="Illness_admin" column="Illness_admin"/>
+ 	<result property="Illness_remark" column="Illness_remark"/>
+ 	<result property="Illness_State" column="Illness_State"/>
+</resultMap>
+
+
+</mapper>

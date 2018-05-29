@@ -103,9 +103,11 @@ public class MedicineController {
 		System.out.println(medicine_more.size());
 		model.addAttribute("medicine",medicine);
 		if(medicine_more.size()==1) {
-			model.addAttribute("medicine_one",medicine_more.get(0));
-			model.addAttribute("size","1");
-			return "sheyao";
+			Medicine medicine_one =medicine_more.get(0);
+			int id =medicine_one.getMedicine_ID();
+			//model.addAttribute("medicine_one",medicine_more.get(0));
+			//model.addAttribute("size","1");
+			return "redirect:/toMedicine/QueryById?id="+id;
 		}else if(medicine_more.size()>1) {
 			int size =medicine_more.size();
 			model.addAttribute("medicine_more",medicine_more);

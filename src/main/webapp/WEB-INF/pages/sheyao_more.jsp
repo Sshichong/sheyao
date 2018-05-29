@@ -223,7 +223,7 @@ String key =(String)request.getAttribute("key");
 		
 		<div id="all" style="width:80%;">
 		
-<p>搜到与<%=key %>相关的记录共有<%=size %>条</p>
+<p>搜到与<span style="color:red">&nbsp;&nbsp;<%=key %>&nbsp;&nbsp;</span>相关的记录共有<%=size %>条</p>
 <%
 for(int i=0;i<medicine_more.size();i++){
 	Medicine m =medicine_more.get(i);%>

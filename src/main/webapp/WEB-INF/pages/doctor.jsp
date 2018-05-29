@@ -2,7 +2,9 @@
     pageEncoding="utf-8"%>
     <%@page import="java.util.*" %>
     <%@page import="cn.sheyao.pojo.Medicine" %>
-     <%@page import="cn.sheyao.pojo.Doctor" %>
+     <%@page import="cn.sheyao.pojo.Doctor1" %>
+     <%@page import="cn.sheyao.pojo.Illness" %>
+     <%@page import="cn.sheyao.pojo.Prescription" %>
      <%@ include file="../base.jsp" %>
 <!DOCTYPE >
 <html>
@@ -114,10 +116,12 @@ font-size:15px;
 <%
 request.setCharacterEncoding("utf-8");
 response.setCharacterEncoding("utf-8");
-List<Doctor> doctor =(List)request.getAttribute("doctor");
-List<Doctor> doctor_StartWith=(List)request.getAttribute("doctor_StartWith");
+List<Doctor1> doctor =(List)request.getAttribute("doctor");
+Map<Integer,String> goodAts =(Map)request.getAttribute("map");
+List<Doctor1> doctor_StartWith=(List)request.getAttribute("doctor_StartWith");
 String doctor_title =(String)request.getAttribute("doctor_title");
-Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
+Doctor1 doctor_one =(Doctor1)request.getAttribute("doctor_one");
+Map<Illness,List<Prescription>> illnessAndprescription =(Map<Illness,List<Prescription>>)request.getAttribute("illnessAndprescription");
 %>
 
 
@@ -136,9 +140,9 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 			<summary><a href="QueryByStartWith?StartWith=a&StartWith=b&StartWith=c&StartWith=d"style="color: black;text-decoration:none">A-D</a></summary>
 			
 				<%
-				List<Doctor> doctorad =new ArrayList();
+				List<Doctor1> doctorad =new ArrayList();
 					for (int i = 0; i < doctor.size(); i++) {
-						Doctor d =doctor.get(i);
+						Doctor1 d =doctor.get(i);
 						if (d.getDoctor_forSelect().startsWith("a")||d.getDoctor_forSelect().startsWith("b")||d.getDoctor_forSelect().startsWith("c")||d.getDoctor_forSelect().startsWith("d")) {
 							doctorad.add(d);
 				%>
@@ -157,9 +161,9 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 			<summary><a href="QueryByStartWith?StartWith=e&StartWith=f&StartWith=g&StartWith=h"style="color: black;text-decoration:none">E-H</a></summary>
 			
 				<%
-				List<Doctor> doctoreh =new ArrayList();
+				List<Doctor1> doctoreh =new ArrayList();
 					for (int i = 0; i < doctor.size(); i++) {
-						Doctor d =doctor.get(i);
+						Doctor1 d =doctor.get(i);
 						
 						if (d.getDoctor_forSelect().startsWith("e")||d.getDoctor_forSelect().startsWith("f")||d.getDoctor_forSelect().startsWith("g")||d.getDoctor_forSelect().startsWith("h")) {
 							doctoreh.add(d);
@@ -177,9 +181,9 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 			<summary><a href="QueryByStartWith?StartWith=i&StartWith=j&StartWith=k&StartWith=l"style="color: black;text-decoration:none">I-L</a></summary>
 			
 				<%
-				List<Doctor> doctoril =new ArrayList();
+				List<Doctor1> doctoril =new ArrayList();
 					for (int i = 0; i < doctor.size(); i++) {
-						Doctor d =doctor.get(i);
+						Doctor1 d =doctor.get(i);
 						
 						if (d.getDoctor_forSelect().startsWith("i")||d.getDoctor_forSelect().startsWith("j")||d.getDoctor_forSelect().startsWith("k")||d.getDoctor_forSelect().startsWith("l")) {
 							doctoril.add(d);
@@ -197,9 +201,9 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 			<summary><a href="QueryByStartWith?StartWith=m&StartWith=n&StartWith=o&StartWith=p"style="color: black;text-decoration:none">M-P</a></summary>
 			
 				<%
-				List<Doctor> doctormp =new ArrayList();
+				List<Doctor1> doctormp =new ArrayList();
 					for (int i = 0; i < doctor.size(); i++) {
-						Doctor d =doctor.get(i);
+						Doctor1 d =doctor.get(i);
 						
 						if (d.getDoctor_forSelect().startsWith("m")||d.getDoctor_forSelect().startsWith("n")||d.getDoctor_forSelect().startsWith("o")||d.getDoctor_forSelect().startsWith("p")) {
 							doctormp.add(d);
@@ -217,9 +221,9 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 			<summary><a href="QueryByStartWith?StartWith=q&StartWith=r&StartWith=s&StartWith=t"style="color: black;text-decoration:none">Q-T</a></summary>
 			
 				<%
-				List<Doctor> doctorqt =new ArrayList();
+				List<Doctor1> doctorqt =new ArrayList();
 					for (int i = 0; i < doctor.size(); i++) {
-						Doctor d =doctor.get(i);
+						Doctor1 d =doctor.get(i);
 						
 						if (d.getDoctor_forSelect().startsWith("q")||d.getDoctor_forSelect().startsWith("r")||d.getDoctor_forSelect().startsWith("s")||d.getDoctor_forSelect().startsWith("t")) {
 							doctorqt.add(d);
@@ -236,9 +240,9 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 			<summary><a href="QueryByStartWith?StartWith=u&StartWith=v&StartWith=w&StartWith=x"style="color: black;text-decoration:none">U-X</a></summary>
 			
 				<%
-				List<Doctor> doctorux =new ArrayList();
+				List<Doctor1> doctorux =new ArrayList();
 					for (int i = 0; i < doctor.size(); i++) {
-						Doctor d =doctor.get(i);
+						Doctor1 d =doctor.get(i);
 						
 						if (d.getDoctor_forSelect().startsWith("u")||d.getDoctor_forSelect().startsWith("v")||d.getDoctor_forSelect().startsWith("w")||d.getDoctor_forSelect().startsWith("x")) {
 							doctorux.add(d);
@@ -255,9 +259,9 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 			<summary><a href="QueryByStartWith?StartWith=y&StartWith=z"style="color: black;text-decoration:none">Y-Z</a></summary>
 			
 				<%
-				List<Doctor> doctoryz =new ArrayList();
+				List<Doctor1> doctoryz =new ArrayList();
 					for (int i = 0; i < doctor.size(); i++) {
-						Doctor d =doctor.get(i);
+						Doctor1 d =doctor.get(i);
 						
 						if (d.getDoctor_forSelect().startsWith("y")||d.getDoctor_forSelect().startsWith("z")) {
 							doctoryz.add(d);
@@ -289,12 +293,13 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 				<col style="width: 20%" /> <!--主要操作  -->
 
 				<tr><th colspan="5"><%=doctor_title %></th></tr>
-				<tr><th >姓名</th><th>科室</th><th >职称</th><th>简介</th><th >主要操作</th></tr>
+				<tr><th >姓名</th><th>擅长</th><th >出生日期</th><th>简介</th><th >主要操作</th></tr>
 				<%for (int i = 0; i < doctor_StartWith.size(); i++) {
-					Doctor d =doctor_StartWith.get(i);
+					Doctor1 d =doctor_StartWith.get(i);
+					
 					
 					%>
-					<tr><td ><%=d.getDoctor_name() %></td><td><%=d.getDepartment_info()%></td><td><%=d.getDoctor_title() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>	
+					<tr><td ><%=d.getDoctor_name() %></td><td><%=d.getDoctor_department()%></td><td><%=d.getDoctor_Birth() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>	
 			<%} %>
 				</tbody>
 		       </table>
@@ -302,28 +307,58 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 	<%	}
 		else if(doctor_one!=null){%>
 			
-<%-- 			<p><%=doctor_one.getDoctor_name() %></p> --%>
-				<div class="pos">
-				<p class="word"><%=doctor_one.getDoctor_title()%></p>
+				<div class="pos" style="width:200px;float:left">
 				<p class="word1" style="margin-top:5px;margin-bottom:5px">
 					<%=doctor_one.getDoctor_name()%>
 					</p>
-				<p class="word" style="margin-top:10px;padding-top:5px">
-				
-				擅长：<%=doctor_one.getDepartment_info() %>
-				</p>
+					<p><%=doctor_one.getDoctor_Birth() %></p>
+					
 				</div>	
+				<div style="float:left;padding-left:350px">
+				<img alt="tu" src="/upload/youcai.png" style="width:150px;height:180px" >
+				</div>
 				
-				<div class=pos1>
+				<div class=pos1 style="clear:both">
 				<p class="word2">个人简介</p>
-				<textarea readonly="readonly" cols="120" rows="10" style="overflow-x:hidden;overflow-y:scroll;"><%=doctor_one.getDoctor_introduce()%></textarea> 
+				<div style="border:1px #A9A9A9 none; width:100%; height:100px"><%=doctor_one.getDoctor_introduce()%></div>
 				</div>
 				
 				
 				
-				<div class=pos1 style="margin-top:40px;margin-bottom:40px">
+				<div class=pos1 style="margin-top:40px;margin-bottom:50px">
 				<p class="word2">个人处方</p>
-				<textarea readonly="readonly" cols="120" rows="10" style="overflow-x:hidden;overflow-y:scroll;"><%=doctor_one.getDoctor_introduce()%></textarea> 
+				<div style="border:1px #A9A9A9 none; width:100%; height:100px;padding-bottom:100px">
+				<%
+				
+				//for(Map<Illness,List<Prescription>> illnessAndprescription_one:illnessAndprescription){
+					Iterator iter =illnessAndprescription.entrySet().iterator();
+					while(iter.hasNext()){
+						Map.Entry<Illness,List<Prescription>> entry = (Map.Entry)iter.next();
+						Illness illness =entry.getKey();
+						List<Prescription> prescriptions =entry.getValue();
+						
+						StringBuffer sb =new StringBuffer();
+						//sb.append(illness.getIllness_name()).append(":");
+						%>
+						<p><%=illness.getIllness_name() %></p>
+						<%
+						for(int i=0;i<prescriptions.size();i++){
+							//sb.append(prescriptions.get(i).getPrescription_particulars()).append("\n");%>
+							<p><%=prescriptions.get(i).getPrescription_particulars() %></p><br>
+							
+					<%	}
+						
+				
+						
+					}
+					
+				//}
+				
+				
+				
+				%>
+				
+				</div>
 				</div>
 				
 			
@@ -339,13 +374,22 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 							<col style="width: 20%" /> <!--主要操作  -->
 
 							<tr><th colspan="5">A-D</th></tr>
-							<tr><th >姓名</th><th>科室</th><th >职称</th><th>简介</th><th >主要操作</th></tr>
+							<tr><th >姓名</th><th>擅长</th><th >出生日期</th><th>简介</th><th >主要操作</th></tr>
 							<%for (int i = 0; i < doctorad.size(); i++) {
-								Doctor d =doctorad.get(i);
+								Doctor1 d =doctorad.get(i);
+								Iterator iter = goodAts.entrySet().iterator();
+								while(iter.hasNext()){
+									Map.Entry<Integer,String> entry =(Map.Entry)iter.next();
+									if(entry.getKey().equals(d.getDoctor_ID())){
+									%>
+										
+										<tr><td ><%=d.getDoctor_name() %></td><td><%=entry.getValue() %></td><td><%=d.getDoctor_Birth() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
+								<%	}
+								}
 								
-								%>
-								<tr><td ><%=d.getDoctor_name() %></td><td><%=d.getDepartment_info()%></td><td><%=d.getDoctor_title() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>	
-						<%} %>
+								
+									
+						} %>
 							</tbody>
 					       </table>
 					       
@@ -359,13 +403,19 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 							<col style="width: 20%" /> <!--主要操作  -->
 
 							<tr><th colspan="5">E-H</th></tr>
-							<tr><th >姓名</th><th>科室</th><th >职称</th><th>简介</th><th >主要操作</th></tr>
+							<tr><th >姓名</th><th>擅长</th><th >出生日期</th><th>简介</th><th >主要操作</th></tr>
 							<%for (int i = 0; i < doctoreh.size(); i++) {
-								Doctor d =doctoreh.get(i);
-								
-								%>
-								<tr><td ><%=d.getDoctor_name() %></td><td><%=d.getDepartment_info()%></td><td><%=d.getDoctor_title() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>	
-						<%} %>
+								Doctor1 d =doctoreh.get(i);
+								Iterator iter = goodAts.entrySet().iterator();
+								while(iter.hasNext()){
+									Map.Entry<Integer,String> entry =(Map.Entry)iter.next();
+									if(entry.getKey().equals(d.getDoctor_ID())){
+									%>
+										
+										<tr><td ><%=d.getDoctor_name() %></td><td><%=entry.getValue() %></td><td><%=d.getDoctor_Birth() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
+								<%	}
+								}
+								} %>
 							</tbody>
 					       </table>
 					       
@@ -378,13 +428,20 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 							<col style="width: 20%" /> <!--主要操作  -->
 
 							<tr><th colspan="5">I-L</th></tr>
-							<tr><th >姓名</th><th>科室</th><th >职称</th><th>简介</th><th >主要操作</th></tr>
+							<tr><th >姓名</th><th>擅长</th><th >出生日期</th><th>简介</th><th >主要操作</th></tr>
 							<%for (int i = 0; i < doctoril.size(); i++) {
-								Doctor d =doctoril.get(i);
-								
-								%>
-								<tr><td ><%=d.getDoctor_name() %></td><td><%=d.getDepartment_info()%></td><td><%=d.getDoctor_title() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>	
-						<%} %>
+								Doctor1 d =doctoril.get(i);
+								Iterator iter = goodAts.entrySet().iterator();
+								while(iter.hasNext()){
+									Map.Entry<Integer,String> entry =(Map.Entry)iter.next();
+									if(entry.getKey().equals(d.getDoctor_ID())){
+									%>
+										
+										<tr><td ><%=d.getDoctor_name() %></td><td><%=entry.getValue() %></td><td><%=d.getDoctor_Birth() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
+								<%	}
+								}
+							
+							} %>
 							</tbody>
 					       </table>
 					       
@@ -397,13 +454,21 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 							<col style="width: 20%" /> <!--主要操作  -->
 
 							<tr><th colspan="5">M-P</th></tr>
-							<tr><th >姓名</th><th>科室</th><th >职称</th><th>简介</th><th >主要操作</th></tr>
+							<tr><th >姓名</th><th>擅长</th><th >出生日期</th><th>简介</th><th >主要操作</th></tr>
 							<%for (int i = 0; i < doctormp.size(); i++) {
-								Doctor d =doctormp.get(i);
-								
-								%>
-								<tr><td ><%=d.getDoctor_name() %></td><td><%=d.getDepartment_info()%></td><td><%=d.getDoctor_title() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>	
-						<%} %>
+								Doctor1 d =doctormp.get(i);
+								Iterator iter = goodAts.entrySet().iterator();
+								while(iter.hasNext()){
+									Map.Entry<Integer,String> entry =(Map.Entry)iter.next();
+									if(entry.getKey().equals(d.getDoctor_ID())){
+									%>
+										
+										<tr><td ><%=d.getDoctor_name() %></td><td><%=entry.getValue() %></td><td><%=d.getDoctor_Birth() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
+								<%	}
+								}
+						
+							
+							} %>
 							</tbody>
 					       </table>
 					       
@@ -418,11 +483,19 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 							<tr><th colspan="5">Q-T</th></tr>
 							<tr><th >姓名</th><th>科室</th><th >职称</th><th>简介</th><th >主要操作</th></tr>
 							<%for (int i = 0; i < doctorqt.size(); i++) {
-								Doctor d =doctorqt.get(i);
-								
-								%>
-								<tr><td ><%=d.getDoctor_name() %></td><td><%=d.getDepartment_info()%></td><td><%=d.getDoctor_title() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>	
-						<%} %>
+								Doctor1 d =doctorqt.get(i);
+								Iterator iter = goodAts.entrySet().iterator();
+								while(iter.hasNext()){
+									Map.Entry<Integer,String> entry =(Map.Entry)iter.next();
+									if(entry.getKey().equals(d.getDoctor_ID())){
+									%>
+										
+										<tr><td ><%=d.getDoctor_name() %></td><td><%=entry.getValue() %></td><td><%=d.getDoctor_Birth() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
+								<%	}
+								}
+						
+							
+							} %>
 							</tbody>
 					       </table>
 					       
@@ -435,13 +508,20 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 							<col style="width: 20%" /> <!--主要操作  -->
 
 							<tr><th colspan="5">U-X</th></tr>
-							<tr><th >姓名</th><th>科室</th><th >职称</th><th>简介</th><th >主要操作</th></tr>
+							<tr><th >姓名</th><th>擅长</th><th >出生日期</th><th>简介</th><th >主要操作</th></tr>
 							<%for (int i = 0; i < doctorux.size(); i++) {
-								Doctor d =doctorux.get(i);
-								
-								%>
-								<tr><td ><%=d.getDoctor_name() %></td><td><%=d.getDepartment_info()%></td><td><%=d.getDoctor_title() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>	
-						<%} %>
+								Doctor1 d =doctorux.get(i);
+								Iterator iter = goodAts.entrySet().iterator();
+								while(iter.hasNext()){
+									Map.Entry<Integer,String> entry =(Map.Entry)iter.next();
+									if(entry.getKey().equals(d.getDoctor_ID())){
+									%>
+										
+										<tr><td ><%=d.getDoctor_name() %></td><td><%=entry.getValue() %></td><td><%=d.getDoctor_Birth() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
+								<%	}
+								}
+							
+							} %>
 							</tbody>
 					       </table>
 					       
@@ -454,13 +534,20 @@ Doctor doctor_one =(Doctor)request.getAttribute("doctor_one");
 							<col style="width: 20%" /> <!--主要操作  -->
 
 							<tr><th colspan="5">Y-Z</th></tr>
-							<tr><th >姓名</th><th>科室</th><th >职称</th><th>简介</th><th >主要操作</th></tr>
+							<tr><th >姓名</th><th>擅长</th><th >出生日期</th><th>简介</th><th >主要操作</th></tr>
 							<%for (int i = 0; i < doctoryz.size(); i++) {
-								Doctor d =doctoryz.get(i);
-								
-								%>
-								<tr><td ><%=d.getDoctor_name() %></td><td><%=d.getDepartment_info()%></td><td><%=d.getDoctor_title() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>	
-						<%} %>
+								Doctor1 d =doctoryz.get(i);
+								Iterator iter = goodAts.entrySet().iterator();
+								while(iter.hasNext()){
+									Map.Entry<Integer,String> entry =(Map.Entry)iter.next();
+									if(entry.getKey().equals(d.getDoctor_ID())){
+									%>
+										
+										<tr><td ><%=d.getDoctor_name() %></td><td><%=entry.getValue() %></td><td><%=d.getDoctor_Birth() %></td><td ><%=d.getDoctor_introduce() %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
+								<%	}
+								}
+							
+							} %>
 							</tbody>
 					       </table>
 					       
