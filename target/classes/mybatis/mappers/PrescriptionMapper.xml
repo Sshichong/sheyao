@@ -17,6 +17,15 @@ select * from prescription
 	
 </select>
 
+<select id="findByIllnessId" resultMap="PrescriptionList">
+select * from prescription 
+<where>
+<if test="illnessId!=null and illnessId!=''">
+Illness_ID like CONCAT(CONCAT('%',#{illnessId}),'%')
+</if>
+</where>
+</select>
+
 
 <resultMap type="cn.sheyao.pojo.Prescription" id="PrescriptionList">
 	<result property="Prescription_ID" column="Prescription_ID"/>
@@ -26,6 +35,12 @@ select * from prescription
  	<result property="Prescription_DeleteReason" column="Prescription_DeleteReason"/>
  	<result property="Illness_ID" column="Illness_ID"/>
  	<result property="Prescription_State" column="Prescription_State"/>
+ 	<result property="Prescription_usage" column="Prescription_usage"/>
+ 	<result property="Prescription_OtherMessage" column="Prescription_OtherMessage"/>
+ 	<result property="Prescription_Date" column="Prescription_Date"/>
+ 	<result property="Prescription_Cure" column="Prescription_Cure"/>
+ 	
+ 	
 </resultMap>
 
 

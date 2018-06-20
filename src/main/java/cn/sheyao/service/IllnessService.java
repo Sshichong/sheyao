@@ -8,4 +8,6 @@ public interface IllnessService {
 
 	List<Illness> findByIllnessId(int illnessId);
 
+	List<List<Illness>> findIllness();
+
 }

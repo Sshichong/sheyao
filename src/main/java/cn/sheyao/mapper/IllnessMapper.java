@@ -10,4 +10,6 @@ public interface IllnessMapper {
 
 	List<Illness> findByIllnessId(@Param("illnessId")int illnessId);
 
+	List<Illness> findIllnessAll();
+
 }

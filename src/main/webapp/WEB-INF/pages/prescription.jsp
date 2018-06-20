@@ -3,6 +3,8 @@
     <%@page import="java.util.*" %>
     <%@page import="cn.sheyao.pojo.Medicine" %>
      <%@page import="cn.sheyao.pojo.Doctor1" %>
+     <%@page import="cn.sheyao.pojo.Prescription" %>
+     <%@page import="cn.sheyao.pojo.Illness" %>
      <%@ include file="../base.jsp" %>
 <!DOCTYPE >
 <html>
@@ -111,7 +113,10 @@ font-size:15px;
 
 </head>
 <body>
-
+<%
+List<List<Illness>> illness = (List<List<Illness>>)request.getAttribute("illness");
+Map<Integer,List<Prescription>> map =(Map)request.getAttribute("map");
+%>
 
 
 <div >
@@ -128,180 +133,164 @@ font-size:15px;
 			<!-- <summary><a href="QueryServlet?sort=2"style="color: black">菌类植物</a></summary> -->
 			<summary><a href="#"style="color: black;text-decoration:none">内科</a></summary>
 			
-				<%-- <%
-				List<Doctor1> doctorad =new ArrayList();
-					for (int i = 0; i < doctor.size(); i++) {
-						Doctor1 d =doctor.get(i);
-						if (d.getDoctor_forSelect().startsWith("a")||d.getDoctor_forSelect().startsWith("b")||d.getDoctor_forSelect().startsWith("c")||d.getDoctor_forSelect().startsWith("d")) {
-							doctorad.add(d);
-				%> --%>
-				<a href="QueryDoctorById?id=1" style="margin-left:20px">发烧</a><br>
-				<%-- <%
-					}
-					}
-				%> --%>
-
-			
+			<%
+			for(int i=0;i<illness.get(0).size();i++){
+			%>
+				<a href="QueryDoctorById?id=1" style="margin-left:20px"><%=illness.get(0).get(i).getIllness_name()%></a><br>
+		<%	}
+			%>
 			</details>
 			
 			
 			<details> 
 			<!-- <summary><a href="QueryServlet?sort=2"style="color: black">菌类植物</a></summary> -->
 			<summary><a href="#"style="color: black;text-decoration:none">外科</a></summary>
-			
-				<%-- <%
-				List<Doctor1> doctoreh =new ArrayList();
-					for (int i = 0; i < doctor.size(); i++) {
-						Doctor1 d =doctor.get(i);
-						
-						if (d.getDoctor_forSelect().startsWith("e")||d.getDoctor_forSelect().startsWith("f")||d.getDoctor_forSelect().startsWith("g")||d.getDoctor_forSelect().startsWith("h")) {
-							doctoreh.add(d);
-				%> --%>
-				<a href="QueryDoctorById?id=1" style="margin-left:20px">蜈蚣咬伤</a><br>
-			<%-- 	<%
-					}
-					}
-				%> --%>
+			<%
+			for(int i=0;i<illness.get(1).size();i++){
+			%>
+				<a href="QueryDoctorById?id=1" style="margin-left:20px"><%=illness.get(1).get(i).getIllness_name()%></a><br>
+		<%	}
+			%>
 			</details>
 			
 			
 			<details> 
 			<!-- <summary><a href="QueryServlet?sort=2"style="color: black">菌类植物</a></summary> -->
 			<summary><a href="#"style="color: black;text-decoration:none">妇科</a></summary>
-			
-				<%-- <%
-				List<Doctor1> doctoril =new ArrayList();
-					for (int i = 0; i < doctor.size(); i++) {
-						Doctor1 d =doctor.get(i);
-						
-						if (d.getDoctor_forSelect().startsWith("i")||d.getDoctor_forSelect().startsWith("j")||d.getDoctor_forSelect().startsWith("k")||d.getDoctor_forSelect().startsWith("l")) {
-							doctoril.add(d);
-				%> --%>
-				<a href="QueryDoctorById?id=1" style="margin-left:20px">产后腹痛</a><br>
-				<%-- <%
-					}
-					}
-				%> --%>
+			<%
+			for(int i=0;i<illness.get(2).size();i++){
+			%>
+				<a href="QueryDoctorById?id=1" style="margin-left:20px"><%=illness.get(2).get(i).getIllness_name()%></a><br>
+		<%	}
+			%>
 			</details>
 			
 			
 			<details> 
 			<!-- <summary><a href="QueryServlet?sort=2"style="color: black">菌类植物</a></summary> -->
 			<summary><a href="#"style="color: black;text-decoration:none">儿科</a></summary>
-			
-				<%-- <%
-				List<Doctor1> doctormp =new ArrayList();
-					for (int i = 0; i < doctor.size(); i++) {
-						Doctor1 d =doctor.get(i);
-						
-						if (d.getDoctor_forSelect().startsWith("m")||d.getDoctor_forSelect().startsWith("n")||d.getDoctor_forSelect().startsWith("o")||d.getDoctor_forSelect().startsWith("p")) {
-							doctormp.add(d);
-				%> --%>
-				<a href="QueryDoctorById?id=1" style="margin-left:20px">小儿哮喘</a><br>
-				<%-- <%
-					}
-					}
-				%> --%>
+			<%
+			for(int i=0;i<illness.get(3).size();i++){
+			%>
+				<a href="QueryDoctorById?id=1" style="margin-left:20px"><%=illness.get(3).get(i).getIllness_name()%></a><br>
+		<%	}
+			%>
 			</details>
 			
 			
 			<details> 
 			<!-- <summary><a href="QueryServlet?sort=2"style="color: black">菌类植物</a></summary> -->
 			<summary><a href="#"style="color: black;text-decoration:none">五官科</a></summary>
-			
-				<%-- <%
-				List<Doctor1> doctorqt =new ArrayList();
-					for (int i = 0; i < doctor.size(); i++) {
-						Doctor1 d =doctor.get(i);
-						
-						if (d.getDoctor_forSelect().startsWith("q")||d.getDoctor_forSelect().startsWith("r")||d.getDoctor_forSelect().startsWith("s")||d.getDoctor_forSelect().startsWith("t")) {
-							doctorqt.add(d);
-				%> --%>
-				<a href="QueryDoctorById?id=1" style="margin-left:20px">鼻炎</a><br>
-				<%-- <%
-					}
-					}
-				%> --%>
+			<%
+			for(int i=0;i<illness.get(4).size();i++){
+			%>
+				<a href="QueryDoctorById?id=1" style="margin-left:20px"><%=illness.get(4).get(i).getIllness_name()%></a><br>
+		<%	}
+			%>
 			</details>
 			
 			<details> 
 			<!-- <summary><a href="QueryServlet?sort=2"style="color: black">菌类植物</a></summary> -->
 			<summary><a href="#"style="color: black;text-decoration:none">痧症科</a></summary>
-			
-				<%-- <%
-				List<Doctor1> doctorux =new ArrayList();
-					for (int i = 0; i < doctor.size(); i++) {
-						Doctor1 d =doctor.get(i);
-						
-						if (d.getDoctor_forSelect().startsWith("u")||d.getDoctor_forSelect().startsWith("v")||d.getDoctor_forSelect().startsWith("w")||d.getDoctor_forSelect().startsWith("x")) {
-							doctorux.add(d);
-				%> --%>
-				<a href="QueryDoctorById?id=1" style="margin-left:20px">痧气</a><br>
-				<%-- <%
-					}
-					}
-				%> --%>
+			<%
+			for(int i=0;i<illness.get(5).size();i++){
+			%>
+				<a href="QueryDoctorById?id=1" style="margin-left:20px"><%=illness.get(5).get(i).getIllness_name()%></a><br>
+		<%	}
+			%>
 			</details>
 			
 			<details> 
 			<!-- <summary><a href="QueryServlet?sort=2"style="color: black">菌类植物</a></summary> -->
 			<summary><a href="#"style="color: black;text-decoration:none">风湿与关节疾病</a></summary>
-			
-				<%-- <%
-				List<Doctor1> doctoryz =new ArrayList();
-					for (int i = 0; i < doctor.size(); i++) {
-						Doctor1 d =doctor.get(i);
-						
-						if (d.getDoctor_forSelect().startsWith("y")||d.getDoctor_forSelect().startsWith("z")) {
-							doctoryz.add(d);
-				%> --%>
-				<a href="QueryDoctorById?id=1" style="margin-left:20px">风湿</a><br>
-				<%-- <%
-					}
-					}
-				%> --%>
+			<%
+			for(int i=0;i<illness.get(6).size();i++){
+			%>
+				<a href="QueryDoctorById?id=1" style="margin-left:20px"><%=illness.get(6).get(i).getIllness_name()%></a><br>
+		<%	}
+			%>
 			</details>
 			
 			<details>
 			<summary><a href="#"style="color: black;text-decoration:none">呼吸科</a></summary>
-			<a href="QueryDoctorById?id=1" style="margin-left:20px">支气管炎</a>
+			<%
+			for(int i=0;i<illness.get(7).size();i++){
+			%>
+				<a href="QueryDoctorById?id=1" style="margin-left:20px"><%=illness.get(7).get(i).getIllness_name()%></a><br>
+		<%	}
+			%>
 			
 			</details>
 			
 			
 			<details>
 			<summary><a href="#"style="color: black;text-decoration:none">消化科</a></summary>
-			<a href="QueryDoctorById?id=1" style="margin-left:20px">食积</a>
+			<%
+			for(int i=0;i<illness.get(8).size();i++){
+			%>
+				<a href="QueryDoctorById?id=1" style="margin-left:20px"><%=illness.get(8).get(i).getIllness_name()%></a><br>
+		<%	}
+			%>
 			
 			</details>
 			
 			<details>
 			<summary><a href="#"style="color: black;text-decoration:none">神经科</a></summary>
-			<a href="QueryDoctorById?id=1" style="margin-left:20px">失眠</a>
+			<%
+			for(int i=0;i<illness.get(9).size();i++){
+			%>
+				<a href="QueryDoctorById?id=1" style="margin-left:20px"><%=illness.get(9).get(i).getIllness_name()%></a><br>
+		<%	}
+			%>
+			
 			
 			</details>
 			
 			<details>
 			<summary><a href="#"style="color: black;text-decoration:none">泌尿生殖科</a></summary>
-			<a href="QueryDoctorById?id=1" style="margin-left:20px">肾病</a>
+			<%
+			for(int i=0;i<illness.get(10).size();i++){
+			%>
+				<a href="QueryDoctorById?id=1" style="margin-left:20px"><%=illness.get(10).get(i).getIllness_name()%></a><br>
+		<%	}
+			%>
+			
 			
 			</details>
 			
 			<details>
 			<summary><a href="#"style="color: black;text-decoration:none">皮肤科</a></summary>
-			<a href="QueryDoctorById?id=1" style="margin-left:20px">冻疮</a>
+			<%
+			for(int i=0;i<illness.get(11).size();i++){
+			%>
+				<a href="QueryDoctorById?id=1" style="margin-left:20px"><%=illness.get(11).get(i).getIllness_name()%></a><br>
+		<%	}
+			%>
+			
 			
 			</details>
 			
 			<details>
 			<summary><a href="#"style="color: black;text-decoration:none">传染科</a></summary>
-			<a href="QueryDoctorById?id=1" style="margin-left:20px">七日风</a>
+			<%
+			for(int i=0;i<illness.get(12).size();i++){
+			%>
+				<a href="QueryDoctorById?id=1" style="margin-left:20px"><%=illness.get(12).get(i).getIllness_name()%></a><br>
+		<%	}
+			%>
+			
 			
 			</details>
 			
 			<details>
 			<summary><a href="#"style="color: black;text-decoration:none">其他</a></summary>
-			<a href="QueryDoctorById?id=1" style="margin-left:20px">骨底烧</a>
+			<%
+			for(int i=0;i<illness.get(13).size();i++){
+			%>
+				<a href="QueryDoctorById?id=1" style="margin-left:20px"><%=illness.get(13).get(i).getIllness_name()%></a><br>
+		<%	}
+			%>
+			
 			
 			</details>
 		</div>
@@ -314,26 +303,35 @@ font-size:15px;
 		
 		 <table border="1" style="width:100%" class="sp-grid-job">
 					       <tbody>
-							<col style="width: 10%" />  <!-- 病症 -->
-							<col style="width: 20%" />  <!--献方畲医/文献来源-->
-							<col style="width: 20%" />
-							<col style="width: 40%" />  <!--药方  -->
-							<col style="width: 10%" /> <!--主要操作  -->
-
-
-							<tr><th colspan="5">内科</th></tr>
-							<tr><th >病症</th><th>献方畲医</th><th>文献来源</th><th >药方</th><th >主要操作</th></tr>
+							<col style="width: 20%" />  <!-- 病症 -->
+							<col style="width: 60%" />  <!--献方畲医/文献来源-->
 							
-						<tr><td >发烧</td><td>雷后兴</td><td>无</td><td >食凉茶+3份_鲜猪油+1份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>	
-						<tr><td >咳嗽</td><td>雷后兴</td><td>无</td><td >油菜+3份_鲜猪油+1份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >便秘</td><td>雷后兴</td><td>无</td><td >白果+3份_鲜猪油+1份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >哮喘</td><td>雷后兴</td><td>无</td><td >浙江蜡梅+3份_鲜猪油+1份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >中风</td><td>雷后兴</td><td>无</td><td >青菜+3份_鲜猪油+1份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >头痛</td><td>雷后兴</td><td>无</td><td >白菜+3份_鲜猪油+1份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >伤食</td><td>雷后兴</td><td>无</td><td >食凉茶+3份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >消渴</td><td>雷后兴</td><td>无</td><td >食凉茶+3份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >逆呃</td><td>雷后兴</td><td>无</td><td >食凉茶+3份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-					
+							<col style="width: 20%" /> <!--主要操作  -->
+
+
+							<tr><th colspan="3">内科</th></tr>
+							<tr><th >病症</th><th >药方</th><th >主要操作</th></tr>
+							<%
+							for(int i=0;i<illness.get(0).size();i++){
+							StringBuffer sb =new StringBuffer();
+							Iterator iter =map.entrySet().iterator();
+							while(iter.hasNext()){
+								Map.Entry<Integer,List<Prescription>>  entry =(Map.Entry)iter.next();
+								if(entry.getKey().equals(illness.get(0).get(i).getIllness_ID())){
+									
+									for(int j=0;j<entry.getValue().size();j++){
+										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
+									}
+									
+								}
+							}
+							
+							%>
+								<tr><td ><%=illness.get(0).get(i).getIllness_name() %></td><td ><%=sb %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
+							<%}
+							%>
+							
+						
 							</tbody>
 					       </table>
 					       

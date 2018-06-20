@@ -315,7 +315,7 @@ Map<Illness,List<Prescription>> illnessAndprescription =(Map<Illness,List<Prescr
 					
 				</div>	
 				<div style="float:left;padding-left:350px">
-				<img alt="tu" src="/upload/youcai.png" style="width:150px;height:180px" >
+				<img alt="tu" src="/upload/leihouxing.jpg" style="width:150px;height:180px" >
 				</div>
 				
 				<div class=pos1 style="clear:both">

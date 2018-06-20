@@ -20,4 +20,10 @@ public class PrescriptionServiceImp implements PrescriptionService{
 		return prescriptionMapper.findByDoctorId_IllnessId(doctorid,illnessid);
 	}
 
+	@Override
+	public List<Prescription> findByIllnessId(String illnessId) {
+		// TODO Auto-generated method stub
+		return prescriptionMapper.findByIllnessId(illnessId);
+	}
+
 }

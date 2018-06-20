@@ -10,4 +10,6 @@ public interface PrescriptionMapper {
 
 	public List<Prescription> findByDoctorId_IllnessId(@Param("doctorid")String doctorid,@Param("illnessid") String illnessid);
 
+	public List<Prescription> findByIllnessId(@Param("illnessId")String illnessId);
+
 }

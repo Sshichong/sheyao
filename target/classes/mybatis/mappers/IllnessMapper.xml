@@ -8,6 +8,10 @@
 select * from illness where Illness_ID=#{illnessId}
 </select>
 
+<select id="findIllnessAll" resultMap="IllnessList">
+select * from illness
+</select>
+
 
 <resultMap type="cn.sheyao.pojo.Illness" id="IllnessList">
 	<result property="Illness_ID" column="Illness_ID"/>

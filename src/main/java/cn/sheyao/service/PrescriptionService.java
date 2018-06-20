@@ -8,4 +8,6 @@ public interface PrescriptionService {
 
 	List<Prescription> findByDoctorId_IllnessId(String doctorid, String illnessid);
 
+	List<Prescription> findByIllnessId(String illnessId);
+
 }
