@@ -12,4 +12,6 @@ public interface IllnessMapper {
 
 	List<Illness> findIllnessAll();
 
+	List<Illness> findIllnessByType(@Param("type")String type);
+
 }

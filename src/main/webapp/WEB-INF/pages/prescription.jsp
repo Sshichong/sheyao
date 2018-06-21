@@ -116,6 +116,8 @@ font-size:15px;
 <%
 List<List<Illness>> illness = (List<List<Illness>>)request.getAttribute("illness");
 Map<Integer,List<Prescription>> map =(Map)request.getAttribute("map");
+Map<Illness,List<Prescription>> typeMap =(Map)request.getAttribute("typeMap");
+String type=(String)request.getAttribute("type");
 %>
 
 
@@ -131,7 +133,7 @@ Map<Integer,List<Prescription>> map =(Map)request.getAttribute("map");
 <div id="menu" style="width:20%;float:left;margin-left:20px;margin-top:20px">
 			<details> 
 			<!-- <summary><a href="QueryServlet?sort=2"style="color: black">菌类植物</a></summary> -->
-			<summary><a href="#"style="color: black;text-decoration:none">内科</a></summary>
+			<summary><a href="IllnessType?type=内科"style="color: black;text-decoration:none">内科</a></summary>
 			
 			<%
 			for(int i=0;i<illness.get(0).size();i++){
@@ -299,9 +301,41 @@ Map<Integer,List<Prescription>> map =(Map)request.getAttribute("map");
 		<!-- 内容显示 -->
 		<div id="content" style="width:70%;float:left;" >
 		
-		<div id="all" style="width:80%;">
+		<div id="all" style="width:80%;margin-bottom:50px">
 		
-		 <table border="1" style="width:100%" class="sp-grid-job">
+		<%
+		if(type!=null){%>
+			 <table border="1" style="width:100%" class="sp-grid-job">
+					       <tbody>
+							<col style="width: 20%" />  <!-- 病症 -->
+							<col style="width: 60%" />  <!--献方畲医/文献来源-->
+							
+							<col style="width: 20%" /> <!--主要操作  -->
+
+
+							<tr><th colspan="3"><%=type %></th></tr>
+							<tr><th >病症</th><th >药方</th><th >主要操作</th></tr>
+							<%
+							Iterator iter =typeMap.entrySet().iterator();
+							
+							while(iter.hasNext()){
+								StringBuffer sb =new StringBuffer();
+								Map.Entry<Illness,List<Prescription>> entry =(Map.Entry)iter.next();
+								for(int i=0;i<entry.getValue().size();i++){
+									sb.append(entry.getValue().get(i).getPrescription_particulars()).append("<br>");	
+							}%>
+								<tr><td ><%=entry.getKey().getIllness_name()%></td><td ><%=sb %></td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
+							<%}
+							%>
+								
+						
+							
+						
+							</tbody>
+					       </table>
+			
+	<%	}else{ %>
+			 <table border="1" style="width:100%" class="sp-grid-job">
 					       <tbody>
 							<col style="width: 20%" />  <!-- 病症 -->
 							<col style="width: 60%" />  <!--献方畲医/文献来源-->
@@ -334,38 +368,12 @@ Map<Integer,List<Prescription>> map =(Map)request.getAttribute("map");
 						
 							</tbody>
 					       </table>
+		<%}
+		%>
+		
+		
 					       
-					       <table border="1" style="width:100%" class="sp-grid-job">
-					       <tbody>
-							<col style="width: 10%" />  <!-- 病症 -->
-							<col style="width: 20%" />  <!--献方畲医/文献来源-->
-							<col style="width: 20%" />
-							<col style="width: 40%" />  <!--药方  -->
-							<col style="width: 10%" /> <!--主要操作  -->
-
-
-							<tr><th colspan="5">外科</th></tr>
-							<tr><th >病症</th><th>献方畲医</th><th>文献来源</th><th >药方</th><th >主要操作</th></tr>
-							
-						<tr><td >肠痈</td><td>雷后兴</td><td>无</td><td >食凉茶+3份_鲜猪油+1份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>	
-						<tr><td >蛇串疮</td><td>雷后兴</td><td>无</td><td >油菜+3份_鲜猪油+1份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >内伤</td><td>雷后兴</td><td>无</td><td >白果+3份_鲜猪油+1份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >哮喘</td><td>雷后兴</td><td>无</td><td >浙江蜡梅+3份_鲜猪油+1份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >伤筋</td><td>雷后兴</td><td>无</td><td >青菜+3份_鲜猪油+1份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >头痛</td><td>雷后兴</td><td>无</td><td >白菜+3份_鲜猪油+1份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >湿疮</td><td>雷后兴</td><td>无</td><td >食凉茶+3份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >消渴</td><td>雷后兴</td><td>无</td><td >食凉茶+3份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >逆呃</td><td>雷后兴</td><td>无</td><td >食凉茶+3份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >打伤</td><td>雷后兴</td><td>无</td><td >食凉茶+3份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >癫狗咬伤</td><td>雷后兴</td><td>无</td><td >食凉茶+3份_狗血+1份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >石锋割伤</td><td>雷后兴</td><td>无</td><td >食凉茶+3份_鸡血+1份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >鼓胀</td><td>雷后兴</td><td>无</td><td >食凉茶+3份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >癥瘕</td><td>雷后兴</td><td>无</td><td >食凉茶+3份_鸭血+1份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						<tr><td >烧伤</td><td>雷后兴</td><td>无</td><td >食凉茶+3份</td><td ><a href="#" target="_blank">详情</a>&nbsp;&nbsp;&nbsp;</td></tr>
-						
-							</tbody>
-					       </table>
-					       
+					      
 					       
 					       
 						

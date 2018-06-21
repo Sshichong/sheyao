@@ -98,4 +98,10 @@ public class IllnessServiceImp implements IllnessService {
 		return all;
 	}
 
+	@Override
+	public List<Illness> findIllnessByType(String type) {
+		// TODO Auto-generated method stub
+		return illnessMapper.findIllnessByType(type);
+	}
+
 }

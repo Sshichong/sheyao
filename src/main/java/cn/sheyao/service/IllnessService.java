@@ -10,4 +10,6 @@ public interface IllnessService {
 
 	List<List<Illness>> findIllness();
 
+	List<Illness> findIllnessByType(String type);
+
 }

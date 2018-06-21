@@ -12,6 +12,10 @@ select * from illness where Illness_ID=#{illnessId}
 select * from illness
 </select>
 
+<select id="findIllnessByType" resultMap="IllnessList">
+select * from illness where Illness_admin=#{type}
+</select>
+
 
 <resultMap type="cn.sheyao.pojo.Illness" id="IllnessList">
 	<result property="Illness_ID" column="Illness_ID"/>
