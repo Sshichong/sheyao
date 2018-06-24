@@ -11,4 +11,6 @@ public interface TimeTaskService {
 
 	void updateDoctorount(Map<Integer, Integer> map);
 
+	void updateIllnesscount(Map<Integer, Integer> map);
+
 }

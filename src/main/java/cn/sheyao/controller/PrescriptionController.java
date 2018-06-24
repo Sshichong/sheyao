@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,8 @@ import cn.sheyao.pojo.Prescription;
 import cn.sheyao.service.IllnessService;
 import cn.sheyao.service.MedicineService;
 import cn.sheyao.service.PrescriptionService;
+import cn.sheyao.service.TimeTaskService;
+import cn.sheyao.tools.ChangePrescriptions;
 
 @Controller
 public class PrescriptionController {
@@ -28,6 +31,11 @@ public class PrescriptionController {
 	
 	@Autowired
 	PrescriptionService prescriptionService;
+	
+	@Autowired
+	TimeTaskService timeTaskService;
+	
+	public static final Map<Integer,Integer> map =new HashMap<Integer,Integer>();
 	
 	@RequestMapping("/toPrescription")
 	public String toPrescription(Model model) {
@@ -76,7 +84,7 @@ public class PrescriptionController {
 		}
 		model.addAttribute("illness",illness);
 		model.addAttribute("map",map);
-		return "prescription";
+		return "prescription1";
 	}
 	
 	@RequestMapping("/IllnessType")
@@ -134,17 +142,112 @@ public class PrescriptionController {
 		model.addAttribute("type",type);
 		model.addAttribute("typeMap",TypeMap);
 		model.addAttribute("illness",illness);
-		return "prescription";
+		return "prescription1";
 	}
 	
-	@RequestMapping("/Prescriptionxiangqing")
-	public String Prescriptionxiangqing() {
-		return "prescriptionxiangqing";
+	@RequestMapping("/QueryPrescription")
+	public String QueryPrescription(String illnessId,Model model){
+		//侧边栏
+		List<List<Illness>> illness =illnessService.findIllness();
+		
+		//根据illnessId查询相应病症
+		List<Illness> illnesses =illnessService.findByIllnessId(Integer.parseInt(illnessId));
+		Illness i =illnesses.get(0);
+		
+		//在prescription表中进行模糊查询
+		List<Prescription> prescriptions=prescriptionService.findByIllnessId(illnessId);
+		
+		/*ChangePrescriptions cp =new ChangePrescriptions();
+		prescriptions = cp.changePrescriptions(prescriptions);*/
+		//查询到药方进行遍历
+		for(int j=0;j<prescriptions.size();j++) {
+			StringBuffer sb =new StringBuffer();
+			//以“_”进行分割
+			String []ps =prescriptions.get(j).getPrescription_particulars().split("_");
+			//对每个部分进行遍历
+			for(int t=0;t<ps.length;t++) {
+				//按照“+”进行分割
+				String []p=ps[t].split("\\+");
+				if(p[0].matches("[0-9]+")) {
+					List<Medicine> medicines=medicineService.findMedicineById(Integer.parseInt(p[0]));
+					Medicine medicine =medicines.get(0);
+					sb.append("<a href='/sheyao/QueryById?id=").append(medicine.getMedicine_ID()).append("'>").append(medicine.getMedicine_name()).append("</a>").append("配").append(p[1]);
+				}else {
+					sb.append(p[0]).append("配").append(p[1]);
+				}
+				if(t==ps.length-1) {
+					sb.append("");
+				}else {
+					sb.append("，");
+				}
+			}
+			prescriptions.get(j).setPrescription_particulars(sb.toString());
+			
+		}
+		
+		
+		//记录病症的查询次数
+		//把此条被查询记录的次数放入hashmap
+				if(map.isEmpty()) { //第一次启动服务器时，map为空，查询时put进map
+					map.put(Integer.parseInt(illnessId), 1);
+				}else {  //第二次操作时，先判断是否在map集合内，则id1是否等于某个key值，没有则put，有则修改count值
+					Integer count=1;  //设count的初始值为1
+					for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+						if(entry.getKey().equals(Integer.parseInt(illnessId))) {  //看是否有键值与id1相等的value值，若有则count自加再跳出循环
+							 count =(Integer)entry.getValue();
+							count++;
+							break;
+						}
+						
+					}
+					//得到的count值put进map覆盖掉之前的，若在map中没有找到相对应的map，则新put进map
+					//此句放在遍历语句中会报错
+					map.put(Integer.parseInt(illnessId), count);
+				}
+	
+		model.addAttribute("illness_one", i);
+		model.addAttribute("illness_p",prescriptions);
+		model.addAttribute("illness",illness);
+		return "prescription1";
 	}
 	
-	@RequestMapping("/Prescriptionmore")
-	public String Prescriptionmore() {
-		return "prescription_more";
+	@RequestMapping("/Prescription_more")
+	public String Prescription_more(String key,Model model) {
+		//侧边栏
+		List<List<Illness>> illness =illnessService.findIllness();
+		
+		//根据关键字查病症
+		List<Illness> illnesses =illnessService.findIllnessByKey(key);
+		
+		int size=0;
+		model.addAttribute("illness",illness);
+		//判断
+		if(illnesses.size()==1) {//只查到一条记录
+			return "rediect:/QueryPrescription?illnessId="+illnesses.get(0).getIllness_ID();
+		}else if(illnesses.isEmpty()) {//为空
+			model.addAttribute("size","0");
+			return "prescription_more";
+		}else {//查到多条记录
+			size = illnesses.size();
+			model.addAttribute("key",key);
+			model.addAttribute("size",String.valueOf(size));
+			model.addAttribute("illness_more",illnesses);
+			return "prescription_more";
+		}
 	}
+	
+	//定时
+		//@Scheduled(cron = "0 30 22 ? * *")
+		@Scheduled(cron = "*/5 * * * * ?")
+		public void MedicineTimerTask() {
+			
+			timeTaskService.updateIllnesscount(map);
+			
+		}
+		
+		@RequestMapping("/p")
+		public String p() {
+			return "prescription1";
+		}
 
 }

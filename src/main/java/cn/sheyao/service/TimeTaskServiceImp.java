@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import cn.sheyao.mapper.TimeTaskMapper;
 import cn.sheyao.pojo.Doctorcount;
+import cn.sheyao.pojo.Illnesscount;
 import cn.sheyao.pojo.Medicinecount;
 
 @Service
@@ -57,6 +58,28 @@ public class TimeTaskServiceImp implements TimeTaskService {
 				timeTaskMapper.saveDoctorRecord(id,count);
 			}else {   //有做更新操作
 				timeTaskMapper.updateDoctorRecord(id,count);
+			}
+		}
+		
+	}
+
+
+
+	@Override
+	public void updateIllnesscount(Map<Integer, Integer> map) {
+		// TODO Auto-generated method stub
+		Iterator iter =map.entrySet().iterator();
+		while(iter.hasNext()) {
+			Map.Entry<Integer, Integer> entry =(Map.Entry)iter.next();
+			Integer id =entry.getKey();
+			Integer count =entry.getValue();
+			
+			//查找表中有无id的记录
+			List<Illnesscount> illnesscout =timeTaskMapper.findRecordByIllnessId(id);
+			if(illnesscout.size()==0) {
+				timeTaskMapper.saveIllnessRecord(id,count);
+			}else {
+				timeTaskMapper.updateIllnessRecord(id,count);
 			}
 		}
 		

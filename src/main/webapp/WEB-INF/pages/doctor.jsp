@@ -330,7 +330,6 @@ Map<Illness,List<Prescription>> illnessAndprescription =(Map<Illness,List<Prescr
 				<div style="border:1px #A9A9A9 none; width:100%; height:100px;padding-bottom:100px">
 				<%
 				
-				//for(Map<Illness,List<Prescription>> illnessAndprescription_one:illnessAndprescription){
 					Iterator iter =illnessAndprescription.entrySet().iterator();
 					while(iter.hasNext()){
 						Map.Entry<Illness,List<Prescription>> entry = (Map.Entry)iter.next();
@@ -346,16 +345,8 @@ Map<Illness,List<Prescription>> illnessAndprescription =(Map<Illness,List<Prescr
 							//sb.append(prescriptions.get(i).getPrescription_particulars()).append("\n");%>
 							<p><%=prescriptions.get(i).getPrescription_particulars() %></p><br>
 							
-					<%	}
-						
-				
-						
+					<%	}	
 					}
-					
-				//}
-				
-				
-				
 				%>
 				
 				</div>

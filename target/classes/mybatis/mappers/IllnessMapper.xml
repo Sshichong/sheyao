@@ -16,6 +16,18 @@ select * from illness
 select * from illness where Illness_admin=#{type}
 </select>
 
+<select id="findIllnessByKey" resultMap="IllnessList">
+select * from illness
+<where>
+		<if test="key!=null and key!=''">
+			Illness_name like CONCAT(CONCAT('%',#{key}),'%')
+			or
+			Illness_remark like CONCAT(CONCAT('%',#{key}),'%')
+		</if>
+
+</where>
+</select>
+
 
 <resultMap type="cn.sheyao.pojo.Illness" id="IllnessList">
 	<result property="Illness_ID" column="Illness_ID"/>

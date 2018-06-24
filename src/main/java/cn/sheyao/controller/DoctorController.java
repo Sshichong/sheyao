@@ -71,7 +71,7 @@ public class DoctorController {
 		model.addAttribute("map",map);
 		model.addAttribute("doctor",doctor);
 		
-		return "doctor";
+		return "doctor1";
 	}
 	
 	
@@ -116,7 +116,7 @@ public class DoctorController {
 		model.addAttribute("doctor",doctor);
 		model.addAttribute("doctor_StartWith",doctors);
 		
-		return "doctor";
+		return "doctor1";
 	}
 	
 	
@@ -206,7 +206,7 @@ public class DoctorController {
 		model.addAttribute("doctor",doctor);
 		
 		
-		return "doctor";
+		return "doctor1";
 	}
 	
 	
@@ -226,7 +226,7 @@ public class DoctorController {
 			//model.addAttribute("size","1");
 			//model.addAttribute("doctor_one",doctor_more.get(0));
 			
-			return "redirect:/toDoctor/QueryDoctorById?id="+id;
+			return "redirect:/QueryDoctorById?id="+id;
 		}else if(doctor_more.size()>1) {//多条记录
 			int size =doctor_more.size();
 			
@@ -234,14 +234,14 @@ public class DoctorController {
 			model.addAttribute("size",String.valueOf(size));
 			model.addAttribute("key",key);
 			
-			return "doctor_more";
+			return "doctor_more1";
 			
 		}else {//0条记录
 			model.addAttribute("doctor_more",null);
 			model.addAttribute("size","0");
 			model.addAttribute("key",key);
 			
-			return "doctor_more";
+			return "doctor_more1";
 			
 		}
 		
@@ -253,6 +253,12 @@ public class DoctorController {
 		
 		timeTaskService.updateDoctorount(map);
 		
+	}
+	
+	
+	@RequestMapping("doctor1")
+	public String doctor1() {
+		return "doctor1";
 	}
 
 }

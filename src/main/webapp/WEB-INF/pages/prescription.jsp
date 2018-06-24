@@ -118,6 +118,9 @@ List<List<Illness>> illness = (List<List<Illness>>)request.getAttribute("illness
 Map<Integer,List<Prescription>> map =(Map)request.getAttribute("map");
 Map<Illness,List<Prescription>> typeMap =(Map)request.getAttribute("typeMap");
 String type=(String)request.getAttribute("type");
+Illness illness_one =(Illness)request.getAttribute("illness_one");
+List<Prescription> illness_p=(List)request.getAttribute("illness_p");
+
 %>
 
 
@@ -137,8 +140,14 @@ String type=(String)request.getAttribute("type");
 			
 			<%
 			for(int i=0;i<illness.get(0).size();i++){
+				StringBuffer sb =new StringBuffer();
+				if(!(illness.get(0).get(i).getIllness_remark().equals("")||illness.get(0).get(i).getIllness_remark()==null)){
+				sb.append(illness.get(0).get(i).getIllness_name()).append("(").append(illness.get(0).get(i).getIllness_remark()).append(")");
+				}else{
+					sb.append(illness.get(0).get(i).getIllness_name());
+				}
 			%>
-				<a href="QueryDoctorById?id=1" style="margin-left:20px"><%=illness.get(0).get(i).getIllness_name()%></a><br>
+				<a href="QueryPrescription?illnessId=<%=illness.get(0).get(i).getIllness_ID() %>" style="margin-left:20px"><%=sb%></a><br>
 		<%	}
 			%>
 			</details>
@@ -371,7 +380,31 @@ String type=(String)request.getAttribute("type");
 		<%}
 		%>
 		
-		
+		<div class="pos" style="width:200px;float:left">
+				<p class="word1" style="margin-top:5px;margin-bottom:5px">
+					发烧
+					</p>
+					<p>内科</p>
+					
+				</div>	
+				
+				
+				<div class=pos1 style="clear:both">
+				<p class="word2">具体用法：</p>
+				<div style="border:1px #A9A9A9 none; width:100%; height:100px">
+				食凉茶+1份_鲜猪油+3份
+				</div>
+				</div>
+				<div class=pos1 style="margin-top:40px;margin-bottom:50px">
+				<p class="word2">献方畲医：</p>
+				雷后兴
+				</div>
+				
+				
+				<div class=pos1 style="margin-top:40px;margin-bottom:50px">
+				<p class="word2">药方来源：</p>
+				无
+				</div>
 					       
 					      
 					       

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sheyao.mapper.StatisticsMapper">
+<!-- medicinecount表 -->
+
+<select id="findMedicineTopEight" resultMap="MedicinecoutList">
+SELECT * FROM medicinecount  ORDER BY viewstime DESC LIMIT 0 , 8
+</select>
+
+
+
+<resultMap type="cn.sheyao.pojo.Medicinecount" id="MedicinecoutList">
+	<result property="MedicineId" column="MedicineId"/>
+ 	<result property="viewstime" column="viewstime"/>
+</resultMap>
+
+
+<!-- doctorcount表 -->
+
+<select id="findDoctorTopEight" resultMap="DoctorcoutList">
+SELECT * FROM doctorcount  ORDER BY viewstime DESC LIMIT 0 , 8
+</select>
+
+
+<resultMap type="cn.sheyao.pojo.Doctorcount" id="DoctorcoutList">
+	<result property="DoctorId" column="DoctorId"/>
+ 	<result property="viewstime" column="viewstime"/>
+</resultMap>
+
+<!-- illnesscount表 -->
+
+<select id="findIllnessTopEight" resultMap="IllnesscoutList">
+SELECT * FROM illnesscount  ORDER BY viewstime DESC LIMIT 0 , 8
+</select>
+
+<resultMap type="cn.sheyao.pojo.Illnesscount" id="IllnesscoutList">
+	<result property="IllnessId" column="IllnessId"/>
+ 	<result property="viewstime" column="viewstime"/>
+</resultMap>
+
+
+</mapper>

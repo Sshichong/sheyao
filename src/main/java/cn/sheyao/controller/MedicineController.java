@@ -39,7 +39,7 @@ public class MedicineController {
 		//System.out.println(medicine.get(1).toString());
 		model.addAttribute("medicine_date",medicine_Date);
 		model.addAttribute("medicine",medicine);
-		return "sheyao";
+		return "sheyao1";
 	}
 	
 	@RequestMapping("QueryByType")
@@ -52,7 +52,7 @@ public class MedicineController {
 		List<Medicine> medicine=medicineService.findMedicine();
 		model.addAttribute("medicine",medicine);
 		model.addAttribute("medicine_type",medicine_Type);
-		return "sheyao";
+		return "sheyao1";
 	}
 	
 	
@@ -89,7 +89,7 @@ public class MedicineController {
 		System.out.println(medicine_one.get(0).toString());
 		model.addAttribute("medicine",medicine);
 		model.addAttribute("medicine_one",medicine_one.get(0));
-		return "sheyao";
+		return "sheyao1";
 	}
 	
 	
@@ -107,21 +107,21 @@ public class MedicineController {
 			int id =medicine_one.getMedicine_ID();
 			//model.addAttribute("medicine_one",medicine_more.get(0));
 			//model.addAttribute("size","1");
-			return "redirect:/toMedicine/QueryById?id="+id;
+			return "redirect:/QueryById?id="+id;
 		}else if(medicine_more.size()>1) {
 			int size =medicine_more.size();
 			model.addAttribute("medicine_more",medicine_more);
 			model.addAttribute("size",String.valueOf(size));
 			model.addAttribute("key",key);
 			
-			return "sheyao_more";
+			return "sheyao_more1";
 			
 		}else {
 			model.addAttribute("medicine_more",null);
 			model.addAttribute("size","0");
 			model.addAttribute("key",key);
 			
-			return "sheyao_more";
+			return "sheyao_more1";
 		}
 		
 		
@@ -138,6 +138,8 @@ public class MedicineController {
 		
 	}
 	
+	
+
 	
 }
 

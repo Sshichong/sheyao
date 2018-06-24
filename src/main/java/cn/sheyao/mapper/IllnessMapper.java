@@ -14,4 +14,6 @@ public interface IllnessMapper {
 
 	List<Illness> findIllnessByType(@Param("type")String type);
 
+	List<Illness> findIllnessByKey(@Param("key")String key);
+
 }

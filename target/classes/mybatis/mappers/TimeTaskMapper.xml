@@ -38,6 +38,18 @@ update Doctorcount set viewstime = #{count} where DoctorId = #{id}
 	<result property="DoctorId" column="DoctorId"/>
  	<result property="viewstime" column="viewstime"/>
 </resultMap>
-
-
+<!--############################Illnesscount表查询########################################-->
+<select id="findRecordByIllnessId" resultMap="IllnesscountList">
+select * from illnesscount where IllnessId=#{id}
+</select>
+<insert id="saveIllnessRecord">
+	insert into illnesscount (IllnessId,viewstime) values (id,count)
+</insert>
+<update id="updateIllnessRecord">
+update illnesscount set viewstime =#{count} where IllnessId =#{id}
+</update>
+<resultMap type="cn.sheyao.pojo.Illnesscount" id="IllnesscountList">
+	<result property="IllnessId" column="IllnessId"/>
+ 	<result property="viewstime" column="viewstime"/>
+</resultMap>
 </mapper>

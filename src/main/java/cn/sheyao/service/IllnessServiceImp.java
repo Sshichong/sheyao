@@ -32,6 +32,7 @@ public class IllnessServiceImp implements IllnessService {
 		List<Illness> Pediatrics=new ArrayList(); //儿科
 		List<Illness> FiveSenses=new ArrayList();//五官科
 		List<Illness> Measles=new ArrayList(); //痧症科
+		List<Illness> Snakebite =new ArrayList();//蛇伤科
 		List<Illness> Rheumatic = new ArrayList(); //风湿与关节疾病
 		List<Illness> Respiration=new ArrayList(); //呼吸科
 		List<Illness> Digestive =new ArrayList();//消化科
@@ -61,6 +62,8 @@ public class IllnessServiceImp implements IllnessService {
 				FiveSenses.add(illness.get(i));
 			}else if(illness.get(i).getIllness_admin().equals("痧症科")) {
 				Measles.add(illness.get(i));
+			}else if(illness.get(i).getIllness_admin().equals("蛇伤科")) {
+				Snakebite.add(illness.get(i));
 			}else if(illness.get(i).getIllness_admin().equals("风湿与关节疾病")) {
 				Rheumatic.add(illness.get(i));
 			}else if(illness.get(i).getIllness_admin().equals("呼吸科")) {
@@ -86,6 +89,7 @@ public class IllnessServiceImp implements IllnessService {
 		all.add(Pediatrics);
 		all.add(FiveSenses);
 		all.add(Measles);
+		all.add(Snakebite);
 		all.add(Rheumatic);
 		all.add(Respiration);
 		all.add(Digestive);
@@ -102,6 +106,12 @@ public class IllnessServiceImp implements IllnessService {
 	public List<Illness> findIllnessByType(String type) {
 		// TODO Auto-generated method stub
 		return illnessMapper.findIllnessByType(type);
+	}
+
+	@Override
+	public List<Illness> findIllnessByKey(String key) {
+		// TODO Auto-generated method stub
+		return illnessMapper.findIllnessByKey(key);
 	}
 
 }
