@@ -357,11 +357,11 @@ String size =(String)request.getAttribute("size");
 		</div>
 
 		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
-		<script src="assets/js/myscript.js"></script>
+		<script src="${ctx }/staticfile/assets/js/bootstrap.min.js"></script>
+		<script src="${ctx }/staticfile/assets/js/myscript.js"></script>
 		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
-		<script src="assets/js/myscript.js"></script>
+		<script src="${ctx }/staticfile/assets/js/bootstrap.min.js"></script>
+		<script src="${ctx }/staticfile/assets/js/myscript.js"></script>
 		<script type="text/javascript">
 			$(function() {
 				$(".subNav").click(function() {

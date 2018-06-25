@@ -11,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.sheyao.pojo.Doctor1;
 import cn.sheyao.pojo.Illness;
 import cn.sheyao.pojo.Medicine;
 import cn.sheyao.pojo.Prescription;
+import cn.sheyao.service.DoctorService;
 import cn.sheyao.service.IllnessService;
 import cn.sheyao.service.MedicineService;
 import cn.sheyao.service.PrescriptionService;
@@ -34,6 +36,9 @@ public class PrescriptionController {
 	
 	@Autowired
 	TimeTaskService timeTaskService;
+	
+	@Autowired
+	DoctorService doctorService;
 	
 	public static final Map<Integer,Integer> map =new HashMap<Integer,Integer>();
 	
@@ -75,6 +80,27 @@ public class PrescriptionController {
 						}
 						
 					}
+					
+					if(!(p.get(t).getDoctor_ID()==null||p.get(t).getDoctor_ID().equals(""))) {
+					StringBuffer sbb =new StringBuffer();
+					//"_"分割doctorid
+					
+					String []ds =p.get(t).getDoctor_ID().split("_");
+					
+					for(int b=0;b<ds.length;b++) {
+						List<Doctor1> doctors = doctorService.findDoctorById(Integer.parseInt(ds[b]));
+						if(b==ds.length-1) {
+							sbb.append("<a href='/sheyao/QueryDoctorById?id=").append(doctors.get(0).getDoctor_ID())
+							.append("'>").append(doctors.get(0).getDoctor_name()).append("</a>");
+						}else {
+							sbb.append("<a href='/sheyao/QueryDoctorById?id=").append(doctors.get(0).getDoctor_ID())
+							.append("'>").append(doctors.get(0).getDoctor_name()).append("</a>").append(",");
+						}
+					}
+					p.get(t).setDoctor_ID(sbb.toString());
+					}
+					
+					
 					p.get(t).setPrescription_particulars(sb.toString());//对原有的药方进行覆盖
 					
 				}
@@ -132,6 +158,22 @@ public class PrescriptionController {
 						sb.append("，");
 					}
 				}
+				
+				StringBuffer sbb =new StringBuffer();
+				//"_"分割doctorid
+				String []ds =prescriptions.get(j).getDoctor_ID().split("_");
+				
+				for(int a=0;a<ds.length;a++) {
+					List<Doctor1> doctors = doctorService.findDoctorById(Integer.parseInt(ds[a]));
+					if(a==ds.length-1) {
+						sbb.append("<a href='/sheyao/QueryDoctorById?id=").append(doctors.get(0).getDoctor_ID())
+						.append("'>").append(doctors.get(0).getDoctor_name()).append("</a>");
+					}else {
+						sbb.append("<a href='/sheyao/QueryDoctorById?id=").append(doctors.get(0).getDoctor_ID())
+						.append("'>").append(doctors.get(0).getDoctor_name()).append("</a>").append(",");
+					}
+				}
+				prescriptions.get(j).setDoctor_ID(sbb.toString());
 				prescriptions.get(j).setPrescription_particulars(sb.toString());
 				
 			}
@@ -181,6 +223,22 @@ public class PrescriptionController {
 					sb.append("，");
 				}
 			}
+			
+			StringBuffer sbb =new StringBuffer();
+			//"_"分割doctorid
+			String []ds =prescriptions.get(j).getDoctor_ID().split("_");
+			
+			for(int a=0;a<ds.length;a++) {
+				List<Doctor1> doctors = doctorService.findDoctorById(Integer.parseInt(ds[a]));
+				if(a==ds.length-1) {
+					sbb.append("<a href='/sheyao/QueryDoctorById?id=").append(doctors.get(0).getDoctor_ID())
+					.append("'>").append(doctors.get(0).getDoctor_name()).append("</a>");
+				}else {
+					sbb.append("<a href='/sheyao/QueryDoctorById?id=").append(doctors.get(0).getDoctor_ID())
+					.append("'>").append(doctors.get(0).getDoctor_name()).append("</a>").append(",");
+				}
+			}
+			prescriptions.get(j).setDoctor_ID(sbb.toString());
 			prescriptions.get(j).setPrescription_particulars(sb.toString());
 			
 		}
@@ -223,16 +281,69 @@ public class PrescriptionController {
 		model.addAttribute("illness",illness);
 		//判断
 		if(illnesses.size()==1) {//只查到一条记录
-			return "rediect:/QueryPrescription?illnessId="+illnesses.get(0).getIllness_ID();
+			return "redirect:/QueryPrescription?illnessId="+illnesses.get(0).getIllness_ID();
 		}else if(illnesses.isEmpty()) {//为空
 			model.addAttribute("size","0");
-			return "prescription_more";
+			model.addAttribute("key",key);
+			return "prescription_more1";
 		}else {//查到多条记录
+			Map<Illness,List<Prescription>> map=new HashMap();
+			for(int i=0;i<illnesses.size();i++) {
+				String id =String.valueOf(illnesses.get(i).getIllness_ID());
+				List<Prescription> prescription =prescriptionService.findByIllnessId(id);
+				
+				//查询到药方进行遍历
+				for(int j=0;j<prescription.size();j++) {
+					StringBuffer sb =new StringBuffer();
+					//以“_”进行分割
+					String []ps =prescription.get(j).getPrescription_particulars().split("_");
+					//对每个部分进行遍历
+					for(int t=0;t<ps.length;t++) {
+						//按照“+”进行分割
+						String []p=ps[t].split("\\+");
+						if(p[0].matches("[0-9]+")) {
+							List<Medicine> medicines=medicineService.findMedicineById(Integer.parseInt(p[0]));
+							Medicine medicine =medicines.get(0);
+							sb.append("<a href='/sheyao/QueryById?id=").append(medicine.getMedicine_ID()).append("'>")
+							.append(medicine.getMedicine_name()).append("</a>").append("配").append(p[1]);
+						}else {
+							sb.append(p[0]).append("配").append(p[1]);
+						}
+						if(t==ps.length-1) {
+							sb.append("");
+						}else {
+							sb.append("，");
+						}
+					}
+					
+					StringBuffer sbb =new StringBuffer();
+					//"_"分割doctorid
+					String []ds =prescription.get(j).getDoctor_ID().split("_");
+					
+					for(int a=0;a<ds.length;a++) {
+						List<Doctor1> doctors = doctorService.findDoctorById(Integer.parseInt(ds[a]));
+						if(a==ds.length-1) {
+							sbb.append("<a href='/sheyao/QueryDoctorById?id=").append(doctors.get(0).getDoctor_ID())
+							.append("'>").append(doctors.get(0).getDoctor_name()).append("</a>");
+						}else {
+							sbb.append("<a href='/sheyao/QueryDoctorById?id=").append(doctors.get(0).getDoctor_ID())
+							.append("'>").append(doctors.get(0).getDoctor_name()).append("</a>").append(",");
+						}
+					}
+					prescription.get(j).setDoctor_ID(sbb.toString());
+					prescription.get(j).setPrescription_particulars(sb.toString());
+					
+				}
+				
+				map.put(illnesses.get(i), prescription);
+			}
+			
 			size = illnesses.size();
 			model.addAttribute("key",key);
 			model.addAttribute("size",String.valueOf(size));
 			model.addAttribute("illness_more",illnesses);
-			return "prescription_more";
+			model.addAttribute("map",map);
+			return "prescription_more1";
 		}
 	}
 	

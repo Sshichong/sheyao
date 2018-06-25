@@ -21,11 +21,11 @@
 	</head>
 	<%
 List<List<Illness>> illness = (List<List<Illness>>)request.getAttribute("illness");
-Map<Integer,List<Prescription>> map =(Map)request.getAttribute("map");
-Map<Illness,List<Prescription>> typeMap =(Map)request.getAttribute("typeMap");
-String type=(String)request.getAttribute("type");
-Illness illness_one =(Illness)request.getAttribute("illness_one");
-List<Prescription> illness_p=(List)request.getAttribute("illness_p");
+List<Illness> illnesses =(List<Illness>)request.getAttribute("illnesses");
+String size =(String)request.getAttribute("size");
+String key =(String)request.getAttribute("key");
+Map<Illness,List<Prescription>> map=(Map)request.getAttribute("map");
+
 
 %>
 	<style>
@@ -126,13 +126,26 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 
 			</div>
 			<div class="input-group custom-search-form" style="margin-left: 20px;margin-right: 20px;">
-				<input type="text" class="form-control" placeholder="Search...">
+				<input type="text" class="form-control" placeholder="Search..." id="key" name="key" >
 				<span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
+                                <button class="btn btn-default" type="button" onclick="check()">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </span>
 			</div>
+			 <script type="text/javascript">
+              function check(){ 
+            	    var key=document.getElementById("key").value; 
+
+            	if(key == "" ){ 
+            	    alert("请输入关键字！"); 
+            	    return false; 
+            	} 
+            	
+            	window.location.href ='/sheyao/Prescription_more?key='+key;
+            	}
+              
+              </script>       
 		</nav>
 
 		<!-- Main Page -->
@@ -430,657 +443,78 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 
 <div class="container textstyle" style="width: 80%;float: left;">
 
-<%
-if(type!=null){%>
 <div style="margin-top:-80px">
-	<h1 style="display: inline-block; margin-top: 0px;"><%=type %></h1>
+	查询到有关<h3 style="display: inline-block; margin-top: 0px;"><%=key %></h3>的记录共<%=size %>条
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
-							Iterator iter =typeMap.entrySet().iterator();
+							if(!size.equals("0")){
+							Iterator iter =map.entrySet().iterator();
 							while(iter.hasNext()){
 								StringBuffer sb =new StringBuffer();
-								StringBuffer sbb=new StringBuffer();
+								StringBuffer sbb = new StringBuffer();
+								StringBuffer sbname =new StringBuffer();
 								Map.Entry<Illness,List<Prescription>> entry =(Map.Entry)iter.next();
-								for(int i=0;i<entry.getValue().size();i++){
-									sb.append(entry.getValue().get(i).getPrescription_particulars()).append("<br>");
-									if(entry.getValue().get(i).getPrescription_source()==null){
-										sbb.append("").append("<br>");
+								Illness ill=entry.getKey();
+								if(!(ill.getIllness_remark().equals("")||ill.getIllness_remark()==null)){
+									sbname.append(ill.getIllness_name()).append("(").append(ill.getIllness_remark()).append(")");
 									}else{
-										sbb.append(entry.getValue().get(i).getPrescription_source()).append("<br>");
+										sbname.append(ill.getIllness_name());
 									}
-							}%>
+								List<Prescription> p =entry.getValue();
+								for(int i=0;i<p.size();i++){
+									/* if(i==p.size()-1){
+										sb.append(p.get(i).getPrescription_particulars());
+									}else{
+										sb.append(p.get(i).getPrescription_particulars()).append("<br>");
+									}
+									if(p.get(i).getPrescription_source().isEmpty()&&p.get(i).getDoctor_ID().isEmpty()){
+										sbb.append("").append("<br>");
+									}else if(p.get(i).getIllness_ID().isEmpty()){
+										sbb.append(p.get(i).getPrescription_source()).append("<br>");
+									}else{
+										sbb.append(p.get(i).getDoctor_ID()).append(",").append(p.get(i).getPrescription_source())
+										.append("<br>");
+									} */
+									if(i==p.size()-1){
+										sb.append(p.get(i).getPrescription_particulars());
+									}else{
+										sb.append(p.get(i).getPrescription_particulars()).append("<br>");
+									}
+									if(!(p.get(i).getPrescription_source()==null||p.get(i).getPrescription_source().equals(""))
+											&&!(p.get(i).getDoctor_ID()==null||p.get(i).getDoctor_ID().equals(""))){
+										sbb.append(p.get(i).getDoctor_ID()).append(",").append(p.get(i).getPrescription_source())
+										.append("<br>");
+									}else if((p.get(i).getIllness_ID()==null||p.get(i).getIllness_ID().equals(""))){
+										sbb.append(p.get(i).getPrescription_source()).append("<br>");
+									}else{
+										sbb.append("").append("<br>");
+									} 
+									
+								}%>
 								<tr>
-								<td width="15%"><a><%=entry.getKey().getIllness_name()%></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb%></a></td>
+								<td width="15%"><a href="QueryPrescription?illnessId=<%=entry.getKey().getIllness_ID()%>"><%=sbname %></a></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 								
 							</tr>
-							<%}
+								
+						<%	}
+							}
 							%>
+								
+							
 						</table>
 			</div>
 	
-<%}else if(illness_one!=null){%>
-	<div style="background: white;float: left;width: 100%;margin-top:-80px">
-					<h1 style="display: inline-block; margin-top: 0px;"><%=illness_one.getIllness_name() %></h1>
 
-					<div >
-						<p align="left">病方：</p>
-						<table class="table">
-						<%
-						for(int i=0;i<illness_p.size();i++){
-							StringBuffer sb =new StringBuffer();
-							StringBuffer sbb =new StringBuffer();
-							sb.append(illness_p.get(i).getPrescription_particulars()).append("<br>");
-							sbb.append(illness_p.get(i).getPrescription_source()).append("<br>");%>
-							<tr>
-								<td width="15%"><%=illness_one.getIllness_name() %></td>
-								<td width="70%"><%=sb %></td>
-								<td width="15%"><%=sbb %></td>
-							</tr>
-						<%}
-						%>
-							
-						</table>
-					</div>
-				</div>
 
-				<div style="clear: both;">
-					<p align="left">图片显示：</p>
 
-					<div class="row">
-						<!--
-                    	作者：58901774@qq.com
-                    	时间：2018-06-22
-                    	描述：一块一块的显示
-                   -->
-						<div class="col-sm-6 col-md-4">
-							<a href="#">
-								<div class="thumbnail">
-									<img src="${ctx }/staticfile/assets/images/1.jpg">
-									<div class="caption">
-										<p>描述</p>
-									</div>
-								</div>
-							</a>
-						</div>
 
-						<div class="col-sm-6 col-md-4">
-							<a href="#">
-								<div class="thumbnail">
-									<img src="${ctx }/staticfile/assets/images/1.jpg">
-									<div class="caption">
-										<p>描述</p>
-									</div>
-								</div>
-							</a>
-						</div>
-						
-						<div class="col-sm-6 col-md-4">
-							<a href="#">
-								<div class="thumbnail">
-									<img src="${ctx }/staticfile/assets/images/1.jpg">
-									<div class="caption">
-										<p>描述</p>
-									</div>
-								</div>
-							</a>
-						</div>
-
-					</div>
-				</div>
-<%}else{%>
-<div style="margin-top:-80px">
-<!-- 内科 -->
-	<h1 style="display: inline-block; margin-top: 0px;">内科</h1>
-				<table class="table" >
-							<tr>
-								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
-							</tr>
-							<%
-							for(int i=0;i<illness.get(0).size();i++){
-							StringBuffer sb =new StringBuffer();
-							StringBuffer sbb =new StringBuffer();
-							Iterator iter =map.entrySet().iterator();
-							while(iter.hasNext()){
-								Map.Entry<Integer,List<Prescription>>  entry =(Map.Entry)iter.next();
-								if(entry.getKey().equals(illness.get(0).get(i).getIllness_ID())){
-									
-									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
-									}
-									
-								}
-							}
-							
-							%>
-							<tr>
-								<td width="15%"><a><%=illness.get(0).get(i).getIllness_name() %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
-								
-							</tr>
-							<%}
-							%>
-						</table>
-						
-						<!-- 外科 -->
-						<h1 style="display: inline-block; margin-top: 0px;">外科</h1>
-				<table class="table" >
-							<tr>
-								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
-							</tr>
-							<%
-							for(int i=0;i<illness.get(1).size();i++){
-							StringBuffer sb =new StringBuffer();
-							StringBuffer sbb =new StringBuffer();
-							Iterator iter =map.entrySet().iterator();
-							while(iter.hasNext()){
-								Map.Entry<Integer,List<Prescription>>  entry =(Map.Entry)iter.next();
-								if(entry.getKey().equals(illness.get(1).get(i).getIllness_ID())){
-									
-									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
-									}
-									
-								}
-							}
-							
-							%>
-							<tr>
-								<td width="15%"><a><%=illness.get(1).get(i).getIllness_name() %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
-								
-							</tr>
-							<%}
-							%>
-						</table>
-						
-						<!--妇科  -->
-						<h1 style="display: inline-block; margin-top: 0px;">妇科</h1>
-				<table class="table" >
-							<tr>
-								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
-							</tr>
-							<%
-							for(int i=0;i<illness.get(2).size();i++){
-							StringBuffer sb =new StringBuffer();
-							StringBuffer sbb =new StringBuffer();
-							Iterator iter =map.entrySet().iterator();
-							while(iter.hasNext()){
-								Map.Entry<Integer,List<Prescription>>  entry =(Map.Entry)iter.next();
-								if(entry.getKey().equals(illness.get(2).get(i).getIllness_ID())){
-									
-									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
-									}
-									
-								}
-							}
-							
-							%>
-							<tr>
-								<td width="15%"><a><%=illness.get(2).get(i).getIllness_name() %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
-								
-							</tr>
-							<%}
-							%>
-						</table>
-						
-						<!--儿科  -->
-						<h1 style="display: inline-block; margin-top: 0px;">儿科</h1>
-				<table class="table" >
-							<tr>
-								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
-							</tr>
-							<%
-							for(int i=0;i<illness.get(3).size();i++){
-							StringBuffer sb =new StringBuffer();
-							StringBuffer sbb =new StringBuffer();
-							Iterator iter =map.entrySet().iterator();
-							while(iter.hasNext()){
-								Map.Entry<Integer,List<Prescription>>  entry =(Map.Entry)iter.next();
-								if(entry.getKey().equals(illness.get(3).get(i).getIllness_ID())){
-									
-									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
-									}
-									
-								}
-							}
-							
-							%>
-							<tr>
-								<td width="15%"><a><%=illness.get(3).get(i).getIllness_name() %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
-								
-							</tr>
-							<%}
-							%>
-						</table>
-						
-						<!-- 五官科 -->
-						<h1 style="display: inline-block; margin-top: 0px;">五官科</h1>
-				<table class="table" >
-							<tr>
-								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
-							</tr>
-							<%
-							for(int i=0;i<illness.get(4).size();i++){
-							StringBuffer sb =new StringBuffer();
-							StringBuffer sbb =new StringBuffer();
-							Iterator iter =map.entrySet().iterator();
-							while(iter.hasNext()){
-								Map.Entry<Integer,List<Prescription>>  entry =(Map.Entry)iter.next();
-								if(entry.getKey().equals(illness.get(4).get(i).getIllness_ID())){
-									
-									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
-									}
-									
-								}
-							}
-							
-							%>
-							<tr>
-								<td width="15%"><a><%=illness.get(4).get(i).getIllness_name() %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
-								
-							</tr>
-							<%}
-							%>
-						</table>
-						
-						<!-- 痧症科 -->
-						<h1 style="display: inline-block; margin-top: 0px;">痧症科</h1>
-				<table class="table" >
-							<tr>
-								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
-							</tr>
-							<%
-							for(int i=0;i<illness.get(5).size();i++){
-							StringBuffer sb =new StringBuffer();
-							StringBuffer sbb =new StringBuffer();
-							Iterator iter =map.entrySet().iterator();
-							while(iter.hasNext()){
-								Map.Entry<Integer,List<Prescription>>  entry =(Map.Entry)iter.next();
-								if(entry.getKey().equals(illness.get(5).get(i).getIllness_ID())){
-									
-									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
-									}
-									
-								}
-							}
-							
-							%>
-							<tr>
-								<td width="15%"><a><%=illness.get(5).get(i).getIllness_name() %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
-								
-							</tr>
-							<%}
-							%>
-						</table>
-						
-						<!-- 蛇伤科 -->
-						<h1 style="display: inline-block; margin-top: 0px;">蛇伤科</h1>
-				<table class="table" >
-							<tr>
-								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
-							</tr>
-							<%
-							for(int i=0;i<illness.get(6).size();i++){
-							StringBuffer sb =new StringBuffer();
-							StringBuffer sbb =new StringBuffer();
-							Iterator iter =map.entrySet().iterator();
-							while(iter.hasNext()){
-								Map.Entry<Integer,List<Prescription>>  entry =(Map.Entry)iter.next();
-								if(entry.getKey().equals(illness.get(6).get(i).getIllness_ID())){
-									
-									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
-									}
-									
-								}
-							}
-							
-							%>
-							<tr>
-								<td width="15%"><a><%=illness.get(6).get(i).getIllness_name() %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
-								
-							</tr>
-							<%}
-							%>
-						</table>
-						
-						<!-- 风湿与关节疾病 -->
-						<h1 style="display: inline-block; margin-top: 0px;">风湿与关节疾病</h1>
-				<table class="table" >
-							<tr>
-								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
-							</tr>
-							<%
-							for(int i=0;i<illness.get(7).size();i++){
-							StringBuffer sb =new StringBuffer();
-							StringBuffer sbb =new StringBuffer();
-							Iterator iter =map.entrySet().iterator();
-							while(iter.hasNext()){
-								Map.Entry<Integer,List<Prescription>>  entry =(Map.Entry)iter.next();
-								if(entry.getKey().equals(illness.get(7).get(i).getIllness_ID())){
-									
-									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
-									}
-									
-								}
-							}
-							
-							%>
-							<tr>
-								<td width="15%"><a><%=illness.get(7).get(i).getIllness_name() %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
-								
-							</tr>
-							<%}
-							%>
-						</table>
-						
-						<!-- 呼吸科 -->
-						<h1 style="display: inline-block; margin-top: 0px;">呼吸科</h1>
-				<table class="table" >
-							<tr>
-								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
-							</tr>
-							<%
-							for(int i=0;i<illness.get(8).size();i++){
-							StringBuffer sb =new StringBuffer();
-							StringBuffer sbb =new StringBuffer();
-							Iterator iter =map.entrySet().iterator();
-							while(iter.hasNext()){
-								Map.Entry<Integer,List<Prescription>>  entry =(Map.Entry)iter.next();
-								if(entry.getKey().equals(illness.get(8).get(i).getIllness_ID())){
-									
-									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
-									}
-									
-								}
-							}
-							
-							%>
-							<tr>
-								<td width="15%"><a><%=illness.get(8).get(i).getIllness_name() %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
-								
-							</tr>
-							<%}
-							%>
-						</table>
-						
-						<!-- 消化科 -->
-						<h1 style="display: inline-block; margin-top: 0px;">消化科</h1>
-				<table class="table" >
-							<tr>
-								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
-							</tr>
-							<%
-							for(int i=0;i<illness.get(9).size();i++){
-							StringBuffer sb =new StringBuffer();
-							StringBuffer sbb =new StringBuffer();
-							Iterator iter =map.entrySet().iterator();
-							while(iter.hasNext()){
-								Map.Entry<Integer,List<Prescription>>  entry =(Map.Entry)iter.next();
-								if(entry.getKey().equals(illness.get(9).get(i).getIllness_ID())){
-									
-									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
-									}
-									
-								}
-							}
-							
-							%>
-							<tr>
-								<td width="15%"><a><%=illness.get(9).get(i).getIllness_name() %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
-								
-							</tr>
-							<%}
-							%>
-						</table>
-						
-						<!-- 神经科 -->
-						<h1 style="display: inline-block; margin-top: 0px;">消化科</h1>
-				<table class="table" >
-							<tr>
-								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
-							</tr>
-							<%
-							for(int i=0;i<illness.get(10).size();i++){
-							StringBuffer sb =new StringBuffer();
-							StringBuffer sbb =new StringBuffer();
-							Iterator iter =map.entrySet().iterator();
-							while(iter.hasNext()){
-								Map.Entry<Integer,List<Prescription>>  entry =(Map.Entry)iter.next();
-								if(entry.getKey().equals(illness.get(10).get(i).getIllness_ID())){
-									
-									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
-									}
-									
-								}
-							}
-							
-							%>
-							<tr>
-								<td width="15%"><a><%=illness.get(10).get(i).getIllness_name() %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
-								
-							</tr>
-							<%}
-							%>
-						</table>
-						
-						
-						<!-- 泌尿生殖科 -->
-						<h1 style="display: inline-block; margin-top: 0px;">泌尿生殖科</h1>
-				<table class="table" >
-							<tr>
-								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
-							</tr>
-							<%
-							for(int i=0;i<illness.get(11).size();i++){
-							StringBuffer sb =new StringBuffer();
-							StringBuffer sbb =new StringBuffer();
-							Iterator iter =map.entrySet().iterator();
-							while(iter.hasNext()){
-								Map.Entry<Integer,List<Prescription>>  entry =(Map.Entry)iter.next();
-								if(entry.getKey().equals(illness.get(11).get(i).getIllness_ID())){
-									
-									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
-									}
-									
-								}
-							}
-							
-							%>
-							<tr>
-								<td width="15%"><a><%=illness.get(11).get(i).getIllness_name() %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
-								
-							</tr>
-							<%}
-							%>
-						</table>
-						
-						<!-- 皮肤科 -->
-						<h1 style="display: inline-block; margin-top: 0px;">皮肤科</h1>
-				<table class="table" >
-							<tr>
-								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
-							</tr>
-							<%
-							for(int i=0;i<illness.get(12).size();i++){
-							StringBuffer sb =new StringBuffer();
-							StringBuffer sbb =new StringBuffer();
-							Iterator iter =map.entrySet().iterator();
-							while(iter.hasNext()){
-								Map.Entry<Integer,List<Prescription>>  entry =(Map.Entry)iter.next();
-								if(entry.getKey().equals(illness.get(12).get(i).getIllness_ID())){
-									
-									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
-									}
-									
-								}
-							}
-							
-							%>
-							<tr>
-								<td width="15%"><a><%=illness.get(12).get(i).getIllness_name() %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
-								
-							</tr>
-							<%}
-							%>
-						</table>
-						
-						<!-- 传染科 -->
-						<h1 style="display: inline-block; margin-top: 0px;">传染科</h1>
-				<table class="table" >
-							<tr>
-								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
-							</tr>
-							<%
-							for(int i=0;i<illness.get(13).size();i++){
-							StringBuffer sb =new StringBuffer();
-							StringBuffer sbb =new StringBuffer();
-							Iterator iter =map.entrySet().iterator();
-							while(iter.hasNext()){
-								Map.Entry<Integer,List<Prescription>>  entry =(Map.Entry)iter.next();
-								if(entry.getKey().equals(illness.get(13).get(i).getIllness_ID())){
-									
-									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
-									}
-									
-								}
-							}
-							
-							%>
-							<tr>
-								<td width="15%"><a><%=illness.get(13).get(i).getIllness_name() %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
-								
-							</tr>
-							<%}
-							%>
-						</table>
-						
-						<!-- 其他 -->
-						<h1 style="display: inline-block; margin-top: 0px;">其他</h1>
-				<table class="table" >
-							<tr>
-								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
-							</tr>
-							<%
-							for(int i=0;i<illness.get(14).size();i++){
-							StringBuffer sb =new StringBuffer();
-							StringBuffer sbb =new StringBuffer();
-							Iterator iter =map.entrySet().iterator();
-							while(iter.hasNext()){
-								Map.Entry<Integer,List<Prescription>>  entry =(Map.Entry)iter.next();
-								if(entry.getKey().equals(illness.get(14).get(i).getIllness_ID())){
-									
-									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
-									}
-									
-								}
-							}
-							
-							%>
-							<tr>
-								<td width="15%"><a><%=illness.get(14).get(i).getIllness_name() %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
-								
-							</tr>
-							<%}
-							%>
-						</table>
-						
-						</div>
-		
-<%}
-%>
 
 	
 				</div>

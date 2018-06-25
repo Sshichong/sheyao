@@ -350,28 +350,40 @@ if(doctor_title!=null){%>
 					<h1 style="display: inline-block;"><%=doctor_one.getDoctor_name()%></h1>
 <!-- 					<h5 style="display: inline-block;">擅长病症</h5> -->
 					
+					
+					<p align="left">
+						出生日期：<%=doctor_one.getDoctor_Birth() %>
+					</p>
 					<p align="left">
 						简介：<%=doctor_one.getDoctor_introduce()%>
 
 					</p>
+					<%
+					StringBuffer sbname=new StringBuffer();
+					Iterator iter1 =illnessAndprescription.entrySet().iterator();
+					while(iter1.hasNext()){
+						Map.Entry<Illness,List<Prescription>> entry = (Map.Entry)iter1.next();
+						Illness illness =entry.getKey();
+						sbname.append(illness.getIllness_name()).append(" ");
+					}
+					%>
 					<p align="left">
-						出生日期：<%=doctor_one.getDoctor_Birth() %>
+						擅长：<%=sbname%>
+
 					</p>
 					
 					<div>
 						<p align="left">个人处方：</p>
 						<table class="table">
 						<%
-				
 					Iterator iter =illnessAndprescription.entrySet().iterator();
 						
 					while(iter.hasNext()){
 						Map.Entry<Illness,List<Prescription>> entry = (Map.Entry)iter.next();
 						Illness illness =entry.getKey();
 						List<Prescription> prescriptions =entry.getValue();
-						
 						StringBuffer sb =new StringBuffer();
-						//sb.append(illness.getIllness_name()).append(":");
+						if(!prescriptions.isEmpty()){
 						%>
 						<tr>
 						<td width="15%"><%=illness.getIllness_name() %></td>
@@ -382,7 +394,9 @@ if(doctor_title!=null){%>
 							
 						}%>	
 						<td width="85%"><p><%=sbb %></p></td>
-					<%}
+					<%
+						}
+					}
 				%>
 				</tr>
 							<!-- <tr>

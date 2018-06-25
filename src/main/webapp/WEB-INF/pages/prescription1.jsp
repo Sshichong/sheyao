@@ -126,13 +126,26 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 
 			</div>
 			<div class="input-group custom-search-form" style="margin-left: 20px;margin-right: 20px;">
-				<input type="text" class="form-control" placeholder="Search...">
+				<input type="text" class="form-control" placeholder="Search..." id="key" name="key" >
 				<span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
+                                <button class="btn btn-default" type="button" onclick="check()">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </span>
 			</div>
+			 <script type="text/javascript">
+              function check(){ 
+            	    var key=document.getElementById("key").value; 
+
+            	if(key == "" ){ 
+            	    alert("请输入关键字！"); 
+            	    return false; 
+            	} 
+            	
+            	window.location.href ='/sheyao/Prescription_more?key='+key;
+            	}
+              
+              </script> 
 		</nav>
 
 		<!-- Main Page -->
@@ -554,8 +567,8 @@ if(type!=null){%>
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
 							for(int i=0;i<illness.get(0).size();i++){
@@ -574,9 +587,41 @@ if(type!=null){%>
 								if(entry.getKey().equals(illness.get(0).get(i).getIllness_ID())){
 									
 									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
+// 										 List<Prescription> p = entry.getValue();
 										
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+// 										if(j==p.size()-1){
+// 											sb.append(p.get(j).getPrescription_particulars());
+// 										}else{
+// 											sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+// 										}
+// 										if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+// 												&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+// 											sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+// 											.append("<br>");
+// 										}else if((p.get(j).getIllness_ID()==null||p.get(j).getIllness_ID().equals(""))){
+// 											sbb.append(p.get(j).getPrescription_source()).append("<br>");
+// 										}else{
+// 											sbb.append("").append("<br>");
+// 										} 
+										 List<Prescription> p = entry.getValue();
+											
+											if(j==p.size()-1){
+												sb.append(p.get(j).getPrescription_particulars());
+											}else{
+												sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+											}
+											if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+													&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+												.append("<br>");
+											}else if((p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getPrescription_source()).append("<br>");
+											}else if(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals("")){
+												sbb.append(p.get(j).getDoctor_ID()).append("<br>");
+											}
+											else{
+												sbb.append("").append("<br>");
+											} 
 									}
 									
 								}
@@ -617,8 +662,27 @@ if(type!=null){%>
 								if(entry.getKey().equals(illness.get(1).get(i).getIllness_ID())){
 									
 									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+// 										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
+// 										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+										 List<Prescription> p = entry.getValue();
+											
+											if(j==p.size()-1){
+												sb.append(p.get(j).getPrescription_particulars());
+											}else{
+												sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+											}
+											if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+													&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+												.append("<br>");
+											}else if((p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getPrescription_source()).append("<br>");
+											}else if(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals("")){
+												sbb.append(p.get(j).getDoctor_ID()).append("<br>");
+											}
+											else{
+												sbb.append("").append("<br>");
+											} 
 									}
 									
 								}
@@ -627,8 +691,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(1).get(i).getIllness_ID()%>"><%=sbname %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
+								<td width="70%"><%=sb %></td>
+								<td width="15%"><%=sbb %></td>
 								
 							</tr>
 							<%}
@@ -1212,11 +1276,11 @@ if(type!=null){%>
 		</div>
 
 		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
-		<script src="assets/js/myscript.js"></script>
+		<script src="${ctx }/staticfile/assets/js/bootstrap.min.js"></script>
+		<script src="${ctx }/staticfile/assets/js/myscript.js"></script>
 		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
-		<script src="assets/js/myscript.js"></script>
+		<script src="${ctx }/staticfile/assets/js/bootstrap.min.js"></script>
+		<script src="${ctx }/staticfile/assets/js/myscript.js"></script>
 		<script type="text/javascript">
 			$(function() {
 				$(".subNav").click(function() {
