@@ -450,8 +450,8 @@ if(type!=null){%>
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
 							Iterator iter =typeMap.entrySet().iterator();
@@ -466,18 +466,36 @@ if(type!=null){%>
 										sbname.append(entry.getKey().getIllness_name());
 									}
 								for(int i=0;i<entry.getValue().size();i++){
-									
-									sbprescription.append(entry.getValue().get(i).getPrescription_particulars()).append("<br>");
-									if(entry.getValue().get(i).getPrescription_source()==null||entry.getValue().get(i).getPrescription_source()==""){
-										sbsource.append("").append("<br>");
-									}else{
-										sbsource.append(entry.getValue().get(i).getPrescription_source()).append("<br>");
-									}
+									 List<Prescription> p = entry.getValue();
+										
+										if(i==p.size()-1){
+											sbprescription.append(p.get(i).getPrescription_particulars());
+										}else{
+											sbprescription.append(p.get(i).getPrescription_particulars()).append("<br>");
+										}
+										if(!(p.get(i).getPrescription_source()==null||p.get(i).getPrescription_source().equals(""))
+												&&!(p.get(i).getDoctor_ID()==null||p.get(i).getDoctor_ID().equals(""))){
+											sbsource.append(p.get(i).getDoctor_ID()).append(",").append(p.get(i).getPrescription_source())
+											.append("<br>");
+										}else if((p.get(i).getDoctor_ID()==null||p.get(i).getDoctor_ID().equals(""))){
+											sbsource.append(p.get(i).getPrescription_source()).append("<br>");
+										}else if(p.get(i).getPrescription_source()==null||p.get(i).getPrescription_source().equals("")){
+											sbsource.append(p.get(i).getDoctor_ID()).append("<br>");
+										}
+										else{
+											sbsource.append("").append("<br>");
+										} 
+// 									sbprescription.append(entry.getValue().get(i).getPrescription_particulars()).append("<br>");
+// 									if(entry.getValue().get(i).getPrescription_source()==null||entry.getValue().get(i).getPrescription_source()==""){
+// 										sbsource.append("").append("<br>");
+// 									}else{
+// 										sbsource.append(entry.getValue().get(i).getPrescription_source()).append("<br>");
+// 									}
 							}%>
 								<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=entry.getKey().getIllness_ID()%>"><%=sbname%></a></td>
-								<td width="70%"><a><%=sbprescription %></a></td>
-								<td width="15%"><a><%=sbsource %></a></td>
+								<td width="55%"><a><%=sbprescription %></a></td>
+								<td width="30%"><a><%=sbsource %></a></td>
 								
 							</tr>
 							<%}
@@ -630,8 +648,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(0).get(i).getIllness_ID()%>"><%=sbname %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
+								<td width="55%"><a><%=sb %></a></td>
+								<td width="30%"><a><%=sbb %></a></td>
 								
 							</tr>
 							<%}
@@ -643,8 +661,8 @@ if(type!=null){%>
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
 							for(int i=0;i<illness.get(1).size();i++){
@@ -691,8 +709,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(1).get(i).getIllness_ID()%>"><%=sbname %></a></td>
-								<td width="70%"><%=sb %></td>
-								<td width="15%"><%=sbb %></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 								
 							</tr>
 							<%}
@@ -704,8 +722,8 @@ if(type!=null){%>
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
 							for(int i=0;i<illness.get(2).size();i++){
@@ -723,8 +741,27 @@ if(type!=null){%>
 								if(entry.getKey().equals(illness.get(2).get(i).getIllness_ID())){
 									
 									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+// 										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
+// 										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+										 List<Prescription> p = entry.getValue();
+											
+											if(j==p.size()-1){
+												sb.append(p.get(j).getPrescription_particulars());
+											}else{
+												sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+											}
+											if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+													&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+												.append("<br>");
+											}else if((p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getPrescription_source()).append("<br>");
+											}else if(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals("")){
+												sbb.append(p.get(j).getDoctor_ID()).append("<br>");
+											}
+											else{
+												sbb.append("").append("<br>");
+											} 
 									}
 									
 								}
@@ -733,8 +770,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(2).get(i).getIllness_ID()%>"><%=sbname %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 								
 							</tr>
 							<%}
@@ -746,8 +783,8 @@ if(type!=null){%>
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
 							for(int i=0;i<illness.get(3).size();i++){
@@ -765,8 +802,27 @@ if(type!=null){%>
 								if(entry.getKey().equals(illness.get(3).get(i).getIllness_ID())){
 									
 									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+// 										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
+// 										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+										 List<Prescription> p = entry.getValue();
+											
+											if(j==p.size()-1){
+												sb.append(p.get(j).getPrescription_particulars());
+											}else{
+												sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+											}
+											if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+													&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+												.append("<br>");
+											}else if((p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getPrescription_source()).append("<br>");
+											}else if(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals("")){
+												sbb.append(p.get(j).getDoctor_ID()).append("<br>");
+											}
+											else{
+												sbb.append("").append("<br>");
+											} 
 									}
 									
 								}
@@ -775,8 +831,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(3).get(i).getIllness_ID()%>"><%=sbname %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 								
 							</tr>
 							<%}
@@ -788,8 +844,8 @@ if(type!=null){%>
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
 							for(int i=0;i<illness.get(4).size();i++){
@@ -807,8 +863,27 @@ if(type!=null){%>
 								if(entry.getKey().equals(illness.get(4).get(i).getIllness_ID())){
 									
 									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+// 										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
+// 										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+										 List<Prescription> p = entry.getValue();
+											
+											if(j==p.size()-1){
+												sb.append(p.get(j).getPrescription_particulars());
+											}else{
+												sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+											}
+											if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+													&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+												.append("<br>");
+											}else if((p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getPrescription_source()).append("<br>");
+											}else if(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals("")){
+												sbb.append(p.get(j).getDoctor_ID()).append("<br>");
+											}
+											else{
+												sbb.append("").append("<br>");
+											} 
 									}
 									
 								}
@@ -817,8 +892,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(4).get(i).getIllness_ID()%>"><%=sbname %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 								
 							</tr>
 							<%}
@@ -830,8 +905,8 @@ if(type!=null){%>
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
 							for(int i=0;i<illness.get(5).size();i++){
@@ -849,8 +924,27 @@ if(type!=null){%>
 								if(entry.getKey().equals(illness.get(5).get(i).getIllness_ID())){
 									
 									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+// 										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
+// 										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+										 List<Prescription> p = entry.getValue();
+											
+											if(j==p.size()-1){
+												sb.append(p.get(j).getPrescription_particulars());
+											}else{
+												sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+											}
+											if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+													&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+												.append("<br>");
+											}else if((p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getPrescription_source()).append("<br>");
+											}else if(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals("")){
+												sbb.append(p.get(j).getDoctor_ID()).append("<br>");
+											}
+											else{
+												sbb.append("").append("<br>");
+											} 
 									}
 									
 								}
@@ -859,8 +953,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(5).get(i).getIllness_ID()%>"><%=sbname %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 								
 							</tr>
 							<%}
@@ -872,8 +966,8 @@ if(type!=null){%>
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
 							for(int i=0;i<illness.get(6).size();i++){
@@ -891,8 +985,27 @@ if(type!=null){%>
 								if(entry.getKey().equals(illness.get(6).get(i).getIllness_ID())){
 									
 									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+// 										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
+// 										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+										 List<Prescription> p = entry.getValue();
+											
+											if(j==p.size()-1){
+												sb.append(p.get(j).getPrescription_particulars());
+											}else{
+												sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+											}
+											if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+													&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+												.append("<br>");
+											}else if((p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getPrescription_source()).append("<br>");
+											}else if(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals("")){
+												sbb.append(p.get(j).getDoctor_ID()).append("<br>");
+											}
+											else{
+												sbb.append("").append("<br>");
+											} 
 									}
 									
 								}
@@ -901,8 +1014,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(6).get(i).getIllness_ID()%>"><%=sbname %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 								
 							</tr>
 							<%}
@@ -914,8 +1027,8 @@ if(type!=null){%>
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
 							for(int i=0;i<illness.get(7).size();i++){
@@ -933,8 +1046,27 @@ if(type!=null){%>
 								if(entry.getKey().equals(illness.get(7).get(i).getIllness_ID())){
 									
 									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+// 										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
+// 										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+										 List<Prescription> p = entry.getValue();
+											
+											if(j==p.size()-1){
+												sb.append(p.get(j).getPrescription_particulars());
+											}else{
+												sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+											}
+											if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+													&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+												.append("<br>");
+											}else if((p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getPrescription_source()).append("<br>");
+											}else if(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals("")){
+												sbb.append(p.get(j).getDoctor_ID()).append("<br>");
+											}
+											else{
+												sbb.append("").append("<br>");
+											} 
 									}
 									
 								}
@@ -943,8 +1075,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(7).get(i).getIllness_ID()%>"><%=sbname %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 								
 							</tr>
 							<%}
@@ -956,8 +1088,8 @@ if(type!=null){%>
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
 							for(int i=0;i<illness.get(8).size();i++){
@@ -975,8 +1107,27 @@ if(type!=null){%>
 								if(entry.getKey().equals(illness.get(8).get(i).getIllness_ID())){
 									
 									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+// 										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
+// 										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+										 List<Prescription> p = entry.getValue();
+											
+											if(j==p.size()-1){
+												sb.append(p.get(j).getPrescription_particulars());
+											}else{
+												sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+											}
+											if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+													&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+												.append("<br>");
+											}else if((p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getPrescription_source()).append("<br>");
+											}else if(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals("")){
+												sbb.append(p.get(j).getDoctor_ID()).append("<br>");
+											}
+											else{
+												sbb.append("").append("<br>");
+											} 
 									}
 									
 								}
@@ -985,8 +1136,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(8).get(i).getIllness_ID()%>"><%=sbname%></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 								
 							</tr>
 							<%}
@@ -998,8 +1149,8 @@ if(type!=null){%>
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
 							for(int i=0;i<illness.get(9).size();i++){
@@ -1017,8 +1168,27 @@ if(type!=null){%>
 								if(entry.getKey().equals(illness.get(9).get(i).getIllness_ID())){
 									
 									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+// 										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
+// 										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+										 List<Prescription> p = entry.getValue();
+											
+											if(j==p.size()-1){
+												sb.append(p.get(j).getPrescription_particulars());
+											}else{
+												sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+											}
+											if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+													&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+												.append("<br>");
+											}else if((p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getPrescription_source()).append("<br>");
+											}else if(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals("")){
+												sbb.append(p.get(j).getDoctor_ID()).append("<br>");
+											}
+											else{
+												sbb.append("").append("<br>");
+											} 
 									}
 									
 								}
@@ -1027,8 +1197,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(9).get(i).getIllness_ID()%>"><%=sbname %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 								
 							</tr>
 							<%}
@@ -1040,8 +1210,8 @@ if(type!=null){%>
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
 							for(int i=0;i<illness.get(10).size();i++){
@@ -1059,8 +1229,27 @@ if(type!=null){%>
 								if(entry.getKey().equals(illness.get(10).get(i).getIllness_ID())){
 									
 									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+// 										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
+// 										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+										 List<Prescription> p = entry.getValue();
+											
+											if(j==p.size()-1){
+												sb.append(p.get(j).getPrescription_particulars());
+											}else{
+												sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+											}
+											if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+													&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+												.append("<br>");
+											}else if((p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getPrescription_source()).append("<br>");
+											}else if(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals("")){
+												sbb.append(p.get(j).getDoctor_ID()).append("<br>");
+											}
+											else{
+												sbb.append("").append("<br>");
+											} 
 									}
 									
 								}
@@ -1069,8 +1258,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(10).get(i).getIllness_ID()%>"><%=sbname %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 								
 							</tr>
 							<%}
@@ -1083,8 +1272,8 @@ if(type!=null){%>
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
 							for(int i=0;i<illness.get(11).size();i++){
@@ -1102,8 +1291,27 @@ if(type!=null){%>
 								if(entry.getKey().equals(illness.get(11).get(i).getIllness_ID())){
 									
 									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+// 										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
+// 										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+										 List<Prescription> p = entry.getValue();
+											
+											if(j==p.size()-1){
+												sb.append(p.get(j).getPrescription_particulars());
+											}else{
+												sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+											}
+											if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+													&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+												.append("<br>");
+											}else if((p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getPrescription_source()).append("<br>");
+											}else if(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals("")){
+												sbb.append(p.get(j).getDoctor_ID()).append("<br>");
+											}
+											else{
+												sbb.append("").append("<br>");
+											} 
 									}
 									
 								}
@@ -1112,8 +1320,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(11).get(i).getIllness_ID()%>"><%=sbname %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 								
 							</tr>
 							<%}
@@ -1125,8 +1333,8 @@ if(type!=null){%>
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
 							for(int i=0;i<illness.get(12).size();i++){
@@ -1144,8 +1352,27 @@ if(type!=null){%>
 								if(entry.getKey().equals(illness.get(12).get(i).getIllness_ID())){
 									
 									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+// 										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
+// 										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+										 List<Prescription> p = entry.getValue();
+											
+											if(j==p.size()-1){
+												sb.append(p.get(j).getPrescription_particulars());
+											}else{
+												sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+											}
+											if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+													&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+												.append("<br>");
+											}else if((p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getPrescription_source()).append("<br>");
+											}else if(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals("")){
+												sbb.append(p.get(j).getDoctor_ID()).append("<br>");
+											}
+											else{
+												sbb.append("").append("<br>");
+											} 
 									}
 									
 								}
@@ -1154,8 +1381,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(12).get(i).getIllness_ID()%>"><%=sbname %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 								
 							</tr>
 							<%}
@@ -1167,8 +1394,8 @@ if(type!=null){%>
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
 							for(int i=0;i<illness.get(13).size();i++){
@@ -1186,8 +1413,27 @@ if(type!=null){%>
 								if(entry.getKey().equals(illness.get(13).get(i).getIllness_ID())){
 									
 									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+// 										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
+// 										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+										 List<Prescription> p = entry.getValue();
+											
+											if(j==p.size()-1){
+												sb.append(p.get(j).getPrescription_particulars());
+											}else{
+												sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+											}
+											if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+													&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+												.append("<br>");
+											}else if((p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getPrescription_source()).append("<br>");
+											}else if(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals("")){
+												sbb.append(p.get(j).getDoctor_ID()).append("<br>");
+											}
+											else{
+												sbb.append("").append("<br>");
+											} 
 									}
 									
 								}
@@ -1196,8 +1442,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(13).get(i).getIllness_ID()%>"><%=sbname %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 								
 							</tr>
 							<%}
@@ -1209,8 +1455,8 @@ if(type!=null){%>
 				<table class="table" >
 							<tr>
 								<td width="15%">病方主治</td>
-								<td width="70%">药方详情</td>
-								<td width="15%">病方来源</td>
+								<td width="55%">药方详情</td>
+								<td width="30%">病方来源</td>
 							</tr>
 							<%
 							for(int i=0;i<illness.get(14).size();i++){
@@ -1228,8 +1474,27 @@ if(type!=null){%>
 								if(entry.getKey().equals(illness.get(14).get(i).getIllness_ID())){
 									
 									for(int j=0;j<entry.getValue().size();j++){
-										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
-										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+// 										sb.append(entry.getValue().get(j).getPrescription_particulars()).append("<br>");
+// 										sbb.append(entry.getValue().get(j).getPrescription_source()).append("<br>");
+										 List<Prescription> p = entry.getValue();
+											
+											if(j==p.size()-1){
+												sb.append(p.get(j).getPrescription_particulars());
+											}else{
+												sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+											}
+											if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+													&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+												.append("<br>");
+											}else if((p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+												sbb.append(p.get(j).getPrescription_source()).append("<br>");
+											}else if(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals("")){
+												sbb.append(p.get(j).getDoctor_ID()).append("<br>");
+											}
+											else{
+												sbb.append("").append("<br>");
+											} 
 									}
 									
 								}
@@ -1238,8 +1503,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(14).get(i).getIllness_ID()%>"><%=sbname %></a></td>
-								<td width="70%"><a><%=sb %></a></td>
-								<td width="15%"><a><%=sbb %></a></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 								
 							</tr>
 							<%}

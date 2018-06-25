@@ -81,6 +81,7 @@ public class PrescriptionController {
 						
 					}
 					
+					//对doctorid字段进行替换
 					if(!(p.get(t).getDoctor_ID()==null||p.get(t).getDoctor_ID().equals(""))) {
 					StringBuffer sbb =new StringBuffer();
 					//"_"分割doctorid
@@ -159,13 +160,16 @@ public class PrescriptionController {
 					}
 				}
 				
+				//对doctorid字段进行替换
+				if(!(prescriptions.get(j).getDoctor_ID()==null||prescriptions.get(j).getDoctor_ID().equals(""))) {
 				StringBuffer sbb =new StringBuffer();
 				//"_"分割doctorid
+				
 				String []ds =prescriptions.get(j).getDoctor_ID().split("_");
 				
-				for(int a=0;a<ds.length;a++) {
-					List<Doctor1> doctors = doctorService.findDoctorById(Integer.parseInt(ds[a]));
-					if(a==ds.length-1) {
+				for(int b=0;b<ds.length;b++) {
+					List<Doctor1> doctors = doctorService.findDoctorById(Integer.parseInt(ds[b]));
+					if(b==ds.length-1) {
 						sbb.append("<a href='/sheyao/QueryDoctorById?id=").append(doctors.get(0).getDoctor_ID())
 						.append("'>").append(doctors.get(0).getDoctor_name()).append("</a>");
 					}else {
@@ -174,6 +178,7 @@ public class PrescriptionController {
 					}
 				}
 				prescriptions.get(j).setDoctor_ID(sbb.toString());
+				}
 				prescriptions.get(j).setPrescription_particulars(sb.toString());
 				
 			}
