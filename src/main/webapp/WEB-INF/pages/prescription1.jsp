@@ -520,15 +520,33 @@ if(type!=null){%>
 						StringBuffer sb =new StringBuffer();
 						StringBuffer sbb =new StringBuffer();
 						for(int i=0;i<illness_p.size();i++){
+							List<Prescription> p =illness_p;
 							
-							sb.append(illness_p.get(i).getPrescription_particulars()).append("<br>");
-							sbb.append(illness_p.get(i).getPrescription_source()).append("<br>");
+							if(i==p.size()-1){
+								sb.append(p.get(i).getPrescription_particulars());
+							}else{
+								sb.append(p.get(i).getPrescription_particulars()).append("<br>");
+							}
+							if(!(p.get(i).getPrescription_source()==null||p.get(i).getPrescription_source().equals(""))
+									&&!(p.get(i).getDoctor_ID()==null||p.get(i).getDoctor_ID().equals(""))){
+								sbb.append(p.get(i).getDoctor_ID()).append(",").append(p.get(i).getPrescription_source())
+								.append("<br>");
+							}else if((p.get(i).getDoctor_ID()==null||p.get(i).getDoctor_ID().equals(""))){
+								sbb.append(p.get(i).getPrescription_source()).append("<br>");
+							}else if(p.get(i).getPrescription_source()==null||p.get(i).getPrescription_source().equals("")){
+								sbb.append(p.get(i).getDoctor_ID()).append("<br>");
+							}
+							else{
+								sbb.append("").append("<br>");
+							} 
+// 							sb.append(illness_p.get(i).getPrescription_particulars()).append("<br>");
+// 							sbb.append(illness_p.get(i).getPrescription_source()).append("<br>");
 						}
 						%>
 							<tr>
 								<td width="15%"><%=sbname %></td>
-								<td width="70%"><%=sb %></td>
-								<td width="15%"><%=sbb %></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 							</tr>
 						</table>
 					</div>
