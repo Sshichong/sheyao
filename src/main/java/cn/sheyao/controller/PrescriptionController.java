@@ -1,6 +1,7 @@
 package cn.sheyao.controller;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,6 @@ import cn.sheyao.service.IllnessService;
 import cn.sheyao.service.MedicineService;
 import cn.sheyao.service.PrescriptionService;
 import cn.sheyao.service.TimeTaskService;
-import cn.sheyao.tools.ChangePrescriptions;
 
 @Controller
 public class PrescriptionController {
@@ -56,7 +56,24 @@ public class PrescriptionController {
 				String illnessId=String.valueOf(illness.get(i).get(j).getIllness_ID());
 				
 				//用illnessId在药方中根据Illness_ID字符串进行模糊查询，查询到对应illness的药方，并存入map
-				List<Prescription> p =prescriptionService.findByIllnessId(illnessId);
+				List<Prescription> p1 =prescriptionService.findByIllnessId(illnessId);
+				
+				List<Prescription> p =new ArrayList<Prescription>();
+				
+				//对模糊查询出来的药方中的illnessId与病症id进行比对，若有则保留，没有就移除
+				for(int q=0;q<p1.size();q++) {
+					String illnessIds =p1.get(q).getIllness_ID();
+					int count=0;
+					String []ids=illnessIds.split("_");
+					for(int q1=0;q1<ids.length;q1++) {
+						if(illnessId.equals(ids[q1])) {
+							count++;
+						}
+					}
+					if(count==1) {
+						p.add(p1.get(q));
+					}
+				}
 				
 				//根据查出来的药方对"畲药id+份数_畲药id+份数",进行分割
 				for(int t=0;t<p.size();t++) {
@@ -130,12 +147,32 @@ public class PrescriptionController {
 			String illnessId =String.valueOf(illnesses.get(i).getIllness_ID());
 			
 			//在prescription表中进行模糊查询
-			List<Prescription> prescriptions=prescriptionService.findByIllnessId(illnessId);
+			List<Prescription> prescriptions1=prescriptionService.findByIllnessId(illnessId);
+			
+			List<Prescription> prescriptions =new ArrayList<Prescription>();
+			
+			//对模糊查询出来的药方中的illnessId与病症id进行比对，若有则保留，没有就移除
+			for(int q=0;q<prescriptions1.size();q++) {
+				String illnessIds =prescriptions1.get(q).getIllness_ID();
+				int count=0;
+				String []ids=illnessIds.split("_");
+				for(int q1=0;q1<ids.length;q1++) {
+					if(illnessId.equals(ids[q1])) {
+						count++;
+					}
+				}
+				if(count==1) {
+					prescriptions.add(prescriptions1.get(q));
+				}
+			}
+			
 			
 			//若查出来无药方
 			if(prescriptions.isEmpty()) {
 				TypeMap.put(illnesses.get(i), null);
 			}
+//			ChangePrescriptions cp =new ChangePrescriptions();
+//			 prescriptions =cp.changePrescriptions(prescriptions);
 			
 			//查询到药方进行遍历
 			for(int j=0;j<prescriptions.size();j++) {
@@ -202,7 +239,24 @@ public class PrescriptionController {
 		Illness i =illnesses.get(0);
 		
 		//在prescription表中进行模糊查询
-		List<Prescription> prescriptions=prescriptionService.findByIllnessId(illnessId);
+		List<Prescription> prescriptions1=prescriptionService.findByIllnessId(illnessId);
+		
+		List<Prescription> prescriptions =new ArrayList<Prescription>();
+		
+		//对模糊查询出来的药方中的illnessId与病症id进行比对，若有则保留，没有就移除
+		for(int q=0;q<prescriptions1.size();q++) {
+			String illnessIds =prescriptions1.get(q).getIllness_ID();
+			int count=0;
+			String []ids=illnessIds.split("_");
+			for(int q1=0;q1<ids.length;q1++) {
+				if(illnessId.equals(ids[q1])) {
+					count++;
+				}
+			}
+			if(count==1) {
+				prescriptions.add(prescriptions1.get(q));
+			}
+		}
 		
 		/*ChangePrescriptions cp =new ChangePrescriptions();
 		prescriptions = cp.changePrescriptions(prescriptions);*/

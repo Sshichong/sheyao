@@ -330,9 +330,9 @@ Medicine medicine_one=(Medicine)request.getAttribute("medicine_one");
 						<p align="left">
 							生境分布：<%=medicine_one.getMedicine_distribution()%>
 						</p>
-						<p align="left">
+						<%-- <p align="left">
 							主治用法：<%=medicine_one.getMedicine_mainUse()%>
-						</p>
+						</p> --%>
 						<p align="left">
 							采收加工：<%=medicine_one.getMedicine_CollectionProcessing()%>
 						</p>
@@ -340,7 +340,7 @@ Medicine medicine_one=(Medicine)request.getAttribute("medicine_one");
 							使用注意:
 						</p>
 						<div>
-							<p align="left">病方：</p>
+							<p align="left">主治用法：</p>
 							<table class="table">
 								<tr>
 									<td width="15%">病方主治</td>
