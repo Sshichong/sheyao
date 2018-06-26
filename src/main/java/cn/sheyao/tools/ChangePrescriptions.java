@@ -18,14 +18,14 @@ import cn.sheyao.service.MedicineService;
 public class ChangePrescriptions {
 	
 	@Autowired
-	private MedicineService medicineService;
+	private static MedicineService medicineService;
 	
 	@Autowired
-	private DoctorService doctorService;
+	private static DoctorService doctorService;
 	
 	 public static ChangePrescriptions changePrescriptions;
 	 
-	@PostConstruct
+//	@PostConstruct
     public void init() {    
 		changePrescriptions = this;
     }

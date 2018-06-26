@@ -21,6 +21,7 @@ import cn.sheyao.service.IllnessService;
 import cn.sheyao.service.MedicineService;
 import cn.sheyao.service.PrescriptionService;
 import cn.sheyao.service.TimeTaskService;
+import cn.sheyao.tools.ChangePrescriptions;
 
 @Controller
 public class PrescriptionController {
@@ -378,7 +379,7 @@ public class PrescriptionController {
 							sb.append("，");
 						}
 					}
-					
+					if(!(prescription.get(j).getDoctor_ID()==null||prescription.get(j).getDoctor_ID().equals(""))) {
 					StringBuffer sbb =new StringBuffer();
 					//"_"分割doctorid
 					String []ds =prescription.get(j).getDoctor_ID().split("_");
@@ -394,6 +395,7 @@ public class PrescriptionController {
 						}
 					}
 					prescription.get(j).setDoctor_ID(sbb.toString());
+					}
 					prescription.get(j).setPrescription_particulars(sb.toString());
 					
 				}

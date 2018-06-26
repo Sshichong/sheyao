@@ -472,14 +472,15 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("map");
 									}else{
 										sb.append(p.get(i).getPrescription_particulars()).append("<br>");
 									}
-									if(p.get(i).getPrescription_source().isEmpty()&&p.get(i).getDoctor_ID().isEmpty()){
-										sbb.append("").append("<br>");
-									}else if(p.get(i).getIllness_ID().isEmpty()){
-										sbb.append(p.get(i).getPrescription_source()).append("<br>");
-									}else{
+									if(!(p.get(i).getPrescription_source()==null||p.get(i).getPrescription_source().equals(""))
+											&&!(p.get(i).getDoctor_ID()==null||p.get(i).getDoctor_ID().equals(""))){
 										sbb.append(p.get(i).getDoctor_ID()).append(",").append(p.get(i).getPrescription_source())
 										.append("<br>");
-									} */
+									}else if((p.get(i).getIllness_ID()==null||p.get(i).getIllness_ID().equals(""))){
+										sbb.append(p.get(i).getPrescription_source()).append("<br>");
+									}else{
+										sbb.append("").append("<br>");
+									}  */
 									if(i==p.size()-1){
 										sb.append(p.get(i).getPrescription_particulars());
 									}else{
@@ -489,9 +490,12 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("map");
 											&&!(p.get(i).getDoctor_ID()==null||p.get(i).getDoctor_ID().equals(""))){
 										sbb.append(p.get(i).getDoctor_ID()).append(",").append(p.get(i).getPrescription_source())
 										.append("<br>");
-									}else if((p.get(i).getIllness_ID()==null||p.get(i).getIllness_ID().equals(""))){
+									}else if((p.get(i).getDoctor_ID()==null||p.get(i).getDoctor_ID().equals(""))){
 										sbb.append(p.get(i).getPrescription_source()).append("<br>");
-									}else{
+									}else if(p.get(i).getPrescription_source()==null||p.get(i).getPrescription_source().equals("")){
+										sbb.append(p.get(i).getDoctor_ID()).append("<br>");
+									}
+									else{
 										sbb.append("").append("<br>");
 									} 
 									
