@@ -1,20 +1,25 @@
 package cn.sheyao.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.aspectj.weaver.World.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.sheyao.pojo.Doctor1;
+import cn.sheyao.pojo.Illness;
 import cn.sheyao.pojo.Medicine;
-import cn.sheyao.pojo.Medicinecount;
+import cn.sheyao.pojo.Prescription;
+import cn.sheyao.service.DoctorService;
+import cn.sheyao.service.IllnessService;
 import cn.sheyao.service.MedicineService;
+import cn.sheyao.service.PrescriptionService;
 import cn.sheyao.service.TimeTaskService;
 
 @Controller
@@ -25,6 +30,15 @@ public class MedicineController {
 	
 	@Autowired
 	TimeTaskService timeTaskService;
+	
+	@Autowired
+	PrescriptionService prescriptionService;
+	
+	@Autowired
+	DoctorService doctorService;
+	
+	@Autowired
+	IllnessService illnessService;
 	
 	public static final Map<Integer,Integer> map =new HashMap<Integer,Integer>();
 	
@@ -78,17 +92,111 @@ public class MedicineController {
 			//得到的count值put进map覆盖掉之前的，若在map中没有找到相对应的map，则新put进map
 			//此句放在遍历语句中会报错
 			map.put(id1, count);
-				
-			
 		}
+		
 		
 		List<Medicine> medicine =medicineService.findMedicine();
 		List<Medicine> medicine_one =medicineService.findMedicineById(id1);
-		
 
+		
+		//查询药方
+		String strIllnessId = medicine_one.get(0).getMedicine_disease();
+		Map<Illness,List<Prescription>> IllnessMap =new HashMap<Illness,List<Prescription>>();
+		String []illnessIds =strIllnessId.split("_");
+		List<Illness> illnesses =new ArrayList<Illness>();
+		for(int i=0;i<illnessIds.length;i++) {
+			List<Illness> ii =illnessService.findByIllnessId(Integer.parseInt(illnessIds[i]));
+			illnesses.add(ii.get(0));
+			
+		}
+		for(int j=0;j<illnesses.size();j++) {
+		//在prescription表中进行模糊查询
+		List<Prescription> prescriptions1=prescriptionService.findByIllnessId(String.valueOf(illnesses.get(j).getIllness_ID()));
+		
+		List<Prescription> prescriptions =new ArrayList<Prescription>();
+		
+		//对模糊查询出来的药方中的illnessId与病症id进行比对，若有则保留，没有就移除
+		for(int q=0;q<prescriptions1.size();q++) {
+			String illnessIds1 =prescriptions1.get(q).getIllness_ID();
+			int count=0;
+			String []ids=illnessIds1.split("_");
+			for(int q1=0;q1<ids.length;q1++) {
+				if(String.valueOf(illnesses.get(j).getIllness_ID()).equals(ids[q1])) {
+					count++;
+				}
+			}
+			if(count==1) {
+				prescriptions.add(prescriptions1.get(q));
+			}
+		}
+		
+		
+		//若查出来无药方
+		if(prescriptions.isEmpty()) {
+			IllnessMap.put(illnesses.get(j), null);
+		}
+//		ChangePrescriptions cp =new ChangePrescriptions();
+//		 prescriptions =cp.changePrescriptions(prescriptions);
+		
+		//查询到药方进行遍历
+		for(int j1=0;j1<prescriptions.size();j1++) {
+			StringBuffer sb =new StringBuffer();
+			//以“_”进行分割
+			String []ps =prescriptions.get(j1).getPrescription_particulars().split("_");
+			//对每个部分进行遍历
+			for(int t=0;t<ps.length;t++) {
+				//按照“+”进行分割
+				String []p=ps[t].split("\\+");
+				if(p[0].matches("[0-9]+")) {
+					List<Medicine> medicines=medicineService.findMedicineById(Integer.parseInt(p[0]));
+					Medicine medicine1 =medicines.get(0);
+					sb.append("<a href='/sheyao/QueryById?id=")
+					.append(medicine1.getMedicine_ID()).append("'>")
+					.append(medicine1.getMedicine_name()).append("</a>")
+					.append("配").append(p[1]);
+				}else {
+					sb.append(p[0]).append("配").append(p[1]);
+				}
+				if(t==ps.length-1) {
+					sb.append("");
+				}else {
+					sb.append("，");
+				}
+			}
+			
+			//对doctorid字段进行替换
+			if(!(prescriptions.get(j1).getDoctor_ID()==null||prescriptions.get(j1).getDoctor_ID().equals(""))) {
+			StringBuffer sbb =new StringBuffer();
+			//"_"分割doctorid
+			
+			String []ds =prescriptions.get(j1).getDoctor_ID().split("_");
+			
+			for(int b=0;b<ds.length;b++) {
+				List<Doctor1> doctors = doctorService.findDoctorById(Integer.parseInt(ds[b]));
+				if(b==ds.length-1) {
+					sbb.append("<a href='/sheyao/QueryDoctorById?id=").append(doctors.get(0).getDoctor_ID())
+					.append("'>").append(doctors.get(0).getDoctor_name()).append("</a>");
+				}else {
+					sbb.append("<a href='/sheyao/QueryDoctorById?id=").append(doctors.get(0).getDoctor_ID())
+					.append("'>").append(doctors.get(0).getDoctor_name()).append("</a>").append(",");
+				}
+			}
+			prescriptions.get(j1).setDoctor_ID(sbb.toString());
+			}
+			prescriptions.get(j1).setPrescription_particulars(sb.toString());
+			
+		}
+		IllnessMap.put(illnesses.get(j), prescriptions);
+		
+		}
+
+		
+		
+		
 		System.out.println(medicine_one.get(0).toString());
 		model.addAttribute("medicine",medicine);
 		model.addAttribute("medicine_one",medicine_one.get(0));
+		model.addAttribute("IllnessMap",IllnessMap);
 		return "sheyao1";
 	}
 	

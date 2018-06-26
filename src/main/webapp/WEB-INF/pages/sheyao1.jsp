@@ -2,6 +2,8 @@
     pageEncoding="utf-8"%>
     <%@page import="java.util.*" %>
     <%@page import="cn.sheyao.pojo.Medicine" %>
+    <%@page import="cn.sheyao.pojo.Illness" %>
+    <%@page import="cn.sheyao.pojo.Prescription" %>
      <%@ include file="../base.jsp" %>
 
 <!DOCTYPE html>
@@ -28,7 +30,7 @@ List<Medicine> medicine =(List)request.getAttribute("medicine");
 List<Medicine> medicine_date =(List)request.getAttribute("medicine_date");
 List<Medicine> medicine_type =(List)request.getAttribute("medicine_type");
 Medicine medicine_one=(Medicine)request.getAttribute("medicine_one");
-// out.print(medicine_one);
+Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 %>
 	
 <style>
@@ -342,16 +344,55 @@ Medicine medicine_one=(Medicine)request.getAttribute("medicine_one");
 						<div>
 							<p align="left">主治用法：</p>
 							<table class="table">
+							<%
+							Iterator iter =map.entrySet().iterator();
+							while(iter.hasNext()){
+								Map.Entry<Illness,List<Prescription>> entry =(Map.Entry)iter.next();
+								Illness illness =entry.getKey();
+								List<Prescription> p =entry.getValue();
+								StringBuffer sbname =new StringBuffer();
+								if(!(illness.getIllness_remark().equals("")||illness.getIllness_remark()==null)){
+									sbname.append(illness.getIllness_name()).append("(").append(illness.getIllness_remark()).append(")");
+									}else{
+										sbname.append(illness.getIllness_name());
+									}
+								
+								StringBuffer sb =new StringBuffer();
+								StringBuffer sbb =new StringBuffer();
+								for(int j=0;j<p.size();j++){
+									 
+										
+										if(j==p.size()-1){
+											sb.append(p.get(j).getPrescription_particulars());
+										}else{
+											sb.append(p.get(j).getPrescription_particulars()).append("<br>");
+										}
+										if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
+												&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+											sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
+											.append("<br>");
+										}else if((p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
+											sbb.append(p.get(j).getPrescription_source()).append("<br>");
+										}else if(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals("")){
+											sbb.append(p.get(j).getDoctor_ID()).append("<br>");
+										}
+										else{
+											sbb.append("").append("<br>");
+										} 
+								}%>
+								
 								<tr>
-									<td width="15%">病方主治</td>
-									<td width="70%">病方详情</td>
-									<td width="15%">病方来源</td>
-								</tr>
-								<tr>
-									<td width="15%">病方主治</td>
-									<td width="70%">病方详情</td>
-									<td width="15%">病方来源</td>
-								</tr>
+								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.getIllness_ID()%>"><%=sbname %></a></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
+								
+							</tr>
+								
+								
+						<%	}
+							%>
+								
+								
 							</table>
 						</div>
 					</div>

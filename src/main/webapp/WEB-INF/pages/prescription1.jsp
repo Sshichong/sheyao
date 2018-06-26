@@ -623,22 +623,6 @@ if(type!=null){%>
 								if(entry.getKey().equals(illness.get(0).get(i).getIllness_ID())){
 									
 									for(int j=0;j<entry.getValue().size();j++){
-// 										 List<Prescription> p = entry.getValue();
-										
-// 										if(j==p.size()-1){
-// 											sb.append(p.get(j).getPrescription_particulars());
-// 										}else{
-// 											sb.append(p.get(j).getPrescription_particulars()).append("<br>");
-// 										}
-// 										if(!(p.get(j).getPrescription_source()==null||p.get(j).getPrescription_source().equals(""))
-// 												&&!(p.get(j).getDoctor_ID()==null||p.get(j).getDoctor_ID().equals(""))){
-// 											sbb.append(p.get(j).getDoctor_ID()).append(",").append(p.get(j).getPrescription_source())
-// 											.append("<br>");
-// 										}else if((p.get(j).getIllness_ID()==null||p.get(j).getIllness_ID().equals(""))){
-// 											sbb.append(p.get(j).getPrescription_source()).append("<br>");
-// 										}else{
-// 											sbb.append("").append("<br>");
-// 										} 
 										 List<Prescription> p = entry.getValue();
 											
 											if(j==p.size()-1){
@@ -666,8 +650,8 @@ if(type!=null){%>
 							%>
 							<tr>
 								<td width="15%"><a href="QueryPrescription?illnessId=<%=illness.get(0).get(i).getIllness_ID()%>"><%=sbname %></a></td>
-								<td width="55%"><a><%=sb %></a></td>
-								<td width="30%"><a><%=sbb %></a></td>
+								<td width="55%"><%=sb %></td>
+								<td width="30%"><%=sbb %></td>
 								
 							</tr>
 							<%}
