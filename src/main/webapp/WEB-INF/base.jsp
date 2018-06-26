@@ -12,8 +12,8 @@
 <link rel ="stylesheet" href="${ctx }/staticfile/assetss/css/custom.css"> 
 <link rel ="stylesheet" href="${ctx }/staticfile/assetss/css/index.css">
 <link rel ="stylesheet" href="${ctx }/staticfile/assetss/css/zzsc.css">
-<link rel ="stylesheet" href="${ctx }/staticfile/assetss/js/bootstrap.min.js">
-<link rel ="stylesheet" href="${ctx }/staticfile/assetss/js/menu_min.js">
-<link rel ="stylesheet" href="${ctx }/staticfile/assetss/js/myscript.js">
 
 
+<script src="${ctx }/staticfile/assetss/js/myscript.js"></script>
+<script src="${ctx }/staticfile/assetss/js/bootstrap.min.js"></script>
+<script src="${ctx }/staticfile/assetss/js/bootstrap.min.js"></script>

@@ -81,13 +81,13 @@
    
        <div class="pic2" id="cdc2">
 <!--    <img class="img2-1 cdc2" src="images/f-t.png" /> -->
-   <a href=#><img alt="fang" src="${ctx }/staticfile/images/fang.png"class="cdc2 img2-2"></a>
+   <a href="toPrescription"><img alt="fang" src="${ctx }/staticfile/images/fang.png"class="cdc2 img2-2"></a>
    </div>
    
    
    <div class="pic4"id="cdc4">
 <!--    <img class="img4-1 cdc4" src="images/t-t.png" /> -->
-   <a href=#><img alt="yi" src="${ctx }/staticfile/images/tong.png"class="cdc4 img4-2"></a>
+   <a href="toStatistics"><img alt="yi" src="${ctx }/staticfile/images/tong.png"class="cdc4 img4-2"></a>
    </div>
    
 </div>

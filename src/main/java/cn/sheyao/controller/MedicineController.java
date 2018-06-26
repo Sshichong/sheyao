@@ -238,7 +238,7 @@ public class MedicineController {
 	
 	
 	//定时
-	//@Scheduled(cron = "0 30 22 ? * *")
+	//@Scheduled(cron = "0 30 22 ? * *") 每天十点半执行
 	@Scheduled(cron = "*/5 * * * * ?")
 	public void MedicineTimerTask() {
 		
