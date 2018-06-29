@@ -10,4 +10,6 @@ public interface PrescriptionService {
 
 	List<Prescription> findByIllnessId(String illnessId);
 
+	List<Prescription> findPrescription();
+
 }

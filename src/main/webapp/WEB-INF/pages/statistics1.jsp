@@ -86,6 +86,7 @@ List<Illnesscount> ic =(List)request.getAttribute("ic");
 List<Medicine> medicine=(List)request.getAttribute("medicine");
 List<Doctor1> doctor =(List)request.getAttribute("doctor");
 List<Illness> illness =(List)request.getAttribute("illness");
+Map<Integer,Integer> map=(Map)request.getAttribute("map");
 %>
 		<div class="container-fluid noPadding">
 
@@ -96,9 +97,9 @@ List<Illness> illness =(List)request.getAttribute("illness");
 				<table class="table" >
 							<tr>
 							<th width="25%">畲药</th>
-							<th width="25%">&nbsp;</th>
+							<td width="15%">&nbsp;</td>
 								
-								<th width="25%">&nbsp;</th>
+								<th width="35%">药方包含次数</th>
 								<th width="25%">查询次数</th>
 <!-- 								<td width="15%">病方来源</td> -->
 							</tr>
@@ -107,8 +108,19 @@ List<Illness> illness =(List)request.getAttribute("illness");
 							for(int i=0;i<mc.size();i++){%>
 								<tr>
 							<td width="25%"><%=medicine.get(i).getMedicine_name() %></td>
-							<td width="25%">&nbsp;</td>
-							<td width="25%">&nbsp;</td>
+ 							<td width="15%">&nbsp;</td>
+ 							<%
+ 							Iterator iter =map.entrySet().iterator();
+ 							while(iter.hasNext()){
+ 								Map.Entry<Integer,Integer> entry =(Map.Entry)iter.next();
+ 								Integer mId =entry.getKey();
+ 								Integer count =entry.getValue();
+ 								if(mId.equals(medicine.get(i).getMedicine_ID())){%>
+ 									<td width="35%"><%=count %></td>
+ 							<%	}
+ 							}
+ 							%>
+							
 							<td width="25%"><%=mc.get(i).getViewstime() %></td>
 							</tr>
 							<%}

@@ -12,4 +12,6 @@ public interface PrescriptionMapper {
 
 	public List<Prescription> findByIllnessId(@Param("illnessId")String illnessId);
 
+	public List<Prescription> findPrescription();
+
 }
