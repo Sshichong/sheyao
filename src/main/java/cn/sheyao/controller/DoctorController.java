@@ -164,8 +164,32 @@ public class DoctorController {
 			System.out.println(illness.getIllness_name());
 			
 			//在prescription表中根据医生id和病症id找对应的药方，一个病症可对应多个药方
-			List<Prescription> prescription =prescriptionService.findByDoctorId_IllnessId(id,goodAt[i]);
-			System.out.println(prescription.size());
+			List<Prescription> prescription1 =prescriptionService.findByDoctorId_IllnessId(id,goodAt[i]);
+			System.out.println(prescription1.size());
+			List<Prescription> prescription =new ArrayList();
+			
+			//对模糊查询出来的药方中的illnessId与病症id进行比对，若有则保留，没有就移除
+			for(int q=0;q<prescription1.size();q++) {
+				String illnessIds =prescription1.get(q).getPrescription_Cure();
+				String doctorIds =prescription1.get(q).getDoctor_ID();
+				int count=0;
+				String []ids=illnessIds.split("_");
+				String []dids =doctorIds.split("_");
+				for(int q1=0;q1<ids.length;q1++) {
+					if(goodAt[i].equals(ids[q1])) {
+						for(int qq=0;qq<dids.length;qq++) {
+							if(id.equals(dids[qq])) {
+								count++;
+							}
+						}
+					}
+				}
+				if(count==1) {
+					prescription.add(prescription1.get(q));
+				}
+			}
+			
+			
 			
 			//把药方中medicineID找出
 			for(int j=0;j<prescription.size();j++) {

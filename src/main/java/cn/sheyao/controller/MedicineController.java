@@ -115,9 +115,10 @@ public class MedicineController {
 		
 		List<Prescription> prescriptions =new ArrayList<Prescription>();
 		
+		
 		//对模糊查询出来的药方中的illnessId与病症id进行比对，若有则保留，没有就移除
 		for(int q=0;q<prescriptions1.size();q++) {
-			String illnessIds1 =prescriptions1.get(q).getIllness_ID();
+			String illnessIds1 =prescriptions1.get(q).getPrescription_Cure();
 			int count=0;
 			String []ids=illnessIds1.split("_");
 			for(int q1=0;q1<ids.length;q1++) {

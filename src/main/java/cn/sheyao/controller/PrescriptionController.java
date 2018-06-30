@@ -63,7 +63,7 @@ public class PrescriptionController {
 				
 				//对模糊查询出来的药方中的illnessId与病症id进行比对，若有则保留，没有就移除
 				for(int q=0;q<p1.size();q++) {
-					String illnessIds =p1.get(q).getIllness_ID();
+					String illnessIds =p1.get(q).getPrescription_Cure();
 					int count=0;
 					String []ids=illnessIds.split("_");
 					for(int q1=0;q1<ids.length;q1++) {
@@ -154,7 +154,7 @@ public class PrescriptionController {
 			
 			//对模糊查询出来的药方中的illnessId与病症id进行比对，若有则保留，没有就移除
 			for(int q=0;q<prescriptions1.size();q++) {
-				String illnessIds =prescriptions1.get(q).getIllness_ID();
+				String illnessIds =prescriptions1.get(q).getPrescription_Cure();
 				int count=0;
 				String []ids=illnessIds.split("_");
 				for(int q1=0;q1<ids.length;q1++) {
@@ -246,7 +246,7 @@ public class PrescriptionController {
 		
 		//对模糊查询出来的药方中的illnessId与病症id进行比对，若有则保留，没有就移除
 		for(int q=0;q<prescriptions1.size();q++) {
-			String illnessIds =prescriptions1.get(q).getIllness_ID();
+			String illnessIds =prescriptions1.get(q).getPrescription_Cure();
 			int count=0;
 			String []ids=illnessIds.split("_");
 			for(int q1=0;q1<ids.length;q1++) {
@@ -354,7 +354,24 @@ public class PrescriptionController {
 			Map<Illness,List<Prescription>> map=new HashMap();
 			for(int i=0;i<illnesses.size();i++) {
 				String id =String.valueOf(illnesses.get(i).getIllness_ID());
-				List<Prescription> prescription =prescriptionService.findByIllnessId(id);
+				List<Prescription> prescription1 =prescriptionService.findByIllnessId(id);
+				
+				List<Prescription> prescription =new ArrayList();
+				
+				//对模糊查询出来的药方中的illnessId与病症id进行比对，若有则保留，没有就移除
+				for(int q=0;q<prescription1.size();q++) {
+					String illnessIds =prescription1.get(q).getPrescription_Cure();
+					int count=0;
+					String []ids=illnessIds.split("_");
+					for(int q1=0;q1<ids.length;q1++) {
+						if(id.equals(ids[q1])) {
+							count++;
+						}
+					}
+					if(count==1) {
+						prescription.add(prescription1.get(q));
+					}
+				}
 				
 				//查询到药方进行遍历
 				for(int j=0;j<prescription.size();j++) {

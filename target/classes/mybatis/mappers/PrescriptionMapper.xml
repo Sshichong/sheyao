@@ -11,7 +11,7 @@ select * from prescription
 			Doctor_ID like CONCAT(CONCAT('%',#{doctorid}),'%')
 		</if>
 		<if test="illnessid!=null and illnessid!=''">
-			and Illness_ID like CONCAT(CONCAT('%',#{illnessid}),'%')
+			and Prescription_Cure like CONCAT(CONCAT('%',#{illnessid}),'%')
 		</if>
 	</where>
 	
@@ -21,7 +21,7 @@ select * from prescription
 select * from prescription 
 <where>
 <if test="illnessId!=null and illnessId!=''">
-Illness_ID like CONCAT(CONCAT('%',#{illnessId}),'%')
+Prescription_Cure like CONCAT(CONCAT('%',#{illnessId}),'%')
 </if>
 </where>
 </select>
