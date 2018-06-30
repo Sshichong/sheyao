@@ -114,4 +114,10 @@ public class IllnessServiceImp implements IllnessService {
 		return illnessMapper.findIllnessByKey(key);
 	}
 
+	@Override
+	public List<Illness> findIllnessAll() {
+		// TODO Auto-generated method stub
+		return illnessMapper.findIllnessAll();
+	}
+
 }

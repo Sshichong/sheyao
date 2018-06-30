@@ -21,7 +21,7 @@
 	</head>
 	<%
 List<List<Illness>> illness = (List<List<Illness>>)request.getAttribute("illness");
-List<Illness> illnesses =(List<Illness>)request.getAttribute("illnesses");
+/* List<Illness> illnesses =(List<Illness>)request.getAttribute("illnesses"); */
 String size =(String)request.getAttribute("size");
 String key =(String)request.getAttribute("key");
 Map<Illness,List<Prescription>> map=(Map)request.getAttribute("map");
@@ -467,20 +467,7 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("map");
 									}
 								List<Prescription> p =entry.getValue();
 								for(int i=0;i<p.size();i++){
-									/* if(i==p.size()-1){
-										sb.append(p.get(i).getPrescription_particulars());
-									}else{
-										sb.append(p.get(i).getPrescription_particulars()).append("<br>");
-									}
-									if(!(p.get(i).getPrescription_source()==null||p.get(i).getPrescription_source().equals(""))
-											&&!(p.get(i).getDoctor_ID()==null||p.get(i).getDoctor_ID().equals(""))){
-										sbb.append(p.get(i).getDoctor_ID()).append(",").append(p.get(i).getPrescription_source())
-										.append("<br>");
-									}else if((p.get(i).getIllness_ID()==null||p.get(i).getIllness_ID().equals(""))){
-										sbb.append(p.get(i).getPrescription_source()).append("<br>");
-									}else{
-										sbb.append("").append("<br>");
-									}  */
+									
 									if(i==p.size()-1){
 										sb.append(p.get(i).getPrescription_particulars());
 									}else{

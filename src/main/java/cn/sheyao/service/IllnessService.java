@@ -14,4 +14,6 @@ public interface IllnessService {
 
 	List<Illness> findIllnessByKey(String key);
 
+	List<Illness> findIllnessAll();
+
 }

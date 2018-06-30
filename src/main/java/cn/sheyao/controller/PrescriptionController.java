@@ -3,6 +3,7 @@ package cn.sheyao.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,6 @@ import cn.sheyao.service.IllnessService;
 import cn.sheyao.service.MedicineService;
 import cn.sheyao.service.PrescriptionService;
 import cn.sheyao.service.TimeTaskService;
-import cn.sheyao.tools.ChangePrescriptions;
 
 @Controller
 public class PrescriptionController {
@@ -338,7 +338,96 @@ public class PrescriptionController {
 		//侧边栏
 		List<List<Illness>> illness =illnessService.findIllness();
 		
-		//根据关键字查病症
+		//查出所有药方
+		List<Prescription> prescription =prescriptionService.findPrescription();
+		
+		//查出所有病症
+		List<Illness> illnesses =illnessService.findIllnessAll();
+		System.out.println(prescription.toString());
+		
+		model.addAttribute("key",key);
+		model.addAttribute("illness",illness);
+		
+		
+		//每个病症与它的药方配对，并存入map
+		Map<Illness,List<Prescription>> map=new HashMap();
+		
+		
+		for(int i=0;i<illnesses.size();i++) {
+			List<Prescription> p=new ArrayList();
+			for(int b=0;b<prescription.size();b++) {
+				int cc=0;
+				String []preids =prescription.get(b).getPrescription_Cure().split("_");
+				for(int d=0;d<preids.length;d++) {
+					if(String.valueOf(illnesses.get(i).getIllness_ID()).equals(preids[d])) {
+						cc++;
+					}
+				}
+				if(cc==1) {
+					p.add(prescription.get(b));
+				}
+			}
+			map.put(illnesses.get(i), p);
+		}
+		
+		int size =0;
+		//判断查询是多条件查询还是单条件查询
+		if(key.contains("+")) {
+			
+		}else {
+				Iterator iter = map.entrySet().iterator();
+				while (iter.hasNext()) {
+					Map.Entry<Illness, List<Prescription>> entry = (Map.Entry) iter.next();
+					Illness i = entry.getKey();
+					List<Prescription> pp = entry.getValue();
+
+					if (i.getIllness_name().contains(key)) { //若药名相同，则继续while
+						continue;
+					} else {
+						int flag = 0;
+						for (int c = 0; c < pp.size(); c++) { //对药方进行遍历，其中一条有key则break，没有就flag++
+							if ((pp.get(c).getPrescription_particulars().contains(key))
+									|| (pp.get(c).getDoctor_ID().contains(key))
+									/*||(pp.get(c).getPrescription_source().equals(key))*/
+											) {
+								break;
+							} else {
+								flag++;
+							}
+						}
+						if (flag == pp.size()) {//如果flag==pp.size，说明List药方中没有key，就把iter移除
+							iter.remove();
+						}
+					}
+
+				} 
+			
+			
+			
+			size =map.size();
+			System.out.println(size);
+			
+			model.addAttribute("map",map);
+			if(size==1) {
+				model.addAttribute("size","1");
+				Iterator it =map.entrySet().iterator();
+				while(it.hasNext()) {
+					Map.Entry<Illness, List<Prescription>> entry =(Map.Entry)it.next();
+					int illid=entry.getKey().getIllness_ID();
+					return "redirect:/QueryPrescription?illnessId="+illid;
+				}
+				
+			}else if(size==0) {
+				model.addAttribute("size","0");
+				return "prescription_more1";
+			}else {
+				model.addAttribute("size",String.valueOf(size));
+				return "prescription_more1";
+			}
+			
+			
+		}
+	/*	//根据关键字查病症
 		List<Illness> illnesses =illnessService.findIllnessByKey(key);
 		
 		int size=0;
@@ -418,15 +507,15 @@ public class PrescriptionController {
 				}
 				
 				map.put(illnesses.get(i), prescription);
-			}
+			}*/
 			
-			size = illnesses.size();
-			model.addAttribute("key",key);
-			model.addAttribute("size",String.valueOf(size));
+			
+			
+		
 			model.addAttribute("illness_more",illnesses);
 			model.addAttribute("map",map);
 			return "prescription_more1";
-		}
+		
 	}
 	
 	//定时
