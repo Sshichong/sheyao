@@ -372,9 +372,52 @@ public class PrescriptionController {
 		
 		int size =0;
 		//判断查询是多条件查询还是单条件查询
-		if(key.contains("+")) {
+		if(key.contains("，")||key.contains(",")) { //病症+药物+献方医生
+			System.out.println(1111);
+			String []keys=null;
+			if(key.contains("，")) {
+				keys = key.split("，");
+			}else {
+				keys = key.split(",");
+			}
+			
+			//把不是对应病症的key和vaule移除
+			Iterator iter = map.entrySet().iterator();
+			while(iter.hasNext()) {
+				Map.Entry<Illness, List<Prescription>> entry =(Map.Entry)iter.next();
+				Illness i =entry.getKey();
+				if(!i.getIllness_name().contains(keys[0])) {//若key不为keys[0]的直接移除
+					iter.remove();
+					continue;
+				}
+				List<Prescription> pp = entry.getValue();
+				Iterator iter1 =pp.iterator();
+				while(iter1.hasNext()) {//对pp进行遍历
+					Prescription pp1=(Prescription)iter1.next();
+					//每条药方的药物和医生中不包含keys[1],keys[2]的，把这条药方移除
+					if(!(pp1.getPrescription_particulars().contains(keys[1])&&pp1.getDoctor_ID().contains(keys[2]))) {
+						iter1.remove();
+					}
+				}
+				if(pp.isEmpty()) { //如果pp为空，把对应的key的这条map移除
+					iter.remove();
+				}
+			}
+			
+			
+			String strKey =keys[0]+","+keys[1]+","+keys[2];
+			size = map.size();
+			model.addAttribute("map",map);
+			model.addAttribute("illness_more",illnesses);
+			model.addAttribute("size",String.valueOf(size));
+			model.addAttribute("key",strKey);
+			return "prescription_more1";
+		
+			
+			
 			
 		}else {
+			System.out.println(2222);
 				Iterator iter = map.entrySet().iterator();
 				while (iter.hasNext()) {
 					Map.Entry<Illness, List<Prescription>> entry = (Map.Entry) iter.next();
@@ -405,10 +448,11 @@ public class PrescriptionController {
 			
 			
 			size =map.size();
-			System.out.println(size);
+			//System.out.println(size);
 			
 			model.addAttribute("map",map);
 			if(size==1) {
+				model.addAttribute("illness_more",illnesses);
 				model.addAttribute("size","1");
 				Iterator it =map.entrySet().iterator();
 				while(it.hasNext()) {
@@ -418,15 +462,21 @@ public class PrescriptionController {
 				}
 				
 			}else if(size==0) {
+				model.addAttribute("illness_more",illnesses);
 				model.addAttribute("size","0");
 				return "prescription_more1";
 			}else {
+				model.addAttribute("illness_more",illnesses);
 				model.addAttribute("size",String.valueOf(size));
 				return "prescription_more1";
 			}
 			
 			
 		}
+
+	    model.addAttribute("illness_more",illnesses);
+		
+		return null;
 	/*	//根据关键字查病症
 		List<Illness> illnesses =illnessService.findIllnessByKey(key);
 		
@@ -512,9 +562,6 @@ public class PrescriptionController {
 			
 			
 		
-			model.addAttribute("illness_more",illnesses);
-			model.addAttribute("map",map);
-			return "prescription_more1";
 		
 	}
 	

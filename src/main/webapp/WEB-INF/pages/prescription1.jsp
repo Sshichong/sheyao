@@ -126,7 +126,7 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 
 			</div>
 			<div class="input-group custom-search-form" style="margin-left: 20px;margin-right: 20px;">
-				<input type="text" class="form-control" placeholder="Search..." id="key" name="key" >
+				<input type="text" class="form-control" placeholder="请输入病症，药物，献方医生或输入“病症，药物，供方医生”" id="key" name="key" >
 				<span class="input-group-btn">
                                 <button class="btn btn-default" type="button" onclick="check()">
                                     <i class="fa fa-search"></i>

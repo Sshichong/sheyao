@@ -127,7 +127,7 @@ String key =(String)request.getAttribute("key");
 			</div>
 			<div class="input-group custom-search-form" style="margin-left: 20px;margin-right: 20px;">
 <!-- 			<form id="formid"  action ="/sheyao/Querykey">  -->
-				<input type="text" class="form-control" placeholder="Search..." id="key" name="key">
+				<input type="text" class="form-control" placeholder="请输入畲药的正名，异名，全拼或简拼" id="key" name="key">
 				<span class="input-group-btn">
                                 <button class="btn btn-default" type="button" id="search" onclick="check()">
                                     <i class="fa fa-search"></i>
