@@ -1,36 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
   <display-name>sheyao</display-name>
-  <!-- 让web容器加在Spring容器的相关配置 -->
   <context-param>
-  	<param-name>contextConfigLocation</param-name>
-  	<param-value>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
   	classpath:spring/applicationContext*.xml
   	classpath:spring/spring-task.xml
   	</param-value>
   </context-param>
-  	
-  	
-  	<listener>
-  		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  	</listener>
-  	
-  	<!-- 配置SpringMVC -->
-  	<servlet>
-  	 <servlet-name>springMVC</servlet-name>
-  	 <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-  	<!-- 指定SpringMVC的配置文件 -->
-  	<init-param>
-  		<param-name>contextConfigLocation</param-name>
-  		<param-value>classpath:spring/springmvc-config.xml</param-value>
-  	</init-param>
-  	<load-on-startup>1</load-on-startup>
-  	</servlet>
-  	<!-- 用/拦截，会拦截所有动态请求和静态资源，我们需要在springMVC的配置文件上做相应处理，让静态文件做相关处理，让静态资源能被方行-->
-  	<servlet-mapping>
-  	 <servlet-name>springMVC</servlet-name>
-  	 <url-pattern>/</url-pattern>	
-  	</servlet-mapping>
-  	
-  
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <servlet>
+    <servlet-name>springMVC</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring/springmvc-config.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>springMVC</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
 </web-app>

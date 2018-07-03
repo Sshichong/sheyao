@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
     <%@page import="java.util.*" %>
+    <%@page import="java.io.*" %>
     <%@page import="cn.sheyao.pojo.Medicine" %>
     <%@page import="cn.sheyao.pojo.Illness" %>
     <%@page import="cn.sheyao.pojo.Prescription" %>
@@ -299,7 +300,8 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 					<div class="col-sm-6 col-md-4">
 						<a href="QueryById?id=<%=m.getMedicine_ID()%>">
 							<div class="thumbnail">
-								<img src="${ctx }/staticfile/assets/images/1.jpg">
+							
+								<img src="/sheyaoImg/<%=m.getMedicine_plantAdult()%>">
 								<div class="caption">
 									<h3><%=m.getMedicine_name()%></h3>
 									<p><%=m.getMedicine_distribution()%></p>
@@ -316,7 +318,8 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 
 
 				<%
-					}else if(medicine_one!=null){%>
+					}else if(medicine_one!=null){
+					%>
 					<div style="margin-top:-150px">
 						<div style="background: white;">
 						<h1 style="display: inline-block;"><%=medicine_one.getMedicine_name()%></h1>
@@ -401,43 +404,68 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 						<p align="left">图片显示：</p>
 
 						<div class="row">
-							<!--
-	                    	作者：58901774@qq.com
-	                    	时间：2018-06-22
-	                    	描述：一块一块的显示
-	                   -->
+							
+							 <c:if test="${picSeed!=null }"> 
 							<div class="col-sm-6 col-md-4">
 								<a href="#">
 									<div class="thumbnail">
-										<img src="${ctx }/staticfile/assets/images/1.jpg">
+										<img src="/sheyaoImg/<%=medicine_one.getMedicine_plantSeed()%>">
 										<div class="caption">
-											<p>描述</p>
+											<p>畲药种子期</p>
 										</div>
 									</div>
 								</a>
 							</div>
-
+                             </c:if> 
+                            <c:if test="${picJuvenile!=null }">
 							<div class="col-sm-6 col-md-4">
 								<a href="#">
 									<div class="thumbnail">
-										<img src="${ctx }/staticfile/assets/images/1.jpg">
+										<img src="/sheyaoImg/<%=medicine_one.getMedicine_plantJuvenile()%>">
 										<div class="caption">
-											<p>描述</p>
+											<p>畲药幼年期</p>
 										</div>
 									</div>
 								</a>
 							</div>
+							</c:if>
+							<c:if test="${picAdult!=null }">
 							<div class="col-sm-6 col-md-4">
 								<a href="#">
 									<div class="thumbnail">
-										<img src="${ctx }/staticfile/assets/images/1.jpg">
+										<img src="/sheyaoImg/<%=medicine_one.getMedicine_plantAdult()%>">
 										<div class="caption">
-											<p>描述</p>
+											<p>畲药成年期</p>
 										</div>
 									</div>
 								</a>
 							</div>
-
+							</c:if>
+							
+							<c:if test="${picWilting!=null }">
+							<div class="col-sm-6 col-md-4">
+								<a href="#">
+									<div class="thumbnail">
+										<img src="/sheyaoImg/<%=medicine_one.getMedicine_plantWilting()%>">
+										<div class="caption">
+											<p>畲药枯萎期</p>
+										</div>
+									</div>
+								</a>
+							</div>
+							</c:if>
+							<c:if test="${picImg!=null }">
+							<div class="col-sm-6 col-md-4">
+								<a href="#">
+									<div class="thumbnail">
+										<img src="/sheyaoImg/<%=medicine_one.getMedicine_plantImg()%>">
+										<div class="caption">
+											<p>其他</p>
+										</div>
+									</div>
+								</a>
+							</div>
+							</c:if>
 						</div>
 
 					</div>
@@ -455,7 +483,7 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 									<div class="col-sm-6 col-md-4">
 						<a href="QueryById?id=<%=m.getMedicine_ID()%>">
 						<div class="thumbnail">
-							<img src="${ctx }/staticfile/assets/images/1.jpg">
+							<img src="/sheyaoImg/<%=m.getMedicine_plantAdult()%>">
 							<div class="caption">
 								<h3><%=m.getMedicine_name()%></h3>
 								<p><%=m.getMedicine_distribution() %></p>
@@ -478,7 +506,7 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 									<div class="col-sm-6 col-md-4">
 						<a href="QueryById?id=<%=m.getMedicine_ID()%>">
 						<div class="thumbnail">
-							<img src="${ctx }/staticfile/assets/images/1.jpg">
+							<img src="/sheyaoImg/<%=m.getMedicine_plantAdult()%>">
 							<div class="caption">
 								<h3><%=m.getMedicine_name()%></h3>
 								<p><%=m.getMedicine_distribution() %></p>
@@ -501,7 +529,7 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 									<div class="col-sm-6 col-md-4">
 						<a href="QueryById?id=<%=m.getMedicine_ID()%>">
 						<div class="thumbnail">
-							<img src="${ctx }/staticfile/assets/images/1.jpg">
+							<img src="/sheyaoImg/<%=m.getMedicine_plantAdult()%>">
 							<div class="caption">
 								<h3><%=m.getMedicine_name()%></h3>
 								<p><%=m.getMedicine_distribution() %></p>
@@ -525,7 +553,7 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 									<div class="col-sm-6 col-md-4">
 						<a href="QueryById?id=<%=m.getMedicine_ID()%>">
 						<div class="thumbnail">
-							<img src="${ctx }/staticfile/assets/images/1.jpg">
+							<img src="/sheyaoImg/<%=m.getMedicine_plantAdult()%>">
 							<div class="caption">
 								<h3><%=m.getMedicine_name()%></h3>
 								<p><%=m.getMedicine_distribution() %></p>
@@ -548,7 +576,7 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 									<div class="col-sm-6 col-md-4">
 						<a href="QueryById?id=<%=m.getMedicine_ID()%>">
 						<div class="thumbnail">
-							<img src="${ctx }/staticfile/assets/images/1.jpg">
+							<img src="/sheyaoImg/<%=m.getMedicine_plantAdult()%>">
 							<div class="caption">
 								<h3><%=m.getMedicine_name()%></h3>
 								<p><%=m.getMedicine_distribution() %></p>

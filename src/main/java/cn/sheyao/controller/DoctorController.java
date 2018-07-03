@@ -227,6 +227,7 @@ public class DoctorController {
 		
 		model.addAttribute("illnessAndprescription",map);
 		model.addAttribute("doctor_one",d);
+		model.addAttribute("picdoctor",d.getDoctor_Pic());
 		model.addAttribute("doctor",doctor);
 		
 		

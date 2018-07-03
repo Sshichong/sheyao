@@ -329,7 +329,7 @@ if(doctor_title!=null){%>
 					<div class="col-sm-6 col-md-4">
 						<a href="QueryDoctorById?id=<%=d.getDoctor_ID()%>">
 						<div class="thumbnail">
-							<img src="${ctx }/staticfile/assets/images/1.jpg">
+							<img src="/sheyaoImg/<%=d.getDoctor_Pic()%>">
 							<div class="caption">
 								<h3><%=d.getDoctor_name() %></h3>
 								<p><%=d.getDoctor_introduce()%></p>
@@ -412,42 +412,19 @@ if(doctor_title!=null){%>
 					<p align="left">图片显示：</p>
 
 					<div class="row">
-						<!--
-                    	作者：58901774@qq.com
-                    	时间：2018-06-22
-                    	描述：一块一块的显示
-                   -->
+						<c:if test="${picdoctor!=null }">
 						<div class="col-sm-6 col-md-4">
 							<a href="#">
 								<div class="thumbnail">
-									<img src="${ctx }/staticfile/assets/images/1.jpg">
+									<img src="/sheyaoImg/<%=doctor_one.getDoctor_Pic()%>">
 									<div class="caption">
-										<p>描述</p>
+										<p><%=doctor_one.getDoctor_name() %></p>
 									</div>
 								</div>
 							</a>
 						</div>
-
-						<div class="col-sm-6 col-md-4">
-							<a href="#">
-								<div class="thumbnail">
-									<img src="${ctx }/staticfile/assets/images/1.jpg">
-									<div class="caption">
-										<p>描述</p>
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="col-sm-6 col-md-4">
-							<a href="#">
-								<div class="thumbnail">
-									<img src="${ctx }/staticfile/assets/images/1.jpg">
-									<div class="caption">
-										<p>描述</p>
-									</div>
-								</div>
-							</a>
-						</div>
+						</c:if>
+						
 
 					</div>
 
@@ -473,7 +450,7 @@ if(doctor_title!=null){%>
 				<div class="col-sm-6 col-md-4">
 					<a href="QueryDoctorById?id=<%=d.getDoctor_ID()%>">
 						<div class="thumbnail">
-							<img src="${ctx }/staticfile/assets/images/1.jpg">
+							<img src="/sheyaoImg/<%=d.getDoctor_Pic()%>">
 							<div class="caption">
 								<h3><%=d.getDoctor_name() %></h3>
 								<p><%=d.getDoctor_introduce() %></p>
@@ -501,7 +478,7 @@ if(doctor_title!=null){%>
 				<div class="col-sm-6 col-md-4">
 					<a href="QueryDoctorById?id=<%=d.getDoctor_ID()%>">
 						<div class="thumbnail">
-							<img src="${ctx }/staticfile/assets/images/1.jpg">
+							<img src="/sheyaoImg/<%=d.getDoctor_Pic()%>">
 							<div class="caption">
 								<h3><%=d.getDoctor_name() %></h3>
 								<p><%=d.getDoctor_introduce() %></p>
@@ -529,7 +506,7 @@ if(doctor_title!=null){%>
 				<div class="col-sm-6 col-md-4">
 					<a href="QueryDoctorById?id=<%=d.getDoctor_ID()%>">
 						<div class="thumbnail">
-							<img src="${ctx }/staticfile/assets/images/1.jpg">
+							<img src="/sheyaoImg/<%=d.getDoctor_Pic()%>">
 							<div class="caption">
 								<h3><%=d.getDoctor_name() %></h3>
 								<p><%=d.getDoctor_introduce() %></p>
@@ -557,7 +534,7 @@ if(doctor_title!=null){%>
 				<div class="col-sm-6 col-md-4">
 					<a href="QueryDoctorById?id=<%=d.getDoctor_ID()%>">
 						<div class="thumbnail">
-							<img src="${ctx }/staticfile/assets/images/1.jpg">
+							<img src="/sheyaoImg/<%=d.getDoctor_Pic()%>">
 							<div class="caption">
 								<h3><%=d.getDoctor_name() %></h3>
 								<p><%=d.getDoctor_introduce() %></p>
@@ -584,7 +561,7 @@ if(doctor_title!=null){%>
 				<div class="col-sm-6 col-md-4">
 					<a href="QueryDoctorById?id=<%=d.getDoctor_ID()%>">
 						<div class="thumbnail">
-							<img src="${ctx }/staticfile/assets/images/1.jpg">
+							<img src="/sheyaoImg/<%=d.getDoctor_Pic()%>">
 							<div class="caption">
 								<h3><%=d.getDoctor_name() %></h3>
 								<p><%=d.getDoctor_introduce() %></p>
@@ -611,7 +588,7 @@ if(doctor_title!=null){%>
 				<div class="col-sm-6 col-md-4">
 					<a href="QueryDoctorById?id=<%=d.getDoctor_ID()%>">
 						<div class="thumbnail">
-							<img src="${ctx }/staticfile/assets/images/1.jpg">
+							<img src="/sheyaoImg/<%=d.getDoctor_Pic()%>">
 							<div class="caption">
 								<h3><%=d.getDoctor_name() %></h3>
 								<p><%=d.getDoctor_introduce() %></p>
@@ -638,7 +615,7 @@ if(doctor_title!=null){%>
 				<div class="col-sm-6 col-md-4">
 					<a href="QueryDoctorById?id=<%=d.getDoctor_ID()%>">
 						<div class="thumbnail">
-							<img src="${ctx }/staticfile/assets/images/1.jpg">
+							<img src="/sheyaoImg/<%=d.getDoctor_Pic()%>">
 							<div class="caption">
 								<h3><%=d.getDoctor_name() %></h3>
 								<p><%=d.getDoctor_introduce() %></p>

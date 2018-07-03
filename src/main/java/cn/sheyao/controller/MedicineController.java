@@ -62,6 +62,10 @@ public class MedicineController {
 		//System.out.println(type1);
 		//通过类别找记录
 		List<Medicine> medicine_Type =medicineService.findMedicineByType(type1);
+		System.out.println(medicine_Type.get(0).getMedicine_plantAdult());
+		String picName =medicine_Type.get(0).getMedicine_plantAdult();
+		picName = picName.substring(medicine_Type.get(0).getMedicine_plantAdult().lastIndexOf("\\")+1);
+		System.out.println(picName);
 		//找全部记录
 		List<Medicine> medicine=medicineService.findMedicine();
 		model.addAttribute("medicine",medicine);
@@ -197,6 +201,13 @@ public class MedicineController {
 		System.out.println(medicine_one.get(0).toString());
 		model.addAttribute("medicine",medicine);
 		model.addAttribute("medicine_one",medicine_one.get(0));
+		
+		model.addAttribute("picSeed",medicine_one.get(0).getMedicine_plantSeed());
+		model.addAttribute("picJuvenile",medicine_one.get(0).getMedicine_plantJuvenile());
+		model.addAttribute("picAdult",medicine_one.get(0).getMedicine_plantAdult());
+		model.addAttribute("picWilting",medicine_one.get(0).getMedicine_plantWilting());
+		model.addAttribute("picImg",medicine_one.get(0).getMedicine_plantImg());
+		
 		model.addAttribute("IllnessMap",IllnessMap);
 		return "sheyao1";
 	}
