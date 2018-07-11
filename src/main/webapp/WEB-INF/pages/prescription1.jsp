@@ -182,6 +182,9 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 
 						<div class="subNav">外科</div>
 						<ul class="navContent">
+						<li>
+				<a href="IllnessType?type=外科" style="margin-left:20px">全部</a>
+		</li>
 						<%
 			for(int i=0;i<illness.get(1).size();i++){
 				StringBuffer sb =new StringBuffer();
@@ -200,6 +203,9 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 
 						<div class="subNav">妇科</div>
 						<ul class="navContent">
+						<li>
+				<a href="IllnessType?type=妇科" style="margin-left:20px">全部</a>
+		</li>
 							<%
 			for(int i=0;i<illness.get(2).size();i++){
 				StringBuffer sb =new StringBuffer();
@@ -218,6 +224,9 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 
 						<div class="subNav">儿科</div>
 						<ul class="navContent">
+						<li>
+				<a href="IllnessType?type=儿科" style="margin-left:20px">全部</a>
+		</li>
 							<%
 			for(int i=0;i<illness.get(3).size();i++){
 				StringBuffer sb =new StringBuffer();
@@ -236,6 +245,9 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 						
 						<div class="subNav">五官科</div>
 						<ul class="navContent">
+						<li>
+				<a href="IllnessType?type=五官科" style="margin-left:20px">全部</a>
+		</li>
 							<%
 			for(int i=0;i<illness.get(4).size();i++){
 				StringBuffer sb =new StringBuffer();
@@ -254,6 +266,9 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 						
 						<div class="subNav">痧症科</div>
 						<ul class="navContent">
+						<li>
+				<a href="IllnessType?type=痧症科" style="margin-left:20px">全部</a>
+		</li>
 							<%
 			for(int i=0;i<illness.get(5).size();i++){
 				StringBuffer sb =new StringBuffer();
@@ -272,6 +287,9 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 						
 						<div class="subNav">蛇伤科</div>
 						<ul class="navContent">
+						<li>
+				<a href="IllnessType?type=蛇伤科" style="margin-left:20px">全部</a>
+		</li>
 							<%
 			for(int i=0;i<illness.get(6).size();i++){
 				StringBuffer sb =new StringBuffer();
@@ -290,6 +308,9 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 						
 						<div class="subNav">风湿与关节疾病</div>
 						<ul class="navContent">
+						<li>
+				<a href="IllnessType?type=风湿与关节疾病" style="margin-left:20px">全部</a>
+		</li>
 							<%
 			for(int i=0;i<illness.get(7).size();i++){
 				StringBuffer sb =new StringBuffer();
@@ -309,6 +330,9 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 						
 						<div class="subNav">呼吸科</div>
 						<ul class="navContent">
+						<li>
+				<a href="IllnessType?type=呼吸科" style="margin-left:20px">全部</a>
+		</li>
 							<%
 			for(int i=0;i<illness.get(8).size();i++){
 				StringBuffer sb =new StringBuffer();
@@ -328,6 +352,9 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 						
 						<div class="subNav">消化科</div>
 						<ul class="navContent">
+						<li>
+				<a href="IllnessType?type=消化科" style="margin-left:20px">全部</a>
+		</li>
 							<%
 			for(int i=0;i<illness.get(9).size();i++){
 				StringBuffer sb =new StringBuffer();
@@ -347,6 +374,9 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 						
 						<div class="subNav">神经科</div>
 						<ul class="navContent">
+						<li>
+				<a href="IllnessType?type=神经科" style="margin-left:20px">全部</a>
+		</li>
 							<%
 			for(int i=0;i<illness.get(10).size();i++){
 				StringBuffer sb =new StringBuffer();
@@ -368,6 +398,9 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 						
 						<div class="subNav">泌尿生殖科</div>
 						<ul class="navContent">
+						<li>
+				<a href="IllnessType?type=泌尿生殖科" style="margin-left:20px">全部</a>
+		</li>
 							<%
 			for(int i=0;i<illness.get(11).size();i++){
 				StringBuffer sb =new StringBuffer();
@@ -386,6 +419,9 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 						
 						<div class="subNav">皮肤科</div>
 						<ul class="navContent">
+						<li>
+				<a href="IllnessType?type=皮肤科" style="margin-left:20px">全部</a>
+		</li>
 							<%
 			for(int i=0;i<illness.get(12).size();i++){
 				StringBuffer sb =new StringBuffer();
@@ -404,6 +440,9 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 						
 						<div class="subNav">传染科</div>
 						<ul class="navContent">
+						<li>
+				<a href="IllnessType?type=传染科" style="margin-left:20px">全部</a>
+		</li>
 							<%
 			for(int i=0;i<illness.get(13).size();i++){
 				StringBuffer sb =new StringBuffer();
@@ -422,6 +461,9 @@ List<Prescription> illness_p=(List)request.getAttribute("illness_p");
 						
 						<div class="subNav">其他</div>
 						<ul class="navContent">
+						<li>
+				<a href="IllnessType?type=其他" style="margin-left:20px">全部</a>
+		</li>
 							<%
 			for(int i=0;i<illness.get(14).size();i++){
 				StringBuffer sb =new StringBuffer();

@@ -164,11 +164,11 @@ Map<Illness,List<Prescription>> illnessAndprescription =(Map<Illness,List<Prescr
 <div align="left" style="float: left;margin-right: 30px;width: 17%;">
 					<div class="subNavBox" align="left" style="margin-top: 0px;">
 
-						<div class="subNav currentDd currentDt"><a href="QueryByStartWith?StartWith=a&StartWith=b&StartWith=c&StartWith=d" style="margin-left:20px">A-D</a></div>
+						<div class="subNav currentDd currentDt"><!-- <a href="QueryByStartWith?StartWith=a&StartWith=b&StartWith=c&StartWith=d" style="margin-left:20px"> -->A-D<!-- </a> --></div>
 						<ul class="navContent " style="display:block">
-						<!-- <li>
+						 <li>
 						<a href="QueryByStartWith?StartWith=a&StartWith=b&StartWith=c&StartWith=d" style="margin-left:20px">全部</a>
-						</li> -->
+						</li>
 						<%
 				List<Doctor1> doctorad =new ArrayList();
 					for (int i = 0; i < doctor.size(); i++) {
@@ -234,6 +234,9 @@ Map<Illness,List<Prescription>> illnessAndprescription =(Map<Illness,List<Prescr
 
 						<div class="subNav">M-P</div>
 						<ul class="navContent">
+						<li>
+						<a href="QueryByStartWith?StartWith=m&StartWith=n&StartWith=o&StartWith=p" style="margin-left:20px">全部</a>
+						</li>
 						<%
 				List<Doctor1> doctormp =new ArrayList();
 					for (int i = 0; i < doctor.size(); i++) {
@@ -254,6 +257,9 @@ Map<Illness,List<Prescription>> illnessAndprescription =(Map<Illness,List<Prescr
 						
 						<div class="subNav">Q-T</div>
 						<ul class="navContent">
+						<li>
+						<a href="QueryByStartWith?StartWith=q&StartWith=r&StartWith=s&StartWith=t" style="margin-left:20px">全部</a>
+						</li>
 						<%
 				List<Doctor1> doctorqt =new ArrayList();
 					for (int i = 0; i < doctor.size(); i++) {
@@ -274,6 +280,9 @@ Map<Illness,List<Prescription>> illnessAndprescription =(Map<Illness,List<Prescr
 						
 						<div class="subNav">U-X</div>
 						<ul class="navContent">
+						<li>
+						<a href="QueryByStartWith?StartWith=u&StartWith=v&StartWith=w&StartWith=x" style="margin-left:20px">全部</a>
+						</li>
 						<%
 				List<Doctor1> doctorux =new ArrayList();
 					for (int i = 0; i < doctor.size(); i++) {
@@ -294,6 +303,9 @@ Map<Illness,List<Prescription>> illnessAndprescription =(Map<Illness,List<Prescr
 						
 						<div class="subNav">Y-Z</div>
 						<ul class="navContent">
+						<li>
+						<a href="QueryByStartWith?StartWith=y&StartWith=z" style="margin-left:20px">全部</a>
+						</li>
 						<%
 				List<Doctor1> doctoryz =new ArrayList();
 					for (int i = 0; i < doctor.size(); i++) {

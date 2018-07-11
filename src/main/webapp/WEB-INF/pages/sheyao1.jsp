@@ -163,13 +163,36 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 <div align="left" style="float: left;margin-right: 30px;width: 17%;">
 					<div class="subNavBox" align="left" style="margin-top: 0px;">
 
-						<div class="subNav currentDd currentDt">菌类植物</div>
+						<div class="subNav currentDd currentDt">藻类植物</div>
 						<ul class="navContent " style="display:block">
 						<li>
-				<a href="QueryByType?type=2" style="margin-left:20px">全部</a>
+				<a href="QueryByType?type=1" style="margin-left:20px">全部</a>
 				</li>
 						
 				<%
+					for (int i = 0; i < medicine.size(); i++) {
+						Medicine m = medicine.get(i);
+						if (m.getMedicine_planCategory() == 1) {
+				%>
+				<li>
+				<a href="QueryById?id=<%=m.getMedicine_ID()%>" style="margin-left:20px"><%=m.getMedicine_name()%></a>
+				</li>
+				<%
+					}
+					}
+				%>
+<!-- 							<li> -->
+<!-- 								<a href="#">添加新闻</a> -->
+<!-- 							</li> -->
+							
+						</ul>
+
+						<div class="subNav">菌类植物</div>
+						<ul class="navContent">
+						<li>
+				<a href="QueryByType?type=2" style="margin-left:20px">全部</a>
+				</li>
+						<%
 					for (int i = 0; i < medicine.size(); i++) {
 						Medicine m = medicine.get(i);
 						if (m.getMedicine_planCategory() == 2) {
@@ -187,8 +210,11 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 							
 						</ul>
 
-						<div class="subNav">地衣苔藓类植物</div>
+						<div class="subNav">地衣类植物</div>
 						<ul class="navContent">
+						<li>
+				<a href="QueryByType?type=3" style="margin-left:20px">全部</a>
+				</li>
 						<%
 					for (int i = 0; i < medicine.size(); i++) {
 						Medicine m = medicine.get(i);
@@ -207,32 +233,15 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 							
 						</ul>
 
-						<div class="subNav">蕨类植物</div>
+						<div class="subNav">苔藓类植物</div>
 						<ul class="navContent">
-						<%
-					for (int i = 0; i < medicine.size(); i++) {
-						Medicine m = medicine.get(i);
-						if (m.getMedicine_planCategory() == 5) {
-				%>
-				<li>
-				<a href="QueryById?id=<%=m.getMedicine_ID()%>" style="margin-left:20px"><%=m.getMedicine_name()%></a>
+						<li>
+				<a href="QueryByType?type=4" style="margin-left:20px">全部</a>
 				</li>
-				<%
-					}
-					}
-				%>
-<!-- 							<li> -->
-<!-- 								<a href="#">添加新闻</a> -->
-<!-- 							</li> -->
-							
-						</ul>
-
-						<div class="subNav">裸子植物</div>
-						<ul class="navContent">
 						<%
 					for (int i = 0; i < medicine.size(); i++) {
 						Medicine m = medicine.get(i);
-						if (m.getMedicine_planCategory() == 6) {
+						if (m.getMedicine_planCategory() == 4) {
 				%>
 				<li>
 				<a href="QueryById?id=<%=m.getMedicine_ID()%>" style="margin-left:20px"><%=m.getMedicine_name()%></a>
@@ -246,8 +255,53 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 <!-- 							</li> -->
 						</ul>
 						
-						<div class="subNav">双子叶植物</div>
+						<div class="subNav">蕨类植物</div>
 						<ul class="navContent">
+						<li>
+				<a href="QueryByType?type=5" style="margin-left:20px">全部</a>
+				</li>
+						
+						<%
+					for (int i = 0; i < medicine.size(); i++) {
+						Medicine m = medicine.get(i);
+						if (m.getMedicine_planCategory() == 5) {
+				%>
+				<li>
+				<a href="QueryById?id=<%=m.getMedicine_ID()%>" style="margin-left:20px"><%=m.getMedicine_name()%></a>
+				</li>
+				<%
+					}
+					}
+				%>
+						</ul>
+						
+						
+						<div class="subNav">裸子类植物</div>
+						<ul class="navContent">
+						<li>
+				<a href="QueryByType?type=6" style="margin-left:20px">全部</a>
+				</li>
+						
+						<%
+					for (int i = 0; i < medicine.size(); i++) {
+						Medicine m = medicine.get(i);
+						if (m.getMedicine_planCategory() == 6) {
+				%>
+				<li>
+				<a href="QueryById?id=<%=m.getMedicine_ID()%>" style="margin-left:20px"><%=m.getMedicine_name()%></a>
+				</li>
+				<%
+					}
+					}
+				%>
+						</ul>
+						
+						
+						<div class="subNav">双子叶类植物</div>
+						<ul class="navContent">
+						<li>
+				<a href="QueryByType?type=7" style="margin-left:20px">全部</a>
+				</li>
 						
 						<%
 					for (int i = 0; i < medicine.size(); i++) {
@@ -261,9 +315,27 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 					}
 					}
 				%>
-<!-- 							<li> -->
-<!-- 								<a href="#">添加新闻</a> -->
-<!-- 							</li> -->
+						</ul>
+						
+						
+						<div class="subNav">单子叶类植物</div>
+						<ul class="navContent">
+						<li>
+				<a href="QueryByType?type=8" style="margin-left:20px">全部</a>
+				</li>
+						
+						<%
+					for (int i = 0; i < medicine.size(); i++) {
+						Medicine m = medicine.get(i);
+						if (m.getMedicine_planCategory() == 8) {
+				%>
+				<li>
+				<a href="QueryById?id=<%=m.getMedicine_ID()%>" style="margin-left:20px"><%=m.getMedicine_name()%></a>
+				</li>
+				<%
+					}
+					}
+				%>
 						</ul>
 						
 						
@@ -279,19 +351,25 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 						Medicine m1 = medicine_type.get(0);
 						int leiming = m1.getMedicine_planCategory();
 						String strleiming = String.valueOf(leiming);
-						if (strleiming.equals("2")) {
+						if (strleiming.equals("1")) {
+							strleiming = "藻类植物";
+						} else if (strleiming.equals("2")) {
 							strleiming = "菌类植物";
 						} else if (strleiming.equals("3")) {
-							strleiming = "地衣苔藓类植物";
+							strleiming = "地衣类植物";
+						} else if (strleiming.equals("4")) {
+							strleiming = "苔藓类植物";
 						} else if (strleiming.equals("5")) {
 							strleiming = "蕨类植物";
-						} else if (strleiming.equals("6")) {
-							strleiming = "裸子植物";
-						} else if (strleiming.equals("7")) {
-							strleiming = "双子叶植物";
+						}else if (strleiming.equals("6")) {
+							strleiming = "裸子类植物";
+						}else if (strleiming.equals("7")) {
+							strleiming = "双子叶类植物";
+						}else if (strleiming.equals("8")) {
+							strleiming = "单子叶类植物";
 						}
 				%>
-				<h1 style="display: inline-block; margin-top: 0px;">菌类植物</h1>
+				<h1 style="display: inline-block; margin-top: 0px;"><%=strleiming %></h1>
 				<div class="row">
 
 					<%
@@ -474,7 +552,30 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 						
 				<%	}else{%>
 						
-				<h1 style="display: inline-block; margin-top: 0px;">菌类植物</h1>
+				<h1 style="display: inline-block; margin-top: 0px;">藻类植物</h1>
+				<div class="row">
+
+	
+				<%for(Medicine m:medicine){
+								if(m.getMedicine_planCategory()==1){%>
+									<div class="col-sm-6 col-md-4">
+						<a href="QueryById?id=<%=m.getMedicine_ID()%>">
+						<div class="thumbnail">
+							<img src="/sheyaoImg/<%=m.getMedicine_plantAdult()%>">
+							<div class="caption">
+								<h3><%=m.getMedicine_name()%></h3>
+								<p><%=m.getMedicine_distribution() %></p>
+							</div>
+						</div>
+					</a>
+					</div>
+									
+							<%	}
+							}%>
+
+				</div>
+
+<h1 style="display: inline-block; margin-top: 0px;">菌类植物</h1>
 				<div class="row">
 
 	
@@ -496,13 +597,37 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 							}%>
 
 				</div>
-
-<h1 style="display: inline-block; margin-top: 0px;">地衣苔藓类植物</h1>
+				
+				<h1 style="display: inline-block; margin-top: 0px;">地衣类植物</h1>
 				<div class="row">
 
 	
 				<%for(Medicine m:medicine){
 								if(m.getMedicine_planCategory()==3){%>
+									<div class="col-sm-6 col-md-4">
+						<a href="QueryById?id=<%=m.getMedicine_ID()%>">
+						<div class="thumbnail">
+							<img src="/sheyaoImg/<%=m.getMedicine_plantAdult()%>">
+							<div class="caption">
+								<h3><%=m.getMedicine_name()%></h3>
+								<p><%=m.getMedicine_distribution() %></p>
+							</div>
+						</div>
+					</a>
+					</div>
+									
+							<%	}
+							}%>
+
+				</div>
+				
+				
+				<h1 style="display: inline-block; margin-top: 0px;">苔藓类植物</h1>
+				<div class="row">
+
+	
+				<%for(Medicine m:medicine){
+								if(m.getMedicine_planCategory()==4){%>
 									<div class="col-sm-6 col-md-4">
 						<a href="QueryById?id=<%=m.getMedicine_ID()%>">
 						<div class="thumbnail">
@@ -543,7 +668,6 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 
 				</div>
 				
-				
 				<h1 style="display: inline-block; margin-top: 0px;">裸子植物</h1>
 				<div class="row">
 
@@ -567,12 +691,35 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 
 				</div>
 				
-				<h1 style="display: inline-block; margin-top: 0px;">双子叶植物</h1>
+				<h1 style="display: inline-block; margin-top: 0px;">双子叶类植物</h1>
 				<div class="row">
 
 	
 				<%for(Medicine m:medicine){
 								if(m.getMedicine_planCategory()==7){%>
+									<div class="col-sm-6 col-md-4">
+						<a href="QueryById?id=<%=m.getMedicine_ID()%>">
+						<div class="thumbnail">
+							<img src="/sheyaoImg/<%=m.getMedicine_plantAdult()%>">
+							<div class="caption">
+								<h3><%=m.getMedicine_name()%></h3>
+								<p><%=m.getMedicine_distribution() %></p>
+							</div>
+						</div>
+					</a>
+					</div>
+									
+							<%	}
+							}%>
+
+				</div>
+				
+				<h1 style="display: inline-block; margin-top: 0px;">单子叶类植物</h1>
+				<div class="row">
+
+	
+				<%for(Medicine m:medicine){
+								if(m.getMedicine_planCategory()==8){%>
 									<div class="col-sm-6 col-md-4">
 						<a href="QueryById?id=<%=m.getMedicine_ID()%>">
 						<div class="thumbnail">
