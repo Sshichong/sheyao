@@ -161,13 +161,36 @@ String key =(String)request.getAttribute("key");
 <div align="left" style="float: left;margin-right: 30px;width: 17%;">
 					<div class="subNavBox" align="left" style="margin-top: 0px;">
 
-						<div class="subNav currentDd currentDt">菌类植物</div>
+						<div class="subNav currentDd currentDt">藻类植物</div>
 						<ul class="navContent " style="display:block">
 						<li>
-				<a href="QueryByType?type=2" style="margin-left:20px">全部</a>
+				<a href="QueryByType?type=1" style="margin-left:20px">全部</a>
 				</li>
 						
 				<%
+					for (int i = 0; i < medicine.size(); i++) {
+						Medicine m = medicine.get(i);
+						if (m.getMedicine_planCategory() == 1) {
+				%>
+				<li>
+				<a href="QueryById?id=<%=m.getMedicine_ID()%>" style="margin-left:20px"><%=m.getMedicine_name()%></a>
+				</li>
+				<%
+					}
+					}
+				%>
+<!-- 							<li> -->
+<!-- 								<a href="#">添加新闻</a> -->
+<!-- 							</li> -->
+							
+						</ul>
+
+						<div class="subNav">菌类植物</div>
+						<ul class="navContent">
+						<li>
+				<a href="QueryByType?type=2" style="margin-left:20px">全部</a>
+				</li>
+						<%
 					for (int i = 0; i < medicine.size(); i++) {
 						Medicine m = medicine.get(i);
 						if (m.getMedicine_planCategory() == 2) {
@@ -185,8 +208,11 @@ String key =(String)request.getAttribute("key");
 							
 						</ul>
 
-						<div class="subNav">地衣苔藓类植物</div>
+						<div class="subNav">地衣类植物</div>
 						<ul class="navContent">
+						<li>
+				<a href="QueryByType?type=3" style="margin-left:20px">全部</a>
+				</li>
 						<%
 					for (int i = 0; i < medicine.size(); i++) {
 						Medicine m = medicine.get(i);
@@ -205,8 +231,34 @@ String key =(String)request.getAttribute("key");
 							
 						</ul>
 
+						<div class="subNav">苔藓类植物</div>
+						<ul class="navContent">
+						<li>
+				<a href="QueryByType?type=4" style="margin-left:20px">全部</a>
+				</li>
+						<%
+					for (int i = 0; i < medicine.size(); i++) {
+						Medicine m = medicine.get(i);
+						if (m.getMedicine_planCategory() == 4) {
+				%>
+				<li>
+				<a href="QueryById?id=<%=m.getMedicine_ID()%>" style="margin-left:20px"><%=m.getMedicine_name()%></a>
+				</li>
+				<%
+					}
+					}
+				%>
+<!-- 							<li> -->
+<!-- 								<a href="#">添加新闻</a> -->
+<!-- 							</li> -->
+						</ul>
+						
 						<div class="subNav">蕨类植物</div>
 						<ul class="navContent">
+						<li>
+				<a href="QueryByType?type=5" style="margin-left:20px">全部</a>
+				</li>
+						
 						<%
 					for (int i = 0; i < medicine.size(); i++) {
 						Medicine m = medicine.get(i);
@@ -219,14 +271,15 @@ String key =(String)request.getAttribute("key");
 					}
 					}
 				%>
-<!-- 							<li> -->
-<!-- 								<a href="#">添加新闻</a> -->
-<!-- 							</li> -->
-							
 						</ul>
-
-						<div class="subNav">裸子植物</div>
+						
+						
+						<div class="subNav">裸子类植物</div>
 						<ul class="navContent">
+						<li>
+				<a href="QueryByType?type=6" style="margin-left:20px">全部</a>
+				</li>
+						
 						<%
 					for (int i = 0; i < medicine.size(); i++) {
 						Medicine m = medicine.get(i);
@@ -239,18 +292,40 @@ String key =(String)request.getAttribute("key");
 					}
 					}
 				%>
-<!-- 							<li> -->
-<!-- 								<a href="#">添加新闻</a> -->
-<!-- 							</li> -->
 						</ul>
 						
-						<div class="subNav">双子叶植物</div>
+						
+						<div class="subNav">双子叶类植物</div>
 						<ul class="navContent">
+						<li>
+				<a href="QueryByType?type=7" style="margin-left:20px">全部</a>
+				</li>
 						
 						<%
 					for (int i = 0; i < medicine.size(); i++) {
 						Medicine m = medicine.get(i);
 						if (m.getMedicine_planCategory() == 7) {
+				%>
+				<li>
+				<a href="QueryById?id=<%=m.getMedicine_ID()%>" style="margin-left:20px"><%=m.getMedicine_name()%></a>
+				</li>
+				<%
+					}
+					}
+				%>
+						</ul>
+						
+						
+						<div class="subNav">单子叶类植物</div>
+						<ul class="navContent">
+						<li>
+				<a href="QueryByType?type=8" style="margin-left:20px">全部</a>
+				</li>
+						
+						<%
+					for (int i = 0; i < medicine.size(); i++) {
+						Medicine m = medicine.get(i);
+						if (m.getMedicine_planCategory() == 8) {
 				%>
 				<li>
 				<a href="QueryById?id=<%=m.getMedicine_ID()%>" style="margin-left:20px"><%=m.getMedicine_name()%></a>

@@ -30,6 +30,7 @@ response.setCharacterEncoding("utf-8");
 List<Medicine> medicine =(List)request.getAttribute("medicine");
 List<Medicine> medicine_date =(List)request.getAttribute("medicine_date");
 List<Medicine> medicine_type =(List)request.getAttribute("medicine_type");
+String planCategory =(String)request.getAttribute("planCategory");
 Medicine medicine_one=(Medicine)request.getAttribute("medicine_one");
 Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 %>
@@ -347,9 +348,9 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 <div class="container " style="width: 80%;float: left;">
 
 				<%
-					if (medicine_type != null) {
-						Medicine m1 = medicine_type.get(0);
-						int leiming = m1.getMedicine_planCategory();
+					if (medicine_type!=null) {
+						/* Medicine m1 = medicine_type.get(0); */
+						int leiming = Integer.parseInt(planCategory);
 						String strleiming = String.valueOf(leiming);
 						if (strleiming.equals("1")) {
 							strleiming = "藻类植物";
@@ -367,7 +368,10 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 							strleiming = "双子叶类植物";
 						}else if (strleiming.equals("8")) {
 							strleiming = "单子叶类植物";
+						}else if(strleiming.equals("0")){
+							strleiming ="null";
 						}
+					
 				%>
 				<h1 style="display: inline-block; margin-top: 0px;"><%=strleiming %></h1>
 				<div class="row">
@@ -396,7 +400,8 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 
 
 				<%
-					}else if(medicine_one!=null){
+					
+				}else if(medicine_one!=null){
 					%>
 					<div style="margin-top:-150px">
 						<div style="background: white;">
@@ -553,9 +558,7 @@ Map<Illness,List<Prescription>> map=(Map)request.getAttribute("IllnessMap");
 				<%	}else{%>
 						
 				<h1 style="display: inline-block; margin-top: 0px;">藻类植物</h1>
-				<div class="row">
-
-	
+				<div class="row">	
 				<%for(Medicine m:medicine){
 								if(m.getMedicine_planCategory()==1){%>
 									<div class="col-sm-6 col-md-4">

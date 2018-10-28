@@ -62,14 +62,30 @@ public class MedicineController {
 		//System.out.println(type1);
 		//通过类别找记录
 		List<Medicine> medicine_Type =medicineService.findMedicineByType(type1);
-		System.out.println(medicine_Type.get(0).getMedicine_plantAdult());
-		String picName =medicine_Type.get(0).getMedicine_plantAdult();
-		picName = picName.substring(medicine_Type.get(0).getMedicine_plantAdult().lastIndexOf("\\")+1);
-		System.out.println(picName);
+//		if(medicine_Type!=null) {
+//		System.out.println(medicine_Type.get(0).getMedicine_plantAdult());
+//		String picName =medicine_Type.get(0).getMedicine_plantAdult();
+//		picName = picName.substring(medicine_Type.get(0).getMedicine_plantAdult().lastIndexOf("\\")+1);
+//		System.out.println(picName);
+//		}
+		if(medicine_Type==null) {
+			Medicine m =new Medicine();
+			m.setMedicine_anotherName("null");
+			m.setMedicine_name("null");
+			m.setMedicine_property("null");
+			m.setMedicine_introduce("null");
+			m.setMedicine_CollectionProcessing("null");
+			m.setMedicine_planCategory(0);
+			medicine_Type.add(m);
+		}
+	//	System.out.println(medicine_Type.get(0).toString());
+		
 		//找全部记录
 		List<Medicine> medicine=medicineService.findMedicine();
 		model.addAttribute("medicine",medicine);
 		model.addAttribute("medicine_type",medicine_Type);
+		model.addAttribute("planCategory",type);
+		
 		return "sheyao1";
 	}
 	
